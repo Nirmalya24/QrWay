@@ -1,33 +1,41 @@
 "use strict";
-exports.__esModule = true;
-var Mongoose = require("mongoose");
-var DataAccess_1 = require("./../DataAccess");
-var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
-var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
-var ListModel = /** @class */ (function () {
-    function ListModel() {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ListModel = void 0;
+const Mongoose = require("mongoose");
+const DataAccess_1 = require("./../DataAccess");
+let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
+let mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
+class ListModel {
+    constructor() {
         this.createSchema();
         this.createModel();
     }
-    ListModel.prototype.createSchema = function () {
+    createSchema() {
         this.schema = new Mongoose.Schema({
             name: String,
             description: String,
-            listId: Number,
+            listId: String,
             due: String,
             state: String,
             owner: String
         }, { collection: 'lists' });
-    };
-    ListModel.prototype.createModel = function () {
+    }
+    createModel() {
         this.model = mongooseConnection.model("Lists", this.schema);
-    };
-    ListModel.prototype.retrieveAllLists = function (response) {
+    }
+    retrieveAllLists(response) {
         var query = this.model.find({});
-        query.exec(function (err, itemArray) {
+        query.exec((err, itemArray) => {
             response.json(itemArray);
         });
-    };
-    return ListModel;
-}());
+    }
+    retrieveListCount(response) {
+        console.log("retrieve List Count ...");
+        var query = this.model.estimatedDocumentCount();
+        query.exec((err, numberOfLists) => {
+            console.log("numberOfLists: " + numberOfLists);
+            response.json(numberOfLists);
+        });
+    }
+}
 exports.ListModel = ListModel;
