@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 // import {ListModel} from './model/ListModel';
 // import { TaskModel } from './model/TaskModel';
 import { UsersModel } from './model/UsersModel';
+import { RestaurantModel } from './model/RestaurantModel';
 import * as crypto from 'crypto';
 
 // Creates and configures an ExpressJS web server.
@@ -11,6 +12,7 @@ class App {
   // ref to Express instance
   public expressApp: express.Application;
   public Users: UsersModel;
+  public Restaurants:RestaurantModel;
   // public Tasks:TaskModel;
 
   //Run configuration methods on the Express instance.
@@ -19,6 +21,7 @@ class App {
     this.middleware();
     this.routes();
     this.Users = new UsersModel();
+    this.Restaurants=new RestaurantModel();
     // this.Tasks = new TaskModel();
   }
 
@@ -34,6 +37,11 @@ class App {
     router.get('/healthcheck', (req, res, next) => {
       res.json({ "healthy": true }).status(200);
     });
+    router.get('/app/restaurants/', (req, res) => {
+      console.log('Query All Restaurants');
+      this.Restaurants.retrieveAllRestaurants(res);
+  });
+
     // TODO: delete this
     // router.get('/app/list/:listId/count', (req, res) => {
     //     var id = req.params.listId;
