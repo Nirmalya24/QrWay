@@ -20,7 +20,10 @@ class ItemModel {
                 itemDecription:String,
                 itemPrice: Number,
                 itemImg:String,
-                itemID:String
+                itemID:String,
+                restaurantsID:[String],
+                menusID:[String]
+
             },{collection: 'items'}
         );
     }

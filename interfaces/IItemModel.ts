@@ -6,5 +6,7 @@ interface IItemModel extends Mongoose.Document {
     itemPrice: number,
     itemImg:string;
     itemID:string,
+    restaurantsID:string[],// delete from db if empty 
+    menusID:string[]
 }
 export {IItemModel};
