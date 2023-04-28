@@ -4,6 +4,8 @@ import * as bodyParser from 'body-parser';
 // import { TaskModel } from './model/TaskModel';
 import { UsersModel } from './model/UsersModel';
 import { RestaurantModel } from './model/RestaurantModel';
+import { ItemModel } from './model/ItemModel';
+
 import * as crypto from 'crypto';
 
 // Creates and configures an ExpressJS web server.
@@ -13,6 +15,7 @@ class App {
   public expressApp: express.Application;
   public Users: UsersModel;
   public Restaurants:RestaurantModel;
+  public Items:ItemModel;
   // public Tasks:TaskModel;
 
   //Run configuration methods on the Express instance.
@@ -22,6 +25,7 @@ class App {
     this.routes();
     this.Users = new UsersModel();
     this.Restaurants=new RestaurantModel();
+    this.Items=new ItemModel();
     // this.Tasks = new TaskModel();
   }
 
@@ -41,6 +45,10 @@ class App {
       console.log('Query All Restaurants');
       this.Restaurants.retrieveAllRestaurants(res);
   });
+  router.get('/app/items/', (req, res) => {
+    console.log('Query All items');
+    this.Items.retrieveAllItems(res);
+});
 
     // TODO: delete this
     // router.get('/app/list/:listId/count', (req, res) => {
