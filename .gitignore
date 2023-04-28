@@ -1,2 +1,4 @@
-MongooseDB/node_modules/*
-MongooseDB/package-lock.json
+node_modules/*
+package-lock.json
+.env
+*.js
