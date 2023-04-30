@@ -1,9 +1,9 @@
 import Mongoose = require("mongoose");
 import { IUsersModel } from "./IUsersModel";
 
-interface IRestaurantManager extends IUsersModel {
+interface IRestaurantManagerModel extends IUsersModel {
     managerName: string;
     restaurantOwnerID:string;
     restuarantID:string;
 }
-export {IRestaurantManager};
+export {IRestaurantManagerModel};
