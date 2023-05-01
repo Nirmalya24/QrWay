@@ -5,16 +5,15 @@ const url = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authM
 
 const itemsData = [
     {
-        "itemName": "Cheeseburger",
-        "itemDescription": "A juicy burger topped with melted cheese, lettuce, tomato, and pickles",
+        "itemName": "Eggs Benedict",
+        "itemDescription": "Eggs cooked Benedict style",
         "itemPrice": 9.99,
-        "itemImg": "https://example.com/images/cheeseburger.jpg",
+        "itemImg": "https://example.com/images/eggsbenedict.jpg",
         "itemID": "1a0eae26-33f9-4f9a-9c98-0a49a26a4181",
         "restaurantsID": [
-            "08aeb7bb-66f6-46a9-a929-2f994bcf16b1",
-            "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"
+            "b061d548-e85c-11ed-a05b-0242ac120003"
         ],
-        "menusID": ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"]
+        "menusID": ["b061cc9c-e85c-11ed-a05b-0242ac120003"]
     },
     {
         "itemName": "Margherita Pizza",
@@ -22,8 +21,12 @@ const itemsData = [
         "itemPrice": 12.99,
         "itemImg": "https://example.com/images/margherita_pizza.jpg",
         "itemID": "5d9d2626-9385-4c5f-a60c-2d4f4c4e04e3",
-        "restaurantsID": ["e942c3b8-3f3d-49e7-9abf-8b7f95bfa745"],
-        "menusID": ["c8b07d0b-70a6-41ed-a307-8f0d12e773f6"]
+        "restaurantsID": [
+            "b061d732-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061e16e-e85c-11ed-a05b-0242ac120003"
+        ]
     },
     {
         "itemName": "Chicken Caesar Salad",
@@ -31,8 +34,14 @@ const itemsData = [
         "itemPrice": 8.99,
         "itemImg": "https://example.com/images/chicken_caesar_salad.jpg",
         "itemID": "c8b07d0b-70a6-41ed-a307-8f0d12e773f6",
-        "restaurantsID": ["b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"],
-        "menusID": ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"]
+        "restaurantsID": [
+            "b061d548-e85c-11ed-a05b-0242ac120003",
+            "b061d732-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061cc9c-e85c-11ed-a05b-0242ac120003",
+            "b061e16e-e85c-11ed-a05b-0242ac120003"
+        ]
     },
     {
         "itemName": "Spaghetti and Meatballs",
@@ -40,10 +49,11 @@ const itemsData = [
         "itemPrice": 14.99,
         "itemImg": "https://example.com/images/spaghetti_and_meatballs.jpg",
         "itemID": "47a55aa6-4a29-48c2-8b32-0e9efc28441f",
-        "restaurantsID": ["08aeb7bb-66f6-46a9-a929-2f994bcf16b1"],
-        "menusID": [
-            "fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad",
-            "c8b07d0b-70a6-41ed-a307-8f0d12e773f6"
+        "restaurantsID": [
+            "b061de58-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [   
+            "b061e2f4-e85c-11ed-a05b-0242ac120003"
         ]
     },
     {
@@ -53,10 +63,11 @@ const itemsData = [
         "itemImg": "https://example.com/images/fish_and_chips.jpg",
         "itemID": "fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad",
         "restaurantsID": [
-            "e942c3b8-3f3d-49e7-9abf-8b7f95bfa745",
-            "08aeb7bb-66f6-46a9-a929-2f994bcf16b1"
+            "b061de58-e85c-11ed-a05b-0242ac120003"
         ],
-        "menusID": ["47a55aa6-4a29-48c2-8b32-0e9efc28441f"]
+        "menusID": [
+            "b061e2f4-e85c-11ed-a05b-0242ac120003"
+        ]
     },
     {
         "itemName": "Taco Salad",
@@ -64,8 +75,8 @@ const itemsData = [
         "itemPrice": 7.99,
         "itemImg": "https://example.com/images/taco_salad.jpg",
         "itemID": "93c1e5b1-61ec-4e97-9ed5-5a308f531ef2",
-        "restaurantsID": ["b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"],
-        "menusID": ["c8b07d0b-70a6-41ed-a307-8f0d12e773f6"]
+        "restaurantsID": [""],
+        "menusID": [""]
     },
     {
         "itemName": "Sushi Combo",
@@ -73,8 +84,8 @@ const itemsData = [
         "itemPrice": 16.99,
         "itemImg": "https://example.com/images/sushi_combo.jpg",
         "itemID": "2a7198f6-bbf9-4395-a6c5-6af8ed1c5f95",
-        "restaurantsID": ["e942c3b8-3f3d-49e7-9abf-8b7f95bfa745"],
-        "menusID": ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"]
+        "restaurantsID": [""],
+        "menusID": [""]
     },
     {
         "itemName": "Veggie Burger",
@@ -83,10 +94,9 @@ const itemsData = [
         "itemImg": "https://example.com/images/veggie_burger.jpg",
         "itemID": "7a4c4d4e-06a4-4e22-9f07-9c80a10ddc51",
         "restaurantsID": [
-            "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-            "08aeb7bb-66f6-46a9-a929-2f994bcf16b1"
+            ""
         ],
-        "menusID": ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"]
+        "menusID": [""]
     },
     {
         "itemName": "Pad Thai",
@@ -94,20 +104,8 @@ const itemsData = [
         "itemPrice": 13.99,
         "itemImg": "https://example.com/images/pad_thai.jpg",
         "itemID": "c8e8580c-52e5-43e1-a83e-6b3a6d09be6a",
-        "restaurantsID": ["e942c3b8-3f3d-49e7-9abf-8b7f95bfa745"],
-        "menusID": ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"]
-    },
-    {
-        "itemName": "Margherita Pizza",
-        "itemDescription": "Tomato sauce, fresh mozzarella cheese, and basil on a thin crust",
-        "itemPrice": 14.99,
-        "itemImg": "https://example.com/images/margherita_pizza.jpg",
-        "itemID": "6ef20e3c-bb6e-4476-82d2-2bf6e0dd6f47",
-        "restaurantsID": [
-            "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-            "08aeb7bb-66f6-46a9-a929-2f994bcf16b1"
-        ],
-        "menusID": ["c8b07d0b-70a6-41ed-a307-8f0d12e773f6"]
+        "restaurantsID": [""],
+        "menusID": [""]
     },
     {
         "itemName": "Fettuccine Alfredo",
@@ -116,12 +114,10 @@ const itemsData = [
         "itemImg": "https://example.com/images/fettuccine_alfredo.jpg",
         "itemID": "a8b93f6a-1196-4d54-8ce8-4d4b9eb4d69e",
         "restaurantsID": [
-            "e942c3b8-3f3d-49e7-9abf-8b7f95bfa745",
-            "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"
+            ""
         ],
         "menusID": [
-            "fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad",
-            "c8b07d0b-70a6-41ed-a307-8f0d12e773f6"
+            ""
         ]
     },
     {
@@ -130,8 +126,93 @@ const itemsData = [
         "itemPrice": 15.99,
         "itemImg": "https://example.com/images/beef_stir_fry.jpg",
         "itemID": "ef1397a2-1e8e-4f89-8240-b2a873ba0a31",
-        "restaurantsID": ["08aeb7bb-66f6-46a9-a929-2f994bcf16b1"],
-        "menusID": ["47a55aa6-4a29-48c2-8b32-0e9efc28441f"]
+        "restaurantsID": [""],
+        "menusID": [""]
+    },
+    {
+        "itemName": "Pancakes",
+        "itemDescription": "Fresh pancakes",
+        "itemPrice": 12.99,
+        "itemImg": "https://example.com/images/pancakes.jpg",
+        "itemID": "b061e5c4-e85c-11ed-a05b-0242ac120003",
+        "restaurantsID": [
+            "b061d548-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061cc9c-e85c-11ed-a05b-0242ac120003"
+        ]
+    },
+    {
+        "itemName": "Waffles",
+        "itemDescription": "Fresh belgian-style",
+        "itemPrice": 11.99,
+        "itemImg": "https://example.com/images/waffles.jpg",
+        "itemID": "b061e722-e85c-11ed-a05b-0242ac120003",
+        "restaurantsID": [
+            "b061dffc-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061e466-e85c-11ed-a05b-0242ac120003"
+        ]
+    },
+    {
+        "itemName": "Oatmeal",
+        "itemDescription": "Rolled oats with honey",
+        "itemPrice": 9.99,
+        "itemImg": "https://example.com/images/oatmeal.jpg",
+        "itemID": "b061ed76-e85c-11ed-a05b-0242ac120003",
+        "restaurantsID": [
+            "b061dffc-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061e466-e85c-11ed-a05b-0242ac120003"
+        ]
+    },
+    {
+        "itemName": "Strawberry Cake",
+        "itemDescription": "Strawberry flavored cake",
+        "itemPrice": 6.99,
+        "itemImg": "https://example.com/images/strawberrycake.jpg",
+        "itemID": "b061ef56-e85c-11ed-a05b-0242ac120003",
+        "restaurantsID": [
+            "b061d732-e85c-11ed-a05b-0242ac120003",
+            "b061de58-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061e16e-e85c-11ed-a05b-0242ac120003",
+            "b061e2f4-e85c-11ed-a05b-0242ac120003"
+        ]
+    },
+    {
+        "itemName": "Flan",
+        "itemDescription": "Sweet flan with cocoa drizzle",
+        "itemPrice": 7.99,
+        "itemImg": "https://example.com/images/flan.jpg",
+        "itemID": "b061f0e6-e85c-11ed-a05b-0242ac120003",
+        "restaurantsID": [
+            "b061dffc-e85c-11ed-a05b-0242ac120003"
+        ],
+        "menusID": [
+            "b061e466-e85c-11ed-a05b-0242ac120003"
+        ]
+    },
+    {
+        "itemName": "",
+        "itemDescription": "",
+        "itemPrice": ,
+        "itemImg": "https://example.com/images/.jpg",
+        "itemID": "-",
+        "restaurantsID": [""],
+        "menusID": [""]
+    },
+    {
+        "itemName": "",
+        "itemDescription": "",
+        "itemPrice": ,
+        "itemImg": "https://example.com/images/.jpg",
+        "itemID": "-",
+        "restaurantsID": [""],
+        "menusID": [""]
     }
 ]
 
