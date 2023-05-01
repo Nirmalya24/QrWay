@@ -30,24 +30,23 @@ class ItemModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IItemModel>("Items", this.schema);
     }
-
-    /**
-     * Retrieves all the items from 
-     * @param response - response object
-     * 
+     /**
+     * Retrieve all items in item collection
+     *@param response - response object
      */
+
     public retrieveAllItems(response:any): any {
-        console.log("start query");
+        console.log("retrieve All Items");
         var query = this.model.find({});
         query.exec( (err, itemArray) => {
             response.json(itemArray) ;
         });
     }
-
-    /**
-     * Get the number of items in the database
-     * @param response - response object
+     /**
+     * count all items in item collection
+     *@param response - response object
      */
+
     public retrieveItemsCount(response:any): any {
         console.log("retrieve Restaurants Count ...");
         var query = this.model.estimatedDocumentCount();
@@ -56,22 +55,37 @@ class ItemModel {
             response.json(numberOfLists) ;
         });
     }
-
     /**
      * Retrieve a single item by ID
-     * @param response - response object
-     * @param filter - filter object
+     *@param response - response object
+     *@param filter - filter object
+     *@returns - JSON Object
      */
-    public retrieveItemByID(response: any, filter: Object) {
-        // TODO: Check if this is working
-        console.log("Query single item with filter: " + JSON.stringify(filter));
-        var query = this.model.findOne(filter);
-        query.exec((err, itemArray) => {
-            response.json(itemArray);
+   public retrieveItemByID(response: any, filter: Object) {
+       // TODO: Check if this is working
+       console.log("Query single item with filter: " + JSON.stringify(filter));
+       var query = this.model.findOne(filter);
+       query.exec((err, itemArray) => {
+          // response.json(itemArray);
+           return JSON.stringify(itemArray);
+
+    });
+    }
+    /**
+     * Get a single item by ID
+     *@param request - request object
+     *@param response - response object
+     */
+
+    public getItem(request:any,response:any): any {
+        const params= request.params;
+        console.log(params);
+        var query = this.model.findOne(params);
+        query.exec( (err, itemArray) => {
+            response.json(itemArray) ;
         });
     }
-
-    /**
+     /**
      * Create a new item
      * @param response - response object
      * @param body - body object containing the item information. Should contain:
@@ -83,9 +97,15 @@ class ItemModel {
      *  - restaurantsID
      *  - menusID
      */
-    public createItem(response: any, body: any): any {
-
-    }
+     public createItem(response: any, body: any): any {
+        const params= body;
+        var item = new this.model(params);
+        item.save((err, item)=> {
+            if (err) return console.error(err);
+            console.log(item.itemName + " saved to items collection.");
+        });
+            response.send(item.itemName + " saved to items collection.");
+     }
 
 }
 export {ItemModel};
