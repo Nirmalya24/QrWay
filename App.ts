@@ -115,6 +115,8 @@ class App {
 
       // Pre check: Check if the restaurant exists
 
+      // Pre check: Check if item in the menuSections exists
+
       // Get all the parameters from the request body
       let createMenu: object = {
         menuID: crypto.randomUUID(),
@@ -151,6 +153,7 @@ class App {
       let menuId: string = req.body.menuId;
       let sectionName: string = req.body.sectionName;
       let itemId: string = req.body.itemId;
+
 
       try{
         // Pre check: check if the item exists in the database

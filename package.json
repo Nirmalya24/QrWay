@@ -8,6 +8,7 @@
     "@types/express": "^4.11.1",
     "assert": "^1.4.1",
     "body-parser": "^1.20.0",
+    "colors": "^1.4.0",
     "crypto": "^1.0.1",
     "debug": "^2.6.3",
     "dotenv": "^16.0.3",
@@ -23,7 +24,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
-    "start": "npm run clean && npm run build && node AppServer.js"
+    "start": "npm run clean && npm run build && node AppServer.js",
+    "populate_items": "node ./createDB/createSampleItems.js",
+    "populate_menus": "node ./createDB/createSampleMenus.js",
+    "populate_restaurants": "node ./createDB/createSampleRestaurants.js",
+    "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants"
   },
   "author": "",
   "license": "ISC"
