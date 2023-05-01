@@ -63,6 +63,7 @@ class ItemModel {
      * @param filter - filter object
      */
     public retrieveItemByID(response: any, filter: Object) {
+        // TODO: Check if this is working
         console.log("Query single item with filter: " + JSON.stringify(filter));
         var query = this.model.findOne(filter);
         query.exec((err, itemArray) => {
