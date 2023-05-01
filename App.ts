@@ -52,20 +52,43 @@ class App {
         console.log('Query All Restaurants');
         this.Restaurants.retrieveAllRestaurants(res);
     });
+    router.get('/api/getrestaurant/:restaurantId', (req, res) => {
+      console.log('Query Restaurant with restaurantId');
+      let filter: object = {
+        restaurantID: req.params.restaurantId
+      };
+      this.Restaurants.getRestaurantByID(res,filter);
+    });
 
-   
     /* Item Routes */
+
+    /* GET Routes */
     router.get('/api/items/', (req, res) => {
       console.log('Query All items');
       this.Items.retrieveAllItems(res);
     });
     router.get('/api/getItem/:itemID', (req, res) => {
       console.log('Query item with itemID');
-      this.Items.getItem(req,res);
+      let filter: object = {
+        itemID: req.params.itemID
+      };
+      this.Items.getItem(res,filter);
     });
+     /* POST Routes */
     router.post('/api/createItem', (req, res) => {
       console.log('Insert item into items collection');
-      this.Items.createItem(res,req.body);
+      let createItem: object = {
+        itemName:req.body.itemName,
+        itemDecription:req.body.itemDecription,
+        itemPrice:req.body.itemPrice,
+        itemImg : req.body.itemImg,
+        ItemID: crypto.randomUUID(),
+        restaurantID: req.body.restaurantId,
+        menusID:req.body.menusid
+       
+      };
+      console.log(createItem)
+      this.Items.createItem(res,createItem);
     });          
 
     /**
@@ -115,8 +138,6 @@ class App {
 
       // Pre check: Check if the restaurant exists
 
-      // Pre check: Check if item in the menuSections exists
-
       // Get all the parameters from the request body
       let createMenu: object = {
         menuID: crypto.randomUUID(),
@@ -154,13 +175,12 @@ class App {
       let sectionName: string = req.body.sectionName;
       let itemId: string = req.body.itemId;
 
-
       try{
         // Pre check: check if the item exists in the database
         // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
         // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
         // Query the database to add a section to the menu
-        const item = this.Items.retrieveItemByID(res, { itemID: itemId });
+        const item = this.Items.getItem(res, { itemID: itemId });
         if (item == undefined || item == null) {
         res.status(400).json({ message: 'Item is not found' });
         return;
