@@ -143,15 +143,19 @@ class App {
       let sectionName: string = req.body.sectionName;
       let itemId: string = req.body.itemId;
 
-      // Pre check: check if the item exists in the database
+      try{
+        // Pre check: check if the item exists in the database
 
-      // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
+        // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
 
-      // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
+        // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
 
-      // Query the database to add a section to the menu
-
-
+        // Query the database to add a section to the menu
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({message: 'Internal server error '});
+      }
+      
     });
 
     // PATCH Routes
