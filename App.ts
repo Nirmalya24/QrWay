@@ -145,17 +145,36 @@ class App {
 
       try{
         // Pre check: check if the item exists in the database
-
         // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
-
         // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
-
         // Query the database to add a section to the menu
+        const item = this.Items.retrieveItemByID(res, { itemID: itemId });
+        if (item == undefined || item == null) {
+        res.status(400).json({ message: 'Item is not found' });
+        return;
+        }
+
+        // add menu section
+        const menuSection = this.Menus.retrieveMenuSections(res, { restaurantID: restaurantId, menuID: menuId, sectionName });
+        if (menuSection === undefined || menuSection === null) {
+        res.status(400).json({ message: 'Menu section is not found' });
+        return;
+        }
+        // check again if the menu item is in the menu section
+        const existingItem = menuSection.items.find((itemObj: any) => itemObj.itemId === itemId);
+        if (existingItem) {
+        res.status(400).json({ message: 'Item already exists in the section' });
+        return;
+        }
+        // add the item to the menu section
+
+       
+        
       } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Internal server error '});
       }
-      
+
     });
 
     // PATCH Routes
