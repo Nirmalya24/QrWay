@@ -145,7 +145,7 @@ class App {
 
       // Pre check: check if the item exists in the database
 
-      // this.Items.retrieveItem(res, { itemId: itemId }); // TODO : implement this
+      // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
 
       // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
 
