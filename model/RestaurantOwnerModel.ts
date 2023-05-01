@@ -32,12 +32,34 @@ class RestaurantOwnerModel {
         this.model = mongooseConnection.model<IRestaurantOwnerModel>("Restaurant Owners", this.schema);
     }
 
+    public error_message(err: any, response: any) {
+        if (err) {
+            console.log("[RestaurantOwner Model] " + err);
+            response.json({ "message": "error", "data": err });
+        } else {
+            console.log("[RestaurantOwner Model] Success");
+        }
+    }    
+
     public retrieveAllRestaurantOwners(res:any): any {
         console.log("Getting all restaurant owners...");
         var query = this.model.find({});
         query.exec( (err, ownersArr) => {
             res.json(ownersArr);
         });
+    }
+
+    public createRestaurantOwner(res: any, newRestaurantOwner: object): any {
+        console.log("Creating restaurant owner...");
+        var query = this.model.create(newRestaurantOwner)
+            .then((restaurantOwner) => {
+                res.json(restaurantOwner);
+            })
+            .catch((err) => {
+                this.error_message(err, res);
+            })
+
+        console.log("[RestaurantOwner Model] Success!");
     }
 
 }

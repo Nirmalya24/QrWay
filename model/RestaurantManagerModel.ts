@@ -34,12 +34,34 @@ class RestaurantManagerModel {
         this.model = mongooseConnection.model<IRestaurantManagerModel>("Restaurant Managers", this.schema);
     }
 
+    public error_message(err: any, response: any) {
+        if (err) {
+            console.log("[RestaurantManager Model] " + err);
+            response.json({ "message": "error", "data": err });
+        } else {
+            console.log("[RestaurantManager Model] Success");
+        }
+    }
+
     public retrieveAllRestaurantManagers(res:any): any {
         console.log("Getting all restaurant managers...");
         var query = this.model.find({});
         query.exec( (err, managersArr) => {
             res.json(managersArr);
         });
+    }
+
+    public createRestaurantManager(res: any, newRestaurantManager: object): any {
+        console.log("Creating restaurant manager...");
+        var query = this.model.create(newRestaurantManager)
+            .then((restaurantManager) => {
+                res.json(restaurantManager);
+            })
+            .catch((err) => {
+                this.error_message(err, res);
+            })
+
+        console.log("[RestaurantManager Model] Success!");
     }
 
 
