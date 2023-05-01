@@ -49,15 +49,24 @@ class App {
 
     /* Restaurant Routes */
     router.get('/api/restaurants/', (req, res) => {
-      console.log('Query All Restaurants');
-      this.Restaurants.retrieveAllRestaurants(res);
+        console.log('Query All Restaurants');
+        this.Restaurants.retrieveAllRestaurants(res);
     });
 
+   
     /* Item Routes */
     router.get('/api/items/', (req, res) => {
       console.log('Query All items');
       this.Items.retrieveAllItems(res);
     });
+    router.get('/api/getItem/:itemID', (req, res) => {
+      console.log('Query item with itemID');
+      this.Items.getItem(req,res);
+    });
+    router.post('/api/createItem', (req, res) => {
+      console.log('Insert item into items collection');
+      this.Items.createItem(res,req.body);
+    });          
 
     /**
      * Menu Routes
@@ -198,8 +207,7 @@ class App {
 
     // DELETE Routes
 
-    this.expressApp.use('/', router);
-
+    this.expressApp.use('/', router)
     this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
     this.expressApp.use('/images', express.static(__dirname + '/img'));
     this.expressApp.use('/', express.static(__dirname + '/pages'));
