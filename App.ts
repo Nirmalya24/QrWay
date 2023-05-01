@@ -106,7 +106,6 @@ class App {
 
       // Pre check: Check if the restaurant exists
 
-
       // Pre check: Check if item in the menuSections exists
 
       // Get all the parameters from the request body
@@ -147,6 +146,7 @@ class App {
       let itemId: string = req.body.itemId;
 
       // Pre check: check if the item exists in the database
+      
       // this.Items.retrieveItem(res, { itemId: itemId }); // TODO : implement this
 
       // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
