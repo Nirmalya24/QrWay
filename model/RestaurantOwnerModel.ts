@@ -1,7 +1,7 @@
 import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
 import {IRestaurantOwnerModel} from '../interfaces/IRestaurantOwnerModel';
-import { RestaurantModel } from "./RestaurantModel";
+var RestaurantSchema = require('./RestaurantModel').schema
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -23,13 +23,13 @@ class RestaurantOwnerModel {
                 password:String,
                 connectStatus:Boolean,
                 //IRestaurantOwnerModel
-                restaurantList: [RestaurantModel]
+                restaurantList: [{type: Mongoose.Schema.Types.ObjectId, ref: 'RestaurantModel'}]
             }, {collection: 'Restaurant Owners'}
         );
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<RestaurantOwnerModel>("Restaurant Owners", this.schema);
+        this.model = mongooseConnection.model<IRestaurantOwnerModel>("Restaurant Owners", this.schema);
     }
 
     public retrieveAllRestaurantOwners(res:any): any {
