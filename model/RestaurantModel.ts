@@ -45,5 +45,9 @@ class RestaurantModel {
         });
     }
 
+    public getRestaurantByID(response: any, filter: Object): any {
+        // TODO: Implement this
+    }
+
 }
 export {RestaurantModel};
