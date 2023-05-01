@@ -17,19 +17,15 @@ class UsersModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                id: String,
-                username: String,
-                password: String,
-                email: String,
-                firstName: String,
-                lastName: String,
-                timestamp: Date
+                userID:String,
+                password:String,
+                connectStatus:Boolean,
             }, { collection: 'users' }
         );
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<IUsersModel>("Users", this.schema);
+        this.model = mongooseConnection.model<IUsersModel>("User", this.schema);
     }
 
     public retrieveAllUsers(response: any): any {
