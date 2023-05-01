@@ -24,7 +24,7 @@ class ItemModel {
                 restaurantsID:[String],
                 menusID:[String]
 
-            },{collection: 'items'}
+            },{collection: 'Items'}
         );
     }
     public createModel(): void {
@@ -34,11 +34,11 @@ class ItemModel {
      * Retrieve all items in item collection
      *@param response - response object
      */
-
     public retrieveAllItems(response:any): any {
         console.log("retrieve All Items");
         var query = this.model.find({});
         query.exec( (err, itemArray) => {
+            if (err) return console.error(err);
             response.json(itemArray) ;
         });
     }
@@ -51,6 +51,7 @@ class ItemModel {
         console.log("retrieve Restaurants Count ...");
         var query = this.model.estimatedDocumentCount();
         query.exec( (err, numberOfLists) => {
+            if (err) return console.error(err);
             console.log("numberOfLists: " + numberOfLists);
             response.json(numberOfLists) ;
         });
@@ -66,6 +67,7 @@ class ItemModel {
        console.log("Query single item with filter: " + JSON.stringify(filter));
        var query = this.model.findOne(filter);
        query.exec((err, itemArray) => {
+        if (err) return console.error(err);
           // response.json(itemArray);
            return JSON.stringify(itemArray);
 
@@ -77,11 +79,12 @@ class ItemModel {
      *@param response - response object
      */
 
-    public getItem(request:any,response:any): any {
-        const params= request.params;
-        console.log(params);
-        var query = this.model.findOne(params);
+    public getItem(response:any,filter:object): any {
+       // const params= request.params;
+       // console.log(params);
+        var query = this.model.findOne(filter);
         query.exec( (err, itemArray) => {
+            if (err) return console.error(err);
             response.json(itemArray) ;
         });
     }
@@ -97,15 +100,16 @@ class ItemModel {
      *  - restaurantsID
      *  - menusID
      */
-     public createItem(response: any, body: any): any {
-        const params= body;
-        var item = new this.model(params);
+     public createItem(response: any, item: any): any {
+        //const params= body;
+        var item = new this.model(item);
         item.save((err, item)=> {
             if (err) return console.error(err);
             console.log(item.itemName + " saved to items collection.");
         });
             response.send(item.itemName + " saved to items collection.");
      }
+     
 
 }
 export {ItemModel};
