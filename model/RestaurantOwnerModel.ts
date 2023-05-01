@@ -32,6 +32,14 @@ class RestaurantOwnerModel {
         this.model = mongooseConnection.model<RestaurantOwnerModel>("Restaurant Owners", this.schema);
     }
 
+    public retrieveAllRestaurantOwners(res:any): any {
+        console.log("Getting all restaurant owners...");
+        var query = this.model.find({});
+        query.exec( (err, ownersArr) => {
+            res.json(ownersArr);
+        });
+    }
+
 }
 
 export {RestaurantOwnerModel}

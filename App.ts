@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import { UsersModel } from './model/UsersModel';
 import { RestaurantModel } from './model/RestaurantModel';
 import { RestaurantManagerModel } from './model/RestaurantManagerModel';
+import { RestaurantOwnerModel } from './model/RestaurantOwnerModel';
 import { ItemModel } from './model/ItemModel';
 import * as crypto from 'crypto';
 
@@ -17,6 +18,7 @@ class App {
   public Restaurants:RestaurantModel;
   public Items:ItemModel;
   public RestaurantManagers:RestaurantManagerModel;
+  public RestaurantOwners:RestaurantOwnerModel;
   // public Tasks:TaskModel;
 
   //Run configuration methods on the Express instance.
@@ -28,6 +30,7 @@ class App {
     this.Restaurants=new RestaurantModel();
     this.Items=new ItemModel();
     this.RestaurantManagers = new RestaurantManagerModel();
+    this.RestaurantOwners = new RestaurantOwnerModel();
     // this.Tasks = new TaskModel();
   }
 
@@ -54,6 +57,10 @@ class App {
     router.get('/app/restaurantmanagers/', (req, res) => {
       console.log('Query All Restaurant Managers');
       this.RestaurantManagers.retrieveAllRestaurantManagers(res);
+    });
+    router.get('/app/restaurantowners/', (req, res) => {
+      console.log('Query All Restaurant Owners');
+      this.RestaurantOwners.retrieveAllRestaurantOwners(res);
     });
 
     // TODO: delete this
