@@ -53,9 +53,7 @@ class App {
     });
     router.get('/app/restaurantmanagers/', (req, res) => {
       console.log('Query All Restaurant Managers');
-      this.RestaurantManagers.getAllRestaurantManagers(res)
-
-
+      this.RestaurantManagers.retrieveAllRestaurantManagers(res);
     });
 
     // TODO: delete this

@@ -34,15 +34,15 @@ class RestaurantManagerModel {
         this.model = mongooseConnection.model<IRestaurantManagerModel>("Restaurant Managers", this.schema);
     }
 
-    public getAllRestaurantManagers(res:any): any {
+    public retrieveAllRestaurantManagers(res:any): any {
         console.log("Getting all restaurant managers...");
         var query = this.model.find({});
         query.exec( (err, managersArr) => {
-            response.json(managersArr);
+            res.json(managersArr);
         });
     }
 
-    
+
 
 }
 
