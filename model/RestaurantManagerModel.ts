@@ -1,6 +1,7 @@
 import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
 import {IRestaurantManagerModel} from '../interfaces/IRestaurantManagerModel';
+import { response } from "express";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -32,6 +33,16 @@ class RestaurantManagerModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IRestaurantManagerModel>("Restaurant Managers", this.schema);
     }
+
+    public getAllRestaurantManagers(res:any): any {
+        console.log("Getting all restaurant managers...");
+        var query = this.model.find({});
+        query.exec( (err, managersArr) => {
+            response.json(managersArr);
+        });
+    }
+
+    
 
 }
 

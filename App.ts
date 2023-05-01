@@ -4,8 +4,8 @@ import * as bodyParser from 'body-parser';
 // import { TaskModel } from './model/TaskModel';
 import { UsersModel } from './model/UsersModel';
 import { RestaurantModel } from './model/RestaurantModel';
+import { RestaurantManagerModel } from './model/RestaurantManagerModel';
 import { ItemModel } from './model/ItemModel';
-
 import * as crypto from 'crypto';
 
 // Creates and configures an ExpressJS web server.
@@ -16,6 +16,7 @@ class App {
   public Users: UsersModel;
   public Restaurants:RestaurantModel;
   public Items:ItemModel;
+  public RestaurantManagers:RestaurantManagerModel;
   // public Tasks:TaskModel;
 
   //Run configuration methods on the Express instance.
@@ -26,6 +27,7 @@ class App {
     this.Users = new UsersModel();
     this.Restaurants=new RestaurantModel();
     this.Items=new ItemModel();
+    this.RestaurantManagers = new RestaurantManagerModel();
     // this.Tasks = new TaskModel();
   }
 
@@ -44,11 +46,17 @@ class App {
     router.get('/app/restaurants/', (req, res) => {
       console.log('Query All Restaurants');
       this.Restaurants.retrieveAllRestaurants(res);
-  });
-  router.get('/app/items/', (req, res) => {
-    console.log('Query All items');
-    this.Items.retrieveAllItems(res);
-});
+    });
+    router.get('/app/items/', (req, res) => {
+      console.log('Query All items');
+      this.Items.retrieveAllItems(res);
+    });
+    router.get('/app/restaurantmanagers/', (req, res) => {
+      console.log('Query All Restaurant Managers');
+      this.RestaurantManagers.getAllRestaurantManagers(res)
+
+
+    });
 
     // TODO: delete this
     // router.get('/app/list/:listId/count', (req, res) => {
