@@ -50,18 +50,29 @@ class App {
       res.json({ "healthy": true }).status(200);
     });
     
-    router.get('/app/restaurantmanagers/', (req, res) => {
+    /**
+     * Get all restaurant managers for a restaurant owner
+     * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
+     * @return json object of all restaurant managers for the restaurant owner
+     */
+    router.get('/app/restaurantmanagers/:restaurantOwnerID', (req, res) => {
+      let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log('Query All Restaurant Managers');
-      this.RestaurantManagers.retrieveAllRestaurantManagers(res);
+      this.RestaurantManagers.retrieveAllRestaurantManagers(res, restaurantOwnerID);
     });
-    router.get('/app/restaurantowners/', (req, res) => {
-      console.log('Query All Restaurant Owners');
-      this.RestaurantOwners.retrieveAllRestaurantOwners(res);
-    });
+
+    /**
+     * Create a new restaurant manager
+     * @param req
+     * - restaurantOwnerID - restaurant owner ID for which to create a new restaurant manager
+     * - password - password for the new restaurant manager
+     * - connectStatus - connection status for the new restaurant manager
+     * - managerName - name of the new restaurant manager
+     * - restaurantID - restaurant ID to which the new restaurant manager belongs
+     */
     router.post('/app/restaurantmanagers/create-manager', (req, res) => {
       //check if restaurantOwnerID passed is empty
-      if (req.body.restaurantOwnerID === "") 
-      {
+      if (req.body.restaurantOwnerID === "") {
         console.log("restaurantOwnerID is invalid!");
         res.send("restaurantOwnerID is invalid!");
         return;
@@ -72,7 +83,7 @@ class App {
       let createManager: object = {
         userID: crypto.randomUUID(),
         password: req.body.password,
-        connectStatus: req.body.connectStatus,
+        connectStatus: true,
         //IRestaurantManagerModel
         managerName: req.body.managerName,
         restaurantOwnerID: req.body.restaurantOwnerID,
@@ -80,11 +91,9 @@ class App {
       };
 
       console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
-      this.RestaurantManagers.createRestaurantManager(res, createManager)
+      this.RestaurantManagers.createRestaurantManager(res, createManager);
       
-    })
-
-=======
+    });
 
     /* Restaurant Routes */
     router.get('/api/restaurants/', (req, res) => {
