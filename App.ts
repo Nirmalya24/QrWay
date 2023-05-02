@@ -4,12 +4,12 @@ import * as bodyParser from 'body-parser';
 // import { TaskModel } from './model/TaskModel';
 import { UsersModel } from './model/UsersModel';
 import { RestaurantModel } from './model/RestaurantModel';
+import { RestaurantManagerModel } from './model/RestaurantManagerModel';
+import { RestaurantOwnerModel } from './model/RestaurantOwnerModel';
 import { ItemModel } from './model/ItemModel';
 import { MenuModel } from './model/MenuModel';
-
 // Helper functions
 import { parseTime, formatTime } from './helpers/parseTime';
-
 import * as crypto from 'crypto';
 
 // Creates and configures an ExpressJS web server.
@@ -18,6 +18,8 @@ class App {
   // ref to Express instance
   public expressApp: express.Application;
   public Users: UsersModel;
+  public RestaurantManagers: RestaurantManagerModel;
+  public RestaurantOwners: RestaurantOwnerModel;
   public Restaurants: RestaurantModel;
   public Items: ItemModel;
   public Menus: MenuModel;
@@ -29,9 +31,10 @@ class App {
     this.routes();
     this.Users = new UsersModel();
     this.Restaurants=new RestaurantModel();
+    this.RestaurantManagers = new RestaurantManagerModel();
+    this.RestaurantOwners = new RestaurantOwnerModel();
     this.Items = new ItemModel();
     this.Menus = new MenuModel();
-    // this.Tasks = new TaskModel();
   }
 
   // Configure Express middleware.
@@ -45,6 +48,51 @@ class App {
     let router = express.Router();
     router.get('api/health', (req, res, next) => {
       res.json({ "healthy": true }).status(200);
+    });
+    
+    /**
+     * Get all restaurant managers for a restaurant owner
+     * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
+     * @return json object of all restaurant managers for the restaurant owner
+     */
+    router.get('/app/restaurantmanagers/:restaurantOwnerID', (req, res) => {
+      let restaurantOwnerID = req.params.restaurantOwnerID;
+      console.log('Query All Restaurant Managers');
+      this.RestaurantManagers.retrieveAllRestaurantManagers(res, restaurantOwnerID);
+    });
+
+    /**
+     * Create a new restaurant manager
+     * @param req
+     * - restaurantOwnerID - restaurant owner ID for which to create a new restaurant manager
+     * - password - password for the new restaurant manager
+     * - connectStatus - connection status for the new restaurant manager
+     * - managerName - name of the new restaurant manager
+     * - restaurantID - restaurant ID to which the new restaurant manager belongs
+     */
+    router.post('/app/restaurantmanagers/create-manager', (req, res) => {
+      //check if restaurantOwnerID passed is empty
+      if (req.body.restaurantOwnerID === "") {
+        console.log("restaurantOwnerID is invalid!");
+        res.send("restaurantOwnerID is invalid!");
+        return;
+      }
+      
+      
+      //params from request body
+      let createManager: object = {
+        userID: crypto.randomUUID(),
+        password: req.body.password,
+        connectStatus: true,
+        //IRestaurantManagerModel
+        managerName: req.body.managerName,
+        restaurantOwnerID: req.body.restaurantOwnerID,
+        restuarantID: req.body.restaurantID
+      };
+
+      console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
+      this.RestaurantManagers.createRestaurantManager(res, createManager);
+      
     });
 
     /* Restaurant Routes */

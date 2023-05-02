@@ -6,72 +6,66 @@ const url =
 
 const menusData = [
     {
-        menuID: "1",
-        restaurantID: "1",
+        menuID: "b061cc9c-e85c-11ed-a05b-0242ac120003",
+        restaurantID: "b061d548-e85c-11ed-a05b-0242ac120003",
         menuName: "Breakfast",
         menuItems: [],
         menuSections: {
-            Mains: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-            Sides: ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
-            Drinks: ["21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-            Desserts: ["31", "32", "33", "34", "35", "36", "37", "38", "39", "40"],
+            Mains: ["1a0eae26-33f9-4f9a-9c98-0a49a26a4181", "b061e5c4-e85c-11ed-a05b-0242ac120003"],
+            Sides: ["c8b07d0b-70a6-41ed-a307-8f0d12e773f6"]
         },
         menuDescription: "Breakfast menu",
         menuStartTime: "07:00",
         menuEndTime: "11:00",
     },
     {
-        menuID: "2",
-        restaurantID: "1",
+        menuID: "b061e16e-e85c-11ed-a05b-0242ac120003",
+        restaurantID: "b061d732-e85c-11ed-a05b-0242ac120003",
         menuName: "Lunch",
         menuItems: [],
         menuSections: {
-            Mains: ["41", "42", "43", "44", "45", "46", "47", "48", "49", "50"],
-            Sides: ["51", "52", "53", "54", "55", "56", "57", "58", "59", "60"],
-            Drinks: ["61", "62", "63", "64", "65", "66", "67", "68", "69", "70"],
-            Desserts: ["71", "72", "73", "74", "75", "76", "77", "78", "79", "80"],
+            Mains: ["5d9d2626-9385-4c5f-a60c-2d4f4c4e04e3"],
+            Sides: ["c8b07d0b-70a6-41ed-a307-8f0d12e773f6"],
+            Desserts: ["b061ef56-e85c-11ed-a05b-0242ac120003"],
         },
         menuDescription: "Lunch menu",
         menuStartTime: "11:00",
         menuEndTime: "15:00",
     },
     {
-        menuID: "3",
-        restaurantID: "1",
+        menuID: "b061e2f4-e85c-11ed-a05b-0242ac120003",
+        restaurantID: "b061de58-e85c-11ed-a05b-0242ac120003",
         menuName: "Dinner",
         menuItems: [],
         menuSections: {
-            Mains: ["81", "82", "83", "84", "85", "86", "87", "88", "89", "90"],
-            Sides: ["91", "92", "93", "94", "95", "96", "97", "98", "99", "100"],
-            Drinks: [
-                "101",
-                "102",
-                "103",
-                "104",
-                "105",
-                "106",
-                "107",
-                "108",
-                "109",
-                "110",
+            Mains: [
+                "47a55aa6-4a29-48c2-8b32-0e9efc28441f"
+            ],
+            Sides: [
+                "fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"
             ],
             Desserts: [
-                "111",
-                "112",
-                "113",
-                "114",
-                "115",
-                "116",
-                "117",
-                "118",
-                "119",
-                "120",
+                "b061ef56-e85c-11ed-a05b-0242ac120003"
             ],
         },
         menuDescription: "Dinner menu",
         menuStartTime: "15:00",
         menuEndTime: "23:00",
     },
+    {
+        menuID: "b061e466-e85c-11ed-a05b-0242ac120003",
+        restaurantID: "b061dffc-e85c-11ed-a05b-0242ac120003",
+        menuName: "Brunch",
+        menuItems: [],
+        menuSections: {
+            Mains: ["b061e722-e85c-11ed-a05b-0242ac120003"],
+            Sides: ["b061ed76-e85c-11ed-a05b-0242ac120003"],
+            Desserts: ["b061f0e6-e85c-11ed-a05b-0242ac120003"],
+        },
+        menuDescription: "Brunch menu",
+        menuStartTime: "10:00",
+        menuEndTime: "13:00",
+    }
 ];
 
 console.log("[DB Setup] Inserting Menu data into database...".yellow);

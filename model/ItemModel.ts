@@ -56,23 +56,7 @@ class ItemModel {
             response.json(numberOfLists) ;
         });
     }
-    /**
-     * check a single item by ID
-     *@param filter - filter object
-     *@returns - true if item exist.
-     */
-   public checkItem(filter: Object):any {
-       console.log("[ItemModel] Checking if item exists...");
-       var query = this.model.findOne(filter);
-       query.exec((err, itemArray) => {
-        if (err) return console.error(err);
-          // response.json(itemArray);
-           if(itemArray!=null)
-                return true;
-            else
-                return false;    
-    });
-    }
+
     /**
      * Get a single item by ID
      *@param request - request object
