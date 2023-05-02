@@ -28,6 +28,10 @@ class UsersModel {
         this.model = mongooseConnection.model<IUsersModel>("Users", this.schema);
     }
 
+    /**
+     * Get all the users in the database
+     * @param response 
+     */
     public retrieveAllUsers(response: any): any {
         var query = this.model.find({});
         query.exec((err, itemArray) => {
@@ -35,6 +39,10 @@ class UsersModel {
         });
     }
 
+    /**
+     * Get all user in db count
+     * @param response 
+     */
     public retrieveUsersCount(response: any): any {
         console.log("retrieving Users Count ...");
         var query = this.model.estimatedDocumentCount();

@@ -25,8 +25,8 @@ class MenuModel {
                 menuItems: [String],
                 menuSections: Object,
                 menuDescription: String,
-                menuStartTime: string,
-                menuEndTime: string
+                menuStartTime: String,
+                menuEndTime: String
 
             }, { collection: 'Menus' }
         );
@@ -35,6 +35,11 @@ class MenuModel {
         this.model = mongooseConnection.model<IMenuModel>("Menus", this.schema);
     }
 
+    /**
+     * Error message helper function
+     * @param err - error message
+     * @param response - response object
+     */
     public error_message(err: any, response: any) {
         if (err) {
             console.log("[Menu Model] " + err);
@@ -49,7 +54,6 @@ class MenuModel {
      * @param response 
      * @param filter must contain the restaurantId
      */
-
     public async retrieveAllMenus(response: any, filter: Object): Promise<any> {
         try {
             console.log("[Menu Model] Retrieving all Menus ...");
@@ -85,6 +89,17 @@ class MenuModel {
         });
     }
 
+    /**
+     * Creates a new menu for a restaurant.
+     * @param response 
+     * @param newMenu 
+     * - restaurantId - string of the restaurant's ID
+     * - menuName - string of the menu's name
+     * - menuDescription - string of the menu's description
+     * - menuSections - object containing the menu sections
+     * - menuStartTime - string of the menu's start time
+     * - menuEndTime - string of the menu's end time
+     */
     public async createMenu(response: any, newMenu: object): Promise<any> {
         try {
             console.log("[Menu Model] Creating menu ...");
@@ -207,6 +222,13 @@ class MenuModel {
         });
     }
 
+    /**
+     * Updates the menu time for a specific menu.
+     * @param response 
+     * @param filter 
+     * @param startTime 
+     * @param endTime 
+     */
     public updateMenuTime(response: any, filter: object, startTime: string, endTime: string): any {
         console.log("[Menu Model] Updating menu time ...");
 

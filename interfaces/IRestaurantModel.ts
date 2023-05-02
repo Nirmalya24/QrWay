@@ -3,8 +3,8 @@ import Mongoose = require("mongoose");
 interface IRestaurantModel extends Mongoose.Document {
     restaurantName: string;
     restaurantID:string;
-    managerID:[String],
+    managerID:[string],
     restaurantOwnerID:string;
-    menusID:[String],
+    menusID:[string],
 }
 export {IRestaurantModel};
