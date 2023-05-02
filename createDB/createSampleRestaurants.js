@@ -5,32 +5,32 @@ const url = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authM
 
 const restaurantData = [
     {
-        restaurantName: "Burger Joint",
-        restaurantID: "08aeb7bb-66f6-46a9-a929-2f994bcf16b1",
-        managerID: [],
-        restaurantOwnerId: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        menusID: ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"],
+        restaurantName: "Family Breakfast House",
+        restaurantID: "b061d548-e85c-11ed-a05b-0242ac120003",
+        managerID: ["d792c9a2-e89c-11ed-a05b-0242ac120003"],
+        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        menusID: ["b061cc9c-e85c-11ed-a05b-0242ac120003"],
     },
     {
-        restaurantName: "Pizza Place",
-        restaurantID: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        managerID: [],
-        restaurantOwnerId: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        menusID: ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"],
+        restaurantName: "Frankies",
+        restaurantID: "b061d732-e85c-11ed-a05b-0242ac120003",
+        managerID: ["d792cb46-e89c-11ed-a05b-0242ac120003"],
+        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        menusID: ["b061e16e-e85c-11ed-a05b-0242ac120003"],
     },
     {
-        restaurantName: "Sushi Bar",
-        restaurantID: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        managerID: [],
-        restaurantOwnerId: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        menusID: ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"],
+        restaurantName: "Joe's Diner",
+        restaurantID: "b061de58-e85c-11ed-a05b-0242ac120003",
+        managerID: ["d792ccc2-e89c-11ed-a05b-0242ac120003"],
+        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        menusID: ["b061e2f4-e85c-11ed-a05b-0242ac120003"],
     },
     {
-        restaurantName: "Izakaya",
-        restaurantID: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        managerID: [],
-        restaurantOwnerId: "b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
-        menusID: ["fc95b8de-c5e5-4c17-9f5c-b1a4e4b4b2ad"],
+        restaurantName: "Wingman's Pub",
+        restaurantID: "b061dffc-e85c-11ed-a05b-0242ac120003",
+        managerID: ["d792d136-e89c-11ed-a05b-0242ac120003"],
+        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        menusID: ["b061e466-e85c-11ed-a05b-0242ac120003"],
     }
 ];
 
