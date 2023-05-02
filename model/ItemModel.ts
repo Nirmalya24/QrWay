@@ -35,7 +35,7 @@ class ItemModel {
      *@param response - response object
      */
     public retrieveAllItems(response:any): any {
-        console.log("retrieve All Items");
+        console.log("Getting All Items...");
         var query = this.model.find({});
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
@@ -48,7 +48,7 @@ class ItemModel {
      */
 
     public retrieveItemsCount(response:any): any {
-        console.log("retrieve Restaurants Count ...");
+        console.log("Getting Restaurants Count ...");
         var query = this.model.estimatedDocumentCount();
         query.exec( (err, numberOfLists) => {
             if (err) return console.error(err);
@@ -62,7 +62,7 @@ class ItemModel {
      *@returns - true if item exist.
      */
    public checkItem(filter: Object):any {
-       console.log("check if item"+filter+" in the Items collection");
+       console.log("[ItemModel] Checking if item exists...");
        var query = this.model.findOne(filter);
        query.exec((err, itemArray) => {
         if (err) return console.error(err);
@@ -80,8 +80,6 @@ class ItemModel {
      */
 
     public getItem(filter:object): any {
-       // const params= request.params;
-       // console.log(params);
         var query = this.model.findOne(filter);
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
@@ -101,7 +99,6 @@ class ItemModel {
      *  - menusID
      */
      public createItem(response: any, item: any): any {
-        //const params= body;
         var item = new this.model(item);
         item.save((err, item)=> {
             if (err) return console.error(err);
