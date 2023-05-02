@@ -169,10 +169,17 @@ class App {
      *    menuEndTime: Date
      */
     router.post('/api/menus/create-menu', (req, res) => {
-      // TODO: Implement prechecks
-
       // Pre check: Check if the restaurant exists
-
+      // Get RestaurantID
+      let restaurantID: string = req.body.restaurantID;
+      try{
+        const checkRestaurant = this.Restaurants.getRestaurantByID({restaurantID: restaurantID});
+        if(JSON.stringify(checkRestaurant) == '{}')
+        res.status(400).json({ message: 'Restaurant is not found'});
+      }catch (error){
+        console.error(error);
+        res.status(500).json({message: 'Internal server error '});
+      }
       // Get all the parameters from the request body
       let createMenu: object = {
         menuID: crypto.randomUUID(),

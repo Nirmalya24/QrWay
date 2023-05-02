@@ -46,13 +46,14 @@ class RestaurantModel {
             response.json(numberOfLists) ;
         });
     }
-    public getRestaurantByID(response: any, filter: Object): any {
+    public getRestaurantByID(filter: Object): any {
         // TODO: Implement this
-        console.log(filter)
-         var query = this.model.findOne(filter);
+        // console.log(filter)
+        var query = this.model.findOne(filter);
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
-            response.json(itemArray) ;
+            //return json object
+            return itemArray.toJSON;
         });
 
     }
