@@ -76,18 +76,18 @@ class ItemModel {
     }
     */
 
-     public getItem(filter:object): any {
-        return new Promise((resolve, reject) => {
+    public async getItem(filter: object): Promise<any> {
+        try {
+            console.log("[ItemModel] Retrieving Item...");
             const query = this.model.findOne(filter);
-            query.exec((err, itemArray) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(itemArray);
-              }
-            });
-          });
+            const itemArray = await query.exec();
+            return itemArray;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     }
+
     
      /**
      * Create a new item
