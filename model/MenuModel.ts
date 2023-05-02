@@ -2,6 +2,7 @@ import Mongoose = require("mongoose");
 import { DataAccess } from '../DataAccess';
 import { IMenuModel } from '../interfaces/IMenuModel';
 import { ItemModel } from "./ItemModel";
+import { Console } from "console";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -116,7 +117,28 @@ class MenuModel {
             this.error_message(err, response);
         });
     }
-
+    /**
+     * check a single item by ID
+     *@param filter - filter object
+     *@returns - true if item exist.
+     */
+    public checkItemInSection(filter: object, itemID: string): any {
+        console.log("check if item" + filter + itemID+ " in the Secotion collection");
+        var query = this.model.findOne({menuID: "1",restaurantID:"1"});
+       // var sectionName= filter.menuSection;
+        query.exec((err, menu) => {
+            if (err) return console.error(err);
+            if (menu != null){
+                console.log(menu);
+                if(menu.menuItems.indexOf(itemID)!=-1){
+                    return true;
+                }
+            }
+            else
+            console.log("if null " + menu)
+                return false;    
+        });
+    }
     /**
      * Adds an existing menu item to a menu section.
      * @param response 

@@ -170,10 +170,10 @@ class App {
     // Add item to a section in menu
     router.post('/api/items/add-item', (req, res) => {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
-      let restaurantId: string = req.body.restaurantId;
-      let menuId: string = req.body.menuId;
-      let sectionName: string = req.body.sectionName;
-      let itemId: string = req.body.itemId;
+      let restaurantID: string = req.body.restaurantID;
+      let menuID: string = req.body.menuID;
+      let menuSection: string = req.body.menuSection;
+      let itemID: string = req.body.itemID;
 
       try{
         // Pre check: check if the item exists in the database
@@ -181,25 +181,18 @@ class App {
         // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
         // Query the database to add a section to the menu
 
-        const item = this.Items.checkItem({ itemID: itemId });
+        const item = this.Items.checkItem({ itemID: itemID });
         if (item == false) {
         res.status(400).json({ message: 'Item is not found' });
         }
-
-        // add menu section
-        const menuSection = this.Menus.retrieveMenuSections(res, { restaurantID: restaurantId, menuID: menuId, sectionName });
-        if (menuSection === undefined || menuSection === null) {
-        res.status(400).json({ message: 'Menu section is not found' });
-        return;
-        }
         // check again if the menu item is in the menu section
-        const existingItem = menuSection.items.find((itemObj: any) => itemObj.itemId === itemId);
+        const existingItem = this.Menus.checkItemInSection({restaurantID: restaurantID, menuID:menuID, menuSection:menuSection}, itemID);
+        //this.menuSection.items.find((itemObj: any) => itemObj.itemId === itemId);
         if (existingItem) {
         res.status(400).json({ message: 'Item already exists in the section' });
-        return;
         }
         // add the item to the menu section
-
+        
        
         
       } catch (error) {
