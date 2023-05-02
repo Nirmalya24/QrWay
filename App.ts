@@ -49,15 +49,47 @@ class App {
 
     /* Restaurant Routes */
     router.get('/api/restaurants/', (req, res) => {
-      console.log('Query All Restaurants');
-      this.Restaurants.retrieveAllRestaurants(res);
+        console.log('Query All Restaurants');
+        this.Restaurants.retrieveAllRestaurants(res);
+    });
+    router.get('/api/getrestaurant/:restaurantId', (req, res) => {
+      console.log('Query Restaurant with restaurantId');
+      let filter: object = {
+        restaurantID: req.params.restaurantId
+      };
+      this.Restaurants.getRestaurantByID(res,filter);
     });
 
     /* Item Routes */
+
+    /* GET Routes */
     router.get('/api/items/', (req, res) => {
       console.log('Query All items');
       this.Items.retrieveAllItems(res);
     });
+    router.get('/api/getItem/:itemID', (req, res) => {
+      console.log('Query item with itemID');
+      let filter: object = {
+        itemID: req.params.itemID
+      };
+      this.Items.getItem(res,filter);
+    });
+     /* POST Routes */
+    router.post('/api/createItem', (req, res) => {
+      console.log('Insert item into items collection');
+      let createItem: object = {
+        itemName:req.body.itemName,
+        itemDecription:req.body.itemDecription,
+        itemPrice:req.body.itemPrice,
+        itemImg : req.body.itemImg,
+        ItemID: crypto.randomUUID(),
+        restaurantID: req.body.restaurantId,
+        menusID:req.body.menusid
+       
+      };
+      console.log(createItem)
+      this.Items.createItem(res,createItem);
+    });          
 
     /**
      * Menu Routes
@@ -106,8 +138,6 @@ class App {
 
       // Pre check: Check if the restaurant exists
 
-      // Pre check: Check if item in the menuSections exists
-
       // Get all the parameters from the request body
       let createMenu: object = {
         menuID: crypto.randomUUID(),
@@ -145,14 +175,37 @@ class App {
       let sectionName: string = req.body.sectionName;
       let itemId: string = req.body.itemId;
 
-      // Pre check: check if the item exists in the database
-      
-      // this.Items.retrieveItem(res, { itemId: itemId }); // TODO : implement this
+      try{
+        // Pre check: check if the item exists in the database
+        // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
+        // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
+        // Query the database to add a section to the menu
+        const item = this.Items.getItem(res, { itemID: itemId });
+        if (item == undefined || item == null) {
+        res.status(400).json({ message: 'Item is not found' });
+        return;
+        }
 
-      // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
+        // add menu section
+        const menuSection = this.Menus.retrieveMenuSections(res, { restaurantID: restaurantId, menuID: menuId, sectionName });
+        if (menuSection === undefined || menuSection === null) {
+        res.status(400).json({ message: 'Menu section is not found' });
+        return;
+        }
+        // check again if the menu item is in the menu section
+        const existingItem = menuSection.items.find((itemObj: any) => itemObj.itemId === itemId);
+        if (existingItem) {
+        res.status(400).json({ message: 'Item already exists in the section' });
+        return;
+        }
+        // add the item to the menu section
 
-      // Query the database to add a section to the menu
-
+       
+        
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({message: 'Internal server error '});
+      }
 
     });
 
@@ -177,56 +230,7 @@ class App {
 
     // DELETE Routes
 
-    // TODO: delete this
-    // router.get('/app/list/:listId/count', (req, res) => {
-    //     var id = req.params.listId;
-    //     console.log('Query single list with id: ' + id);
-    //     this.Tasks.retrieveTasksCount(res, {listId: id});
-    // });
-
-    // router.post('/app/list/', (req, res) => {
-    //   const id = crypto.randomBytes(16).toString("hex");
-    //   console.log(req.body);
-    //     var jsonObj = req.body;
-    //     jsonObj.listId = id;
-    //     this.Lists.model.create([jsonObj], (err) => {
-    //         if (err) {
-    //             console.log('object creation failed');
-    //         }
-    //     });
-    //     res.send('{"id":"' + id + '"}');
-    // });
-
-    // router.post('/app/list2/', (req, res) => {
-    //   const id = crypto.randomBytes(16).toString("hex");
-    //   console.log(req.body);
-    //     var jsonObj = req.body;
-    //     jsonObj.listId = id;
-    //     let doc = new this.Lists.model(jsonObj);
-    //     doc.save((err) => {
-    //        console.log('object creation failed');
-    //     });
-    //     res.send('{"id":"' + id + '"}');
-    // });
-
-    // router.get('/app/list/:listId', (req, res) => {
-    //     var id = req.params.listId;
-    //     console.log('Query single list with id: ' + id);
-    //     this.Tasks.retrieveTasksDetails(res, {listId: id});
-    // });
-
-    // router.get('/app/list/', (req, res) => {
-    //     console.log('Query All list');
-    //     this.Lists.retrieveAllLists(res);
-    // });
-
-    // router.get('/app/listcount', (req, res) => {
-    //   console.log('Query the number of list elements in db');
-    //   this.Lists.retrieveListCount(res);
-    // });
-
-    this.expressApp.use('/', router);
-
+    this.expressApp.use('/', router)
     this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
     this.expressApp.use('/images', express.static(__dirname + '/img'));
     this.expressApp.use('/', express.static(__dirname + '/pages'));
