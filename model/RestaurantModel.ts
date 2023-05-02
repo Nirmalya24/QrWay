@@ -33,6 +33,7 @@ class RestaurantModel {
         console.log("start query");
         var query = this.model.find({});
         query.exec( (err, itemArray) => {
+            if (err) return console.error(err);
             response.json(itemArray) ;
         });
     }
@@ -40,10 +41,20 @@ class RestaurantModel {
         console.log("retrieve Restaurants Count ...");
         var query = this.model.estimatedDocumentCount();
         query.exec( (err, numberOfLists) => {
+            if (err) return console.error(err);
             console.log("numberOfLists: " + numberOfLists);
             response.json(numberOfLists) ;
         });
     }
+    public getRestaurantByID(response: any, filter: Object): any {
+        // TODO: Implement this
+        console.log(filter)
+         var query = this.model.findOne(filter);
+        query.exec( (err, itemArray) => {
+            if (err) return console.error(err);
+            response.json(itemArray) ;
+        });
 
+    }
 }
 export {RestaurantModel};
