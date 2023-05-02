@@ -180,8 +180,9 @@ class App {
         // this.Items.retrieveItemByID(res, { itemId: itemId }); // TODO : implement this
         // console.log("Adding " + itemName + " : " + menuId + " for restaurant: " + restaurantId);
         // Query the database to add a section to the menu
-        const item = this.Items.getItem(res, { itemID: itemId });
-        if (item == undefined || item == null) {
+
+        const item = this.Items.checkItem({ itemID: itemId });
+        if (item==false) {
         res.status(400).json({ message: 'Item is not found' });
         return;
         }
