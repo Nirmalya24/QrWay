@@ -57,7 +57,8 @@ class App {
       let filter: object = {
         restaurantID: req.params.restaurantId
       };
-      this.Restaurants.getRestaurantByID(res,filter);
+     const result= this.Restaurants.getRestaurantByID(filter);
+     res.send(result);
     });
 
     /* Item Routes */
@@ -183,7 +184,7 @@ class App {
       // Get all the parameters from the request body
       let createMenu: object = {
         menuID: crypto.randomUUID(),
-        restaurantID: req.body.restaurantId,
+        restaurantID: req.body.restaurantID,
         menuName: req.body.menuName,
         menuDescription: req.body.menuDescription,
         menuSections: req.body.menuSections,

@@ -84,12 +84,13 @@ class MenuModel {
         console.log("[Menu Model] Creating menu ...");
         var query = this.model.create(newMenu)
             .then((menu) => {
+                console.log("[Menu Model] Success!");
                 response.json(menu);
             })
             .catch((err) => {
                 this.error_message(err, response);
             });
-        console.log("[Menu Model] Success!");
+        
     }
 
     /**

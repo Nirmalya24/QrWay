@@ -53,7 +53,7 @@ class RestaurantModel {
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
             //return json object
-            return itemArray.toJSON;
+            return itemArray;
         });
 
     }
