@@ -79,13 +79,14 @@ class ItemModel {
      *@param response - response object
      */
 
-    public getItem(response:any,filter:object): any {
+    public getItem(filter:object): any {
        // const params= request.params;
        // console.log(params);
         var query = this.model.findOne(filter);
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
-            response.json(itemArray) ;
+            // return json object
+            return itemArray.toJSON();
         });
     }
      /**
