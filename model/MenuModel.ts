@@ -207,7 +207,7 @@ class MenuModel {
         });
     }
 
-    public updateMenuTime(response: any, filter: object, startTime: String, endTime: String): any {
+    public updateMenuTime(response: any, filter: object, startTime: string, endTime: string): any {
         console.log("[Menu Model] Updating menu time ...");
 
         const updateObject = {
