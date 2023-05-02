@@ -57,20 +57,20 @@ class ItemModel {
         });
     }
     /**
-     * Retrieve a single item by ID
-     *@param response - response object
+     * check a single item by ID
      *@param filter - filter object
-     *@returns - JSON Object
+     *@returns - true if item exist.
      */
-   public retrieveItemByID(response: any, filter: Object) {
-       // TODO: Check if this is working
-       console.log("Query single item with filter: " + JSON.stringify(filter));
+   public checkItem(filter: Object):any {
+       console.log("check if item"+filter+" in the Items collection");
        var query = this.model.findOne(filter);
        query.exec((err, itemArray) => {
         if (err) return console.error(err);
           // response.json(itemArray);
-           return JSON.stringify(itemArray);
-
+           if(itemArray!=null)
+                return true;
+            else
+                return false;    
     });
     }
     /**
