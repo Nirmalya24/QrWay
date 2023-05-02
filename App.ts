@@ -94,7 +94,6 @@ class App {
       this.RestaurantManagers.createRestaurantManager(res, createManager);
       
     });
-
     /* Restaurant Routes */
     router.get('/api/restaurants/', (req, res) => {
         console.log('Query All Restaurants');
@@ -129,12 +128,17 @@ class App {
      * @returns
      * - JSON obj of the item with the specified ID as a response
      */
-    router.get('/api/getItem/:itemID',(req, res) => {
+    router.get('/api/getItem/:itemID',async(req, res) => {
       console.log('Query item with itemID');
       let filter: object = {
         itemID: req.params.itemID
       };
-      res.json(this.Items.getItem(filter));
+      const item=await this.Items.getItem(filter);
+      if (JSON.stringify(item) === '{}') {
+        res.status(400).json({ message: 'Item is not found' });
+        return;
+      }
+      res.json(item);
     });
 
     /* POST Routes */
@@ -240,8 +244,6 @@ class App {
       console.log("[App] Creating new menu with:" + JSON.stringify(createMenu));
       this.Menus.createMenu(res, createMenu);
     });
-
-
     /**
      * Add a new section to an existing menu
      * @param req
@@ -261,7 +263,6 @@ class App {
       // Query the database to add a section to the menu
       this.Menus.addMenuSection(res, { restaurantID: restaurantID, menuID: menuID }, sectionName);
     });
-
     /**
      * Add an existing item to an existing section in an existing menu
      * @param req
@@ -270,7 +271,7 @@ class App {
      *  - menuSection: string - menuSection to which the item  should be added to
      *  - itemId: string - itemID of the item to be added
      */
-    router.post('/api/items/add-item', (req, res) => {
+    router.post('/api/items/add-item',async (req, res) => {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
@@ -279,13 +280,12 @@ class App {
 
       try{
         // Pre check: check if the item exists in the database
-        const checkItem = this.Items.getItem({ itemID: itemID });
+        const checkItem = await this.Items.getItem({ itemID: itemID });
         // check for empty JSON
         if (JSON.stringify(checkItem) === '{}') {
           res.status(400).json({ message: 'Item is not found' });
           return;
         }
-
         // Check if the item already exists in the menu section
         const existingItem = this.Menus.checkItemInSection({ restaurantID: restaurantID, menuID: menuID }, itemID);
         if (existingItem) {

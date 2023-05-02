@@ -124,21 +124,26 @@ class MenuModel {
      *@returns - true if item exist.
      */
     public checkItemInSection(filter: any, itemID: string): any {
-        console.log("[MenuModel] Checking if item exist in a section ...");
-        const searchItemObj = {
-            $or: [
-                { "menuSections.Mains": { $in: [itemID], $exists: true } },
-                { "menuSections.Sides": { $in: [itemID], $exists: true } },
-                { "menuSections.Drinks": { $in: [itemID], $exists: true } },
-                { "menuSections.Desserts": { $in: [itemID], $exists: true } }
-            ]
-        };
+        console.log("[MenuModel] Checking if item"+ itemID +"exist in a section ...");
+        return new Promise((resolve,reject)=>{
+            const searchItemObj = {
+                $or: [
+                    { "menuSections.Mains": { $in: [itemID], $exists: true } },
+                    { "menuSections.Sides": { $in: [itemID], $exists: true } },
+                    { "menuSections.Drinks": { $in: [itemID], $exists: true } },
+                    { "menuSections.Desserts": { $in: [itemID], $exists: true } }
+                ]
+            };
+            this.model.find(filter, searchItemObj).count((err, count) => {
+                if (err) reject(err)//return console.error(err);
+                //return count > 0;
+                console.log("count"+count);
+                resolve(count>0);
+            });
+    
 
-        this.model.find(filter, searchItemObj).count((err, count) => {
-            if (err) return console.error(err);
-            return count > 0;
-        });
-
+        })
+       
         // TODO: FIGURE OUT WHY THIS DOESN'T WORK
         // DO NOT DELETE
         // this.model.countDocuments(filter, searchItemObj, (err, count) => {

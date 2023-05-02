@@ -63,13 +63,32 @@ class ItemModel {
      *@param response - response object
      */
 
+/*
     public getItem(filter:object): any {
         var query = this.model.findOne(filter);
+        var result:object;
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
             return itemArray;
+
         });
+
     }
+    */
+
+     public getItem(filter:object): any {
+        return new Promise((resolve, reject) => {
+            const query = this.model.findOne(filter);
+            query.exec((err, itemArray) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(itemArray);
+              }
+            });
+          });
+    }
+    
      /**
      * Create a new item
      * @param response - response object
