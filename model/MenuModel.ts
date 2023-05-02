@@ -123,20 +123,18 @@ class MenuModel {
      *@returns - true if item exist.
      */
     public checkItemInSection(filter: object, itemID: string): any {
-        console.log("check if item" + filter + itemID+ " in the Secotion collection");
-        var query = this.model.findOne({menuID: "1",restaurantID:"1"});
-       // var sectionName= filter.menuSection;
+        console.log("check if item" + filter + itemID+ " in the Section collection");
+        var query = this.model.countDocuments(filter, {
+            $or: [
+                { "menuSections.Mains": { $in: [itemID], $exists: true } },
+                { "menuSections.Sides": { $in: [itemID], $exists: true } },
+                { "menuSections.Drinks": { $in: [itemID], $exists: true } },
+                { "menuSections.Desserts": { $in: [itemID], $exists: true } }
+            ]
+        });
         query.exec((err, menu) => {
             if (err) return console.error(err);
-            if (menu != null){
-                console.log(menu);
-                if(menu.menuItems.indexOf(itemID)!=-1){
-                    return true;
-                }
-            }
-            else
-            console.log("if null " + menu)
-                return false;    
+            return menu > 0 ? true : false;   
         });
     }
     /**
@@ -149,12 +147,12 @@ class MenuModel {
 
         const updateObject = {
             $push: {
-                [`menuSections.${menuItem['sectionName']}`]: menuItem['itemId']
+                [`menuSections.${menuItem['sectionName']}`]: menuItem['itemID']
             }
         };
 
         // find the menu based on the restaurantOwnerId, restaurantId, and menuId
-        var query = this.model.updateOne({ restaurantID: menuItem["restaurantId"], menuID: menuItem["menuId"] }, updateObject, { upsert: true });
+        var query = this.model.updateOne({ restaurantID: menuItem["restaurantID"], menuID: menuItem["menuID"] }, updateObject, { upsert: true });
 
         query.exec((err, menuItemArray) => {
             response.json(menuItemArray);
