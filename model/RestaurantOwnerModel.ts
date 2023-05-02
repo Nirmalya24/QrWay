@@ -29,7 +29,7 @@ class RestaurantOwnerModel {
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<IRestaurantOwnerModel>("Restaurant Owners", this.schema);
+        this.model = mongooseConnection.model<IRestaurantOwnerModel>("RestaurantOwners", this.schema);
     }
 
     public error_message(err: any, response: any) {

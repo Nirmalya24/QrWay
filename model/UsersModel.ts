@@ -20,12 +20,12 @@ class UsersModel {
                 userID:String,
                 password:String,
                 connectStatus:Boolean,
-            }, { collection: 'users' }
+            }, { collection: 'Users' }
         );
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<IUsersModel>("User", this.schema);
+        this.model = mongooseConnection.model<IUsersModel>("Users", this.schema);
     }
 
     public retrieveAllUsers(response: any): any {

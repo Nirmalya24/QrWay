@@ -26,12 +26,12 @@ class RestaurantManagerModel {
                 managerName: String,
                 restaurantOwnerID:String,
                 restuarantID:String,
-            }, {collection: 'Restaurant Managers'}
+            }, {collection: 'RestaurantManagers'}
         );
     }
 
     public createModel(): void {
-        this.model = mongooseConnection.model<IRestaurantManagerModel>("Restaurant Managers", this.schema);
+        this.model = mongooseConnection.model<IRestaurantManagerModel>("RestaurantManagers", this.schema);
     }
 
     public error_message(err: any, response: any) {
