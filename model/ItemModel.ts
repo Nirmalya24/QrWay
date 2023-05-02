@@ -85,8 +85,7 @@ class ItemModel {
         var query = this.model.findOne(filter);
         query.exec( (err, itemArray) => {
             if (err) return console.error(err);
-            // return json object
-            return itemArray.toJSON();
+            return itemArray;
         });
     }
      /**
