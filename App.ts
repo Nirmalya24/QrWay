@@ -129,14 +129,13 @@ class App {
      * @returns
      * - JSON obj of the item with the specified ID as a response
      */
-    router.get('/api/getItem/:itemID', (req, res) => {
+    router.get('/api/getItem/:itemID',(req, res) => {
       console.log('Query item with itemID');
       let filter: object = {
         itemID: req.params.itemID
       };
       res.json(this.Items.getItem(filter));
     });
-
 
     /* POST Routes */
 
@@ -178,30 +177,29 @@ class App {
      * - restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @returns - JSON obj of all menus as a response
      */
-    router.get('/api/menus/:restaurantId', (req, res) => {
+    router.get('/api/menus/:restaurantID', (req, res) => {
       // Get the RestaurantId URL parameters
-      let restaurantId: string = req.params.restaurantId;
+      let restaurantID: string = req.params.restaurantID;
 
-      console.log("[App] Query all menus for: " + restaurantId);
+      console.log("[App] Query all menus for: " + restaurantID);
 
       // Query the database for all menus
-      this.Menus.retrieveAllMenus(res, { restaurantID: restaurantId });
+      this.Menus.retrieveAllMenus(res, { restaurantID: restaurantID });
     });
-
     /**
      * Get all menu sections for a specific menu for a specific restaurant
      * @param restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @param menuId: string - ID of the menu for which to retrieve all menu sections
      */
-    router.get('/api/menus/:restaurantId/:menuId', (req, res) => {
+    router.get('/api/menus/:restaurantID/:menuID', (req, res) => {
       // Get the RestaurantId, RestaurantOwnerId, and menuId from URL parameters
-      let restaurantId: string = req.params.restaurantId;
-      let menuId: string = req.params.menuId;
+      let restaurantID: string = req.params.restaurantID;
+      let menuID: string = req.params.menuID;
 
-      console.log("Query all menu sections for: " + menuId + " for restaurant: " + restaurantId);
+      console.log("Query all menu sections for: " + menuID + " for restaurant: " + restaurantID);
 
       // Query the database for all menus
-      this.Menus.retrieveMenuSections(res, { restaurantID: restaurantId, menuID: menuId });
+      this.Menus.retrieveMenuSections(res, { restaurantID: restaurantID, menuID: menuID });
     });
 
     // POST Routes
@@ -254,14 +252,14 @@ class App {
      */
     router.post('/api/menus/add-section', (req, res) => {
       // Get the RestaurantId, menuId, sectionName from req body
-      let restaurantId: string = req.body.restaurantId;
-      let menuId: string = req.body.menuId;
+      let restaurantID: string = req.body.restaurantID;
+      let menuID: string = req.body.menuID;
       let sectionName: string = req.body.sectionName;
 
-      console.log("Adding " + sectionName + " : " + menuId + " for restaurant: " + restaurantId);
+      console.log("Adding " + sectionName + " : " + menuID + " for restaurant: " + restaurantID);
 
       // Query the database to add a section to the menu
-      this.Menus.addMenuSection(res, { restaurantID: restaurantId, menuID: menuId }, sectionName);
+      this.Menus.addMenuSection(res, { restaurantID: restaurantID, menuID: menuID }, sectionName);
     });
 
     /**
