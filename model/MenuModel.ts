@@ -25,8 +25,8 @@ class MenuModel {
                 menuItems: [String],
                 menuSections: Object,
                 menuDescription: String,
-                menuStartTime: String,
-                menuEndTime: String
+                menuStartTime: string,
+                menuEndTime: string
 
             }, { collection: 'Menus' }
         );
