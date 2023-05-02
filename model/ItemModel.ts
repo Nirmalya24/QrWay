@@ -56,7 +56,7 @@ class ItemModel {
             response.json(numberOfLists) ;
         });
     }
-   
+    
     /**
      * Get a single item by ID
      *@param request - request object

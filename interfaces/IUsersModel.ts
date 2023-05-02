@@ -1,11 +1,8 @@
 import Mongoose = require("mongoose");
 
 interface IUsersModel extends Mongoose.Document {
-    name: string;
-    description: string;
-    listId: string;
-    due: string;
-    state: string;
-    owner: string;
+    userID:string;
+    password:string;
+    connectStatus:boolean;
 }
 export { IUsersModel };

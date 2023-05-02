@@ -3,7 +3,7 @@ import Mongoose = require("mongoose");
 class DataAccess {
     static mongooseInstance: any;
     static mongooseConnection: Mongoose.Connection;
-    static DB_CONNECTION_STRING: string = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authMechanism=DEFAULT';
+    static DB_CONNECTION_STRING: string = 'mongodb://qrway_admin:qrway_password@127.0.0.1:27017/qrway_db?authMechanism=DEFAULT';
 
     constructor() {
         DataAccess.connect();
