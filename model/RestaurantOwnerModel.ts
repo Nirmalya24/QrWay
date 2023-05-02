@@ -23,8 +23,8 @@ class RestaurantOwnerModel {
                 password:String,
                 connectStatus:Boolean,
                 //IRestaurantOwnerModel
-                restaurantList: [{type: Mongoose.Schema.Types.ObjectId, ref: 'RestaurantModel'}]
-            }, {collection: 'Restaurant Owners'}
+                restaurantList: [String]
+            }, {collection: 'RestaurantOwners'}
         );
     }
 
