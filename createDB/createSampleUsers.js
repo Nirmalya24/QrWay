@@ -32,12 +32,44 @@ const userData = [
     
 ];
 
+const restaurantOwnerData = [
+    {   //restaurant owner
+        userID: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        password: "pwd",
+        connectStatus: false //false by default        
+    }
+];
+
+const restaurantManagerData = [
+    {   //restaurant manager
+        userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
+        password: "pwd",
+        connectStatus: false //false by default
+    },
+    {   //restaurant manager
+        userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
+        password: "pwd",
+        connectStatus: false //false by default
+    },
+    {   //restaurant manager
+        userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
+        password: "pwd",
+        connectStatus: false //false by default
+    },
+    {   //restaurant manager
+        userID: "d792d136-e89c-11ed-a05b-0242ac120003",
+        password: "pwd",
+        connectStatus: false //false by default
+    }
+];
+
 console.log("[DB Setup] Inserting User data into database...".yellow);
 
 MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(async (client) => {
         const db = client.db('qrway_db');
 
+        /* Users collection */
         // delete any existing data
         const deleteResult = await db.collection('Users').deleteMany({});
         console.log(colors.green('\tDocuments deleted:', deleteResult.deletedCount));
@@ -48,6 +80,32 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
         // count documents
         const countResult = await db.collection('Users').countDocuments();
+        console.log(colors.green('\tTotal # of Documents in collection:', countResult));
+
+        /* Restaurant Owner collection*/
+        // delete any existing data
+        const deleteResultRestaurantOwner = await db.collection('RestaurantOwner').deleteMany({});
+        console.log(colors.green('\tDocuments deleted:', deleteResult.deletedCount));
+
+        // insert data
+        const insertResultRestaurantOwner = await db.collection('RestaurantOwner').insertMany(restaurantOwnerData);
+        console.log(colors.green('\tDocuments inserted:', insertResult.insertedCount));
+
+        // count documents
+        const countResultRestaurantOwner = await db.collection('RestaurantOwner').countDocuments();
+        console.log(colors.green('\tTotal # of Documents in collection:', countResult));
+
+        /* Restaurant Manager collection*/
+        // delete any existing data
+        const deleteResultRestaurantManager = await db.collection('RestaurantManager').deleteMany({});
+        console.log(colors.green('\tDocuments deleted:', deleteResult.deletedCount));
+
+        // insert data
+        const insertResultRestaurantManager = await db.collection('RestaurantOwner').insertMany(restaurantManagerData);
+        console.log(colors.green('\tDocuments inserted:', insertResult.insertedCount));
+
+        // count documents
+        const countResultRestaurantManager = await db.collection('RestaurantOwner').countDocuments();
         console.log(colors.green('\tTotal # of Documents in collection:', countResult));
 
         await client.close();
