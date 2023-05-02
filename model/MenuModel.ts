@@ -123,21 +123,31 @@ class MenuModel {
      *@param filter - filter object
      *@returns - true if item exist.
      */
-    public checkItemInSection(filter: object, itemID: string): any {
-        console.log("check if item" + filter + itemID+ " in the Section collection");
-        var query = this.model.countDocuments(filter, {
+    public checkItemInSection(filter: any, itemID: string): any {
+        console.log("[MenuModel] Checking if item exist in a section ...");
+        const searchItemObj = {
             $or: [
                 { "menuSections.Mains": { $in: [itemID], $exists: true } },
                 { "menuSections.Sides": { $in: [itemID], $exists: true } },
                 { "menuSections.Drinks": { $in: [itemID], $exists: true } },
                 { "menuSections.Desserts": { $in: [itemID], $exists: true } }
             ]
-        });
-        query.exec((err, menu) => {
+        };
+
+        this.model.find(filter, searchItemObj).count((err, count) => {
             if (err) return console.error(err);
-            return menu > 0 ? true : false;   
+            return count > 0;
         });
+
+        // TODO: FIGURE OUT WHY THIS DOESN'T WORK
+        // DO NOT DELETE
+        // this.model.countDocuments(filter, searchItemObj, (err, count) => {
+        //     if (err) return console.error(err);
+        //     return count > 0;
+        // });
+
     }
+
     /**
      * Adds an existing menu item to a menu section.
      * @param response 
