@@ -228,7 +228,7 @@ class App {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
-      let sectionName: string = req.body.menuSection;
+      let sectionName: string = req.body.sectionName;
       let itemID: string = req.body.itemID;
 
       try{
