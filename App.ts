@@ -19,7 +19,6 @@ class App {
   public Items:ItemModel;
   public RestaurantManagers:RestaurantManagerModel;
   public RestaurantOwners:RestaurantOwnerModel;
-  // public Tasks:TaskModel;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -63,39 +62,28 @@ class App {
       this.RestaurantOwners.retrieveAllRestaurantOwners(res);
     });
     router.post('/app/restaurantmanagers/create-manager', (req, res) => {
-      //TODO: add prechecks
+      //check if restaurantOwnerID passed is empty
+      if (req.body.restaurantOwnerID === "") 
+      {
+        console.log("restaurantOwnerID is invalid!");
+        res.send("restaurantOwnerID is invalid!");
+      }
+      else
+      {
+        //params from request body
+        let createManager: object = {
+          userID: crypto.randomUUID(),
+          password: req.body.password,
+          connectStatus: req.body.connectStatus,
+          //IRestaurantManagerModel
+          managerName: req.body.managerName,
+          restaurantOwnerID: req.body.restaurantOwnerID,
+          restuarantID: req.body.restaurantID
+        };
 
-      //params from request body
-      let createManager: object = {
-        userID: crypto.randomUUID(),
-        password: req.body.password,
-        connectStatus: req.body.connectStatus,
-        //IRestaurantManagerModel
-        managerName: req.body.managerName,
-        restaurantOwnerID: req.body.restaurantOwnerID,
-        restuarantID: req.body.restaurantID
-      };
-
-      console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
-      this.RestaurantManagers.createRestaurantManager(res, createManager)
-      
-
-    })
-
-    router.post('/app/restaurantmanagers/create-owner', (req, res) => {
-      //TODO: add prechecks
-
-      //params from request body
-      let createOwner: object = {
-        userID: crypto.randomUUID(),
-        password: req.body.password,
-        connectStatus: req.body.connectStatus,
-        //TODO: might have to convert req.body.restaurantList from JSON to RestaurantModel type list 
-        restaurantList: req.body.restaurantList
-      };
-
-      console.log("[App] Creating new restaurant owner with:" + JSON.stringify(createOwner));
-      this.RestaurantOwners.createRestaurantOwner(res, createOwner)
+        console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
+        this.RestaurantManagers.createRestaurantManager(res, createManager)
+      }
     })
 
     this.expressApp.use('/', router);
