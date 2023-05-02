@@ -3,3 +3,4 @@ package-lock.json
 .env
 *.js
 !createDB/*
+.DS_Store

@@ -2,6 +2,7 @@ import Mongoose = require("mongoose");
 import { DataAccess } from '../DataAccess';
 import { IMenuModel } from '../interfaces/IMenuModel';
 import { ItemModel } from "./ItemModel";
+import { Console } from "console";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -83,12 +84,13 @@ class MenuModel {
         console.log("[Menu Model] Creating menu ...");
         var query = this.model.create(newMenu)
             .then((menu) => {
+                console.log("[Menu Model] Success!");
                 response.json(menu);
             })
             .catch((err) => {
                 this.error_message(err, response);
             });
-        console.log("[Menu Model] Success!");
+        
     }
 
     /**
@@ -116,6 +118,35 @@ class MenuModel {
             this.error_message(err, response);
         });
     }
+    /**
+     * check a single item by ID
+     *@param filter - filter object
+     *@returns - true if item exist.
+     */
+    public checkItemInSection(filter: any, itemID: string): any {
+        console.log("[MenuModel] Checking if item exist in a section ...");
+        const searchItemObj = {
+            $or: [
+                { "menuSections.Mains": { $in: [itemID], $exists: true } },
+                { "menuSections.Sides": { $in: [itemID], $exists: true } },
+                { "menuSections.Drinks": { $in: [itemID], $exists: true } },
+                { "menuSections.Desserts": { $in: [itemID], $exists: true } }
+            ]
+        };
+
+        this.model.find(filter, searchItemObj).count((err, count) => {
+            if (err) return console.error(err);
+            return count > 0;
+        });
+
+        // TODO: FIGURE OUT WHY THIS DOESN'T WORK
+        // DO NOT DELETE
+        // this.model.countDocuments(filter, searchItemObj, (err, count) => {
+        //     if (err) return console.error(err);
+        //     return count > 0;
+        // });
+
+    }
 
     /**
      * Adds an existing menu item to a menu section.
@@ -127,12 +158,12 @@ class MenuModel {
 
         const updateObject = {
             $push: {
-                [`menuSections.${menuItem['sectionName']}`]: menuItem['itemId']
+                [`menuSections.${menuItem['sectionName']}`]: menuItem['itemID']
             }
         };
 
         // find the menu based on the restaurantOwnerId, restaurantId, and menuId
-        var query = this.model.updateOne({ restaurantID: menuItem["restaurantId"], menuID: menuItem["menuId"] }, updateObject, { upsert: true });
+        var query = this.model.updateOne({ restaurantID: menuItem["restaurantID"], menuID: menuItem["menuID"] }, updateObject, { upsert: true });
 
         query.exec((err, menuItemArray) => {
             response.json(menuItemArray);
