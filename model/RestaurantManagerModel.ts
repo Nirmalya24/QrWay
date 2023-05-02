@@ -47,16 +47,16 @@ class RestaurantManagerModel {
         }
     }
 
-    public retrieveAllRestaurantManagers(
-        res: any,
-        restaurantOwnerID: string
-    ): any {
-        console.log("[RestaurantManager Model] Getting all restaurant managers...");
-        var query = this.model.find({ restaurantOwnerID: restaurantOwnerID });
-        query.exec((err, managersArr) => {
-            if (err) this.error_message(err, res);
-            res.json(managersArr);
-        });
+    public async retrieveAllRestaurantManagers(res: any, restaurantOwnerID: string): Promise<any> {
+        try {
+            console.log("[RestaurantManager Model] Getting all restaurant managers...");
+            const query = this.model.find({ restaurantOwnerID: restaurantOwnerID });
+            const managersArr = await query.exec();
+            return managersArr;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     }
 
     public createRestaurantManager(res: any, newRestaurantManager: object): any {

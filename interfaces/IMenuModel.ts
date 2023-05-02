@@ -8,8 +8,8 @@ interface IMenuModel extends Mongoose.Document {
     menuItems: [string];
     menuSections: object;
     menuDescription: string;
-    menuStartTime: Mongoose.Date;
-    menuEndTime: Mongoose.Date;
+    menuStartTime: string;
+    menuEndTime: string;
 }
 export { IMenuModel };
 

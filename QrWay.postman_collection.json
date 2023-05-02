@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "013f7162-002a-4af3-a06b-bef56531e3a0",
+		"name": "QrWay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11378101"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Restaurant Managers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurantmanagers/d792c6be-e89c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurantmanagers",
+						"d792c6be-e89c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new restaurant manager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantOwnerID\": \"\",\n    \"password\": \"\",\n    \"managerName\": \"\",\n    \"restaurantID\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/restaurantmanagers/create-manager",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurantmanagers",
+						"create-manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Restaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurants/all/b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurants",
+						"all",
+						"b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A single restaurant by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurant/b061d732-e85c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurant",
+						"b061d732-e85c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/all",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item by ItemID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/a8b93f6a-1196-4d54-8ce8-4d4b9eb4d69e",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"a8b93f6a-1196-4d54-8ce8-4d4b9eb4d69e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemName\": \"\",\n    \"itemDescription\": \"\",\n    \"itemPrice\": 9.99,\n    \"itemImg\": \"\",\n    \"restaurantID\": \"\",\n    \"menusID\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/item/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Menus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/menus/b061d548-e85c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"b061d548-e85c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get menu sections for a restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/menus/b061d548-e85c-11ed-a05b-0242ac120003/b061cc9c-e85c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"b061d548-e85c-11ed-a05b-0242ac120003",
+						"b061cc9c-e85c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Menu",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d732-e85c-11ed-a05b-0242ac120003\",\n    \"menuName\": \"Special\",\n    \"menuDescription\": \"Class Special menu\",\n    \"menuSections\": {\n        \"Mains\": [],\n        \"Dessert\": [],\n        \"Drinks\": []\n    },\n    \"menuStartTime\": \"1600\",\n    \"menuEndTime\": \"2100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/menus/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"menus",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Section",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\",\n    \"sectionName\": \"Test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/menus/add/section",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"add",
+						"section"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item to an existing section",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\",\n    \"sectionName\": \"Sides\",\n    \"itemID\": \"b061f2c6-e85c-11ed-a05b-0242ac120003\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/items/add/item",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"items",
+						"add",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Menu Time",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d732-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"78558d86-b5ed-4da7-9bc7-059f09a565c0\",\n    \"startTime\": \"0800\",\n    \"endTime\": \"1300\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/menus/update/menu-time",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"update",
+						"menu-time"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		}
+	]
+}

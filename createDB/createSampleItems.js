@@ -197,19 +197,20 @@ const itemsData = [
         ]
     },
     {
-        "itemName": "",
-        "itemDescription": "",
-        "itemPrice": ,
-        "itemImg": "https://example.com/images/.jpg",
+        "itemID": "b061f2c6-e85c-11ed-a05b-0242ac120003",
+        "itemName": "Chocolate Cake",
+        "itemDescription": "Chocolate flavored cake",
+        "itemPrice": 8.99,
+        "itemImg": "https://example.com/images/chocolatecake.jpg",
         "itemID": "-",
         "restaurantsID": [""],
         "menusID": [""]
     },
     {
-        "itemName": "",
-        "itemDescription": "",
-        "itemPrice": ,
-        "itemImg": "https://example.com/images/.jpg",
+        "itemName": "Cheesecake",
+        "itemDescription": "Cheesecake with strawberry topping",
+        "itemPrice": 6.99,
+        "itemImg": "https://example.com/images/cheesecake.jpg",
         "itemID": "-",
         "restaurantsID": [""],
         "menusID": [""]

@@ -1,20 +1,16 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-// import {ListModel} from './model/ListModel';
-// import { TaskModel } from './model/TaskModel';
-import { UsersModel } from './model/UsersModel';
-import { RestaurantModel } from './model/RestaurantModel';
-import { RestaurantManagerModel } from './model/RestaurantManagerModel';
-import { RestaurantOwnerModel } from './model/RestaurantOwnerModel';
-import { ItemModel } from './model/ItemModel';
-import { MenuModel } from './model/MenuModel';
-// Helper functions
-import { parseTime, formatTime } from './helpers/parseTime';
-import * as crypto from 'crypto';
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import { UsersModel } from "./model/UsersModel";
+import { RestaurantModel } from "./model/RestaurantModel";
+import { RestaurantManagerModel } from "./model/RestaurantManagerModel";
+import { RestaurantOwnerModel } from "./model/RestaurantOwnerModel";
+import { ItemModel } from "./model/ItemModel";
+import { MenuModel } from "./model/MenuModel";
+
+import * as crypto from "crypto";
 
 // Creates and configures an ExpressJS web server.
 class App {
-
   // ref to Express instance
   public expressApp: express.Application;
   public Users: UsersModel;
@@ -30,7 +26,7 @@ class App {
     this.middleware();
     this.routes();
     this.Users = new UsersModel();
-    this.Restaurants=new RestaurantModel();
+    this.Restaurants = new RestaurantModel();
     this.RestaurantManagers = new RestaurantManagerModel();
     this.RestaurantOwners = new RestaurantOwnerModel();
     this.Items = new ItemModel();
@@ -46,20 +42,27 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
-    router.get('api/health', (req, res, next) => {
-      res.json({ "healthy": true }).status(200);
+    router.get("api/health", (req, res, next) => {
+      res.json({ healthy: true }).status(200);
     });
-    
+
     /**
      * Get all restaurant managers for a restaurant owner
      * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
      * @return json object of all restaurant managers for the restaurant owner
      */
-    router.get('/app/restaurantmanagers/:restaurantOwnerID', (req, res) => {
-      let restaurantOwnerID = req.params.restaurantOwnerID;
-      console.log('Query All Restaurant Managers');
-      this.RestaurantManagers.retrieveAllRestaurantManagers(res, restaurantOwnerID);
-    });
+    router.get(
+      "/api/restaurantmanagers/:restaurantOwnerID",
+      async (req, res) => {
+        let restaurantOwnerID = req.params.restaurantOwnerID;
+        console.log("Query All Restaurant Managers");
+        const result = await this.RestaurantManagers.retrieveAllRestaurantManagers(
+          res,
+          restaurantOwnerID
+        );
+        res.json(result);
+      }
+    );
 
     /**
      * Create a new restaurant manager
@@ -70,15 +73,14 @@ class App {
      * - managerName - name of the new restaurant manager
      * - restaurantID - restaurant ID to which the new restaurant manager belongs
      */
-    router.post('/app/restaurantmanagers/create-manager', (req, res) => {
+    router.post("/api/restaurantmanagers/create-manager", (req, res) => {
       //check if restaurantOwnerID passed is empty
       if (req.body.restaurantOwnerID === "") {
         console.log("restaurantOwnerID is invalid!");
         res.send("restaurantOwnerID is invalid!");
         return;
       }
-      
-      
+
       //params from request body
       let createManager: object = {
         userID: crypto.randomUUID(),
@@ -87,26 +89,46 @@ class App {
         //IRestaurantManagerModel
         managerName: req.body.managerName,
         restaurantOwnerID: req.body.restaurantOwnerID,
-        restuarantID: req.body.restaurantID
+        restuarantID: req.body.restaurantID,
       };
 
-      console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
+      console.log(
+        "[App] Creating new restaurant manager with:" +
+        JSON.stringify(createManager)
+      );
       this.RestaurantManagers.createRestaurantManager(res, createManager);
-      
     });
 
     /* Restaurant Routes */
-    router.get('/api/restaurants/', (req, res) => {
-        console.log('Query All Restaurants');
-        this.Restaurants.retrieveAllRestaurants(res);
+
+    /**
+     * Create a new restaurant
+     * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
+     */
+
+    router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
+      let restaurantOwnerID = req.params.restaurantOwnerID;
+      console.log("Query All Restaurants");
+      const result = this.Restaurants.retrieveAllRestaurants(
+        res,
+        restaurantOwnerID
+      );
     });
-    router.get('/api/getrestaurant/:restaurantId', (req, res) => {
-      console.log('Query Restaurant with restaurantId');
+
+    /**
+     * Get a specific restaurant by ID
+     * @param restaurantID - restaurant ID for which to get a specific restaurant
+     */
+
+    router.get("/api/restaurant/:restaurantID", async (req, res) => {
+      console.log(
+        "Query Restaurant with restaurantId: " + req.params.restaurantID
+      );
       let filter: object = {
-        restaurantID: req.params.restaurantId
+        restaurantID: req.params.restaurantID,
       };
-     const result= this.Restaurants.getRestaurantByID(filter);
-     res.send(result);
+      const result = await this.Restaurants.getRestaurantByID(filter);
+      res.json(result);
     });
 
     /* Item Routes */
@@ -117,8 +139,8 @@ class App {
      * Get all items
      * @returns - JSON obj of all items as a response
      */
-    router.get('/api/items/', (req, res) => {
-      console.log('Query All items');
+    router.get("/api/item/all", (req, res) => {
+      console.log("Query All items");
       this.Items.retrieveAllItems(res);
     });
 
@@ -129,14 +151,18 @@ class App {
      * @returns
      * - JSON obj of the item with the specified ID as a response
      */
-    router.get('/api/getItem/:itemID', (req, res) => {
-      console.log('Query item with itemID');
+    router.get("/api/item/:itemID", async (req, res) => {
+      console.log("Query item with itemID");
       let filter: object = {
-        itemID: req.params.itemID
+        itemID: req.params.itemID,
       };
-      res.json(this.Items.getItem(filter));
+      const item = await this.Items.getItem(filter);
+      if (JSON.stringify(item) === "{}") {
+        res.status(400).json({ message: "Item is not found" });
+        return;
+      }
+      res.json(item);
     });
-
 
     /* POST Routes */
 
@@ -150,21 +176,20 @@ class App {
      * - restaurantID: string - ID of the restaurant to which the item is associated
      * - menusID: string - ID of the menu to which the item is associated
      */
-    router.post('/api/createItem', (req, res) => {
-      console.log('Insert item into items collection');
+    router.post("/api/item/create", (req, res) => {
+      console.log("Insert item into items collection");
       let createItem: object = {
         ItemID: crypto.randomUUID(),
         itemName: req.body.itemName,
-        itemDecription:req.body.itemDecription,
-        itemPrice:req.body.itemPrice,
+        itemDecription: req.body.itemDecription,
+        itemPrice: req.body.itemPrice,
         itemImg: req.body.itemImg,
         restaurantID: req.body.restaurantId,
-        menusID:req.body.menusid
-       
+        menusID: req.body.menusid,
       };
-      console.log(createItem)
-      this.Items.createItem(res,createItem);
-    });          
+      console.log(createItem);
+      this.Items.createItem(res, createItem);
+    });
 
     /**
      * Menu Routes
@@ -178,14 +203,17 @@ class App {
      * - restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @returns - JSON obj of all menus as a response
      */
-    router.get('/api/menus/:restaurantId', (req, res) => {
+    router.get("/api/menus/:restaurantID", async (req, res) => {
       // Get the RestaurantId URL parameters
-      let restaurantId: string = req.params.restaurantId;
+      let restaurantID: string = req.params.restaurantID;
 
-      console.log("[App] Query all menus for: " + restaurantId);
+      console.log("[App] Query all menus for: " + restaurantID);
 
       // Query the database for all menus
-      this.Menus.retrieveAllMenus(res, { restaurantID: restaurantId });
+      const result = await this.Menus.retrieveAllMenus(res, {
+        restaurantID: restaurantID,
+      });
+      res.json(result);
     });
 
     /**
@@ -193,15 +221,23 @@ class App {
      * @param restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @param menuId: string - ID of the menu for which to retrieve all menu sections
      */
-    router.get('/api/menus/:restaurantId/:menuId', (req, res) => {
+    router.get("/api/menus/:restaurantID/:menuID", (req, res) => {
       // Get the RestaurantId, RestaurantOwnerId, and menuId from URL parameters
-      let restaurantId: string = req.params.restaurantId;
-      let menuId: string = req.params.menuId;
+      let restaurantID: string = req.params.restaurantID;
+      let menuID: string = req.params.menuID;
 
-      console.log("Query all menu sections for: " + menuId + " for restaurant: " + restaurantId);
+      console.log(
+        "Query all menu sections for: " +
+        menuID +
+        " for restaurant: " +
+        restaurantID
+      );
 
       // Query the database for all menus
-      this.Menus.retrieveMenuSections(res, { restaurantID: restaurantId, menuID: menuId });
+      this.Menus.retrieveMenuSections(res, {
+        restaurantID: restaurantID,
+        menuID: menuID,
+      });
     });
 
     // POST Routes
@@ -217,17 +253,27 @@ class App {
      *    menuStartTime: Date
      *    menuEndTime: Date
      */
-    router.post('/api/menus/create-menu', (req, res) => {
+    router.post("/api/menus/create", async (req, res) => {
       // Pre check: Check if the restaurant exists
       // Get RestaurantID
+      console.log("[App] Trying to create a new menu...");
       let restaurantID: string = req.body.restaurantID;
-      try{
-        const checkRestaurant = this.Restaurants.getRestaurantByID({restaurantID: restaurantID});
-        if(JSON.stringify(checkRestaurant) == '{}')
-        res.status(400).json({ message: 'Restaurant is not found'});
-      }catch (error){
+      try {
+        const checkRestaurant = await this.Restaurants.getRestaurantByID({
+          restaurantID: restaurantID,
+        });
+        console.log(
+          "[App] Restaurant found: " + checkRestaurant["restaurantName"]
+        );
+
+        if (JSON.stringify(checkRestaurant) == "{}") {
+          res.status(400).json({ message: "Restaurant is not found" });
+          console.error("\tRestaurant is not found");
+          return;
+        }
+      } catch (error) {
         console.error(error);
-        res.status(500).json({message: 'Internal server error '});
+        res.status(500).json({ message: "Internal server error " });
       }
       // Get all the parameters from the request body
       let createMenu: object = {
@@ -236,14 +282,12 @@ class App {
         menuName: req.body.menuName,
         menuDescription: req.body.menuDescription,
         menuSections: req.body.menuSections,
-        menuStartTime: parseTime(req.body.menuStartTime),
-        menuEndTime: parseTime(req.body.menuEndTime)
+        menuStartTime: req.body.menuStartTime,
+        menuEndTime: req.body.menuEndTime,
       };
       console.log("[App] Creating new menu with:" + JSON.stringify(createMenu));
       this.Menus.createMenu(res, createMenu);
     });
-
-
     /**
      * Add a new section to an existing menu
      * @param req
@@ -252,18 +296,44 @@ class App {
      * - sectionName: string - name of the section to be added
      * @param res json obejct of the new menu section
      */
-    router.post('/api/menus/add-section', (req, res) => {
+    // TODO: Come back and debug if its working correctly
+    router.post('/api/menus/add/section', (req, res) => {
       // Get the RestaurantId, menuId, sectionName from req body
-      let restaurantId: string = req.body.restaurantId;
-      let menuId: string = req.body.menuId;
+      let restaurantID: string = req.body.restaurantID;
+      let menuID: string = req.body.menuID;
       let sectionName: string = req.body.sectionName;
 
-      console.log("Adding " + sectionName + " : " + menuId + " for restaurant: " + restaurantId);
+      console.log("Adding " + sectionName + " : " + menuID + " for restaurant: " + restaurantID);
 
       // Query the database to add a section to the menu
-      this.Menus.addMenuSection(res, { restaurantID: restaurantId, menuID: menuId }, sectionName);
+      this.Menus.addMenuSection(res, { restaurantID: restaurantID, menuID: menuID }, sectionName);
     });
+    /*
+    router.post("/api/menus/add/section", (req, res) => {
+      // Get the RestaurantId, menuId, sectionName from req body
+      let restaurantID: string = req.body.restaurantID;
+      let menuID: string = req.body.menuID;
+      let sectionName: string = req.body.sectionName;
 
+      console.log(
+        "Adding " +
+        sectionName +
+        " : " +
+        menuID +
+        " for restaurant: " +
+        restaurantID
+      );
+
+      // Query the database to add a section to the menu
+      this.Menus.addMenuSection(
+        res,
+        { restaurantID: restaurantID, menuID: menuID },
+        sectionName
+      );
+
+    });
+    */
+   
     /**
      * Add an existing item to an existing section in an existing menu
      * @param req
@@ -272,42 +342,46 @@ class App {
      *  - menuSection: string - menuSection to which the item  should be added to
      *  - itemId: string - itemID of the item to be added
      */
-    router.post('/api/items/add-item', (req, res) => {
+    router.post("/api/items/add/item", async (req, res) => {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
       let sectionName: string = req.body.sectionName;
       let itemID: string = req.body.itemID;
 
-      try{
+      try {
         // Pre check: check if the item exists in the database
-        const checkItem = this.Items.getItem({ itemID: itemID });
+        const checkItem = await this.Items.getItem({ itemID: itemID });
         // check for empty JSON
-        if (JSON.stringify(checkItem) === '{}') {
-          res.status(400).json({ message: 'Item is not found' });
+        if (JSON.stringify(checkItem) === "{}") {
+          res.status(400).json({ message: "Item is not found" });
           return;
         }
-
         // Check if the item already exists in the menu section
-        const existingItem = this.Menus.checkItemInSection({ restaurantID: restaurantID, menuID: menuID }, itemID);
+        const existingItem = await this.Menus.checkItemInSection(
+          { restaurantID: restaurantID, menuID: menuID },
+          itemID
+        ).then((result) => {
+          return result[0]["count"];
+        });
+        console.log("[APP | DEBUG] Existing item: " + existingItem);
         if (existingItem) {
-          res.status(400).json({ message: 'Item already exists in the section' });
+          res
+            .status(400)
+            .json({ message: "Item already exists in the section" });
           return;
         }
 
         // Add the item to the menu section
-        this.Menus.addMenuItem(res,
-          {
-            restaurantID: restaurantID,
-            menuID: menuID,
-            sectionName: sectionName,
-            itemID: itemID
-          }
-        );
-        
+        this.Menus.addMenuItem(res, {
+          restaurantID: restaurantID,
+          menuID: menuID,
+          sectionName: sectionName,
+          itemID: itemID,
+        });
       } catch (error) {
         console.error(error);
-        res.status(500).json({message: 'Internal server error '});
+        res.status(500).json({ message: "Internal server error " });
       }
     });
 
@@ -322,10 +396,10 @@ class App {
      * - endTime: Date - new end time of the menu
      * @param res json obejct of the updated menu
      */
-    router.patch('/api/menus/update-menu-time', (req, res) => {
+    router.patch("/api/menus/update/menu-time", (req, res) => {
       // Get the new start and end time from req body
-      let startTime: Date = parseTime(req.body.startTime);
-      let endTime: Date = parseTime(req.body.endTime);
+      let startTime: String = req.body.startTime;
+      let endTime: String = req.body.endTime;
       // Get the RestaurantId and menuId from req body
       let filter: object = {
         restaurantID: req.body.restaurantId,
@@ -338,16 +412,13 @@ class App {
       this.Menus.updateMenuTime(res, filter, startTime, endTime);
     });
 
-
     // DELETE Routes
 
-    this.expressApp.use('/', router)
-    this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-    this.expressApp.use('/images', express.static(__dirname + '/img'));
-    this.expressApp.use('/', express.static(__dirname + '/pages'));
-
+    this.expressApp.use("/", router);
+    this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
+    this.expressApp.use("/images", express.static(__dirname + "/img"));
+    this.expressApp.use("/", express.static(__dirname + "/pages"));
   }
-
 }
 
 export { App };
