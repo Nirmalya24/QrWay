@@ -42,7 +42,9 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
+
     router.get("api/health", (req, res, next) => {
+      console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
     });
 
@@ -105,7 +107,6 @@ class App {
      * Create a new restaurant
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
-
     router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
@@ -296,7 +297,6 @@ class App {
      * - sectionName: string - name of the section to be added
      * @param res json obejct of the new menu section
      */
-    // TODO: Come back and debug if its working correctly
     router.post('/api/menus/add/section', (req, res) => {
       // Get the RestaurantId, menuId, sectionName from req body
       let restaurantID: string = req.body.restaurantID;
@@ -308,31 +308,7 @@ class App {
       // Query the database to add a section to the menu
       this.Menus.addMenuSection(res, { restaurantID: restaurantID, menuID: menuID }, sectionName);
     });
-    /*
-    router.post("/api/menus/add/section", (req, res) => {
-      // Get the RestaurantId, menuId, sectionName from req body
-      let restaurantID: string = req.body.restaurantID;
-      let menuID: string = req.body.menuID;
-      let sectionName: string = req.body.sectionName;
-
-      console.log(
-        "Adding " +
-        sectionName +
-        " : " +
-        menuID +
-        " for restaurant: " +
-        restaurantID
-      );
-
-      // Query the database to add a section to the menu
-      this.Menus.addMenuSection(
-        res,
-        { restaurantID: restaurantID, menuID: menuID },
-        sectionName
-      );
-
-    });
-    */
+    
    
     /**
      * Add an existing item to an existing section in an existing menu
@@ -398,8 +374,8 @@ class App {
      */
     router.patch("/api/menus/update/menu-time", (req, res) => {
       // Get the new start and end time from req body
-      let startTime: String = req.body.startTime;
-      let endTime: String = req.body.endTime;
+      let startTime: string = req.body.startTime;
+      let endTime: string = req.body.endTime;
       // Get the RestaurantId and menuId from req body
       let filter: object = {
         restaurantID: req.body.restaurantId,
@@ -411,8 +387,6 @@ class App {
       // Query the database to add a section to the menu
       this.Menus.updateMenuTime(res, filter, startTime, endTime);
     });
-
-    // DELETE Routes
 
     this.expressApp.use("/", router);
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));

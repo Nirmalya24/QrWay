@@ -47,6 +47,13 @@ class RestaurantManagerModel {
         }
     }
 
+    /**
+     * Get all the restaurant managers in 
+     * the database by restaurantOwnerID
+     * @param res 
+     * @param restaurantOwnerID - the restaurant owner's ID
+     * @returns 
+     */
     public async retrieveAllRestaurantManagers(res: any, restaurantOwnerID: string): Promise<any> {
         try {
             console.log("[RestaurantManager Model] Getting all restaurant managers...");
@@ -59,6 +66,11 @@ class RestaurantManagerModel {
         }
     }
 
+    /**
+     * Create a new restaurant manager
+     * @param res 
+     * @param newRestaurantManager 
+     */
     public createRestaurantManager(res: any, newRestaurantManager: object): any {
         console.log("[RestaurantManager Model] Creating restaurant manager...");
         var query = this.model
