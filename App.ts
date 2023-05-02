@@ -67,23 +67,24 @@ class App {
       {
         console.log("restaurantOwnerID is invalid!");
         res.send("restaurantOwnerID is invalid!");
+        return;
       }
-      else
-      {
-        //params from request body
-        let createManager: object = {
-          userID: crypto.randomUUID(),
-          password: req.body.password,
-          connectStatus: req.body.connectStatus,
-          //IRestaurantManagerModel
-          managerName: req.body.managerName,
-          restaurantOwnerID: req.body.restaurantOwnerID,
-          restuarantID: req.body.restaurantID
-        };
+      
+      
+      //params from request body
+      let createManager: object = {
+        userID: crypto.randomUUID(),
+        password: req.body.password,
+        connectStatus: req.body.connectStatus,
+        //IRestaurantManagerModel
+        managerName: req.body.managerName,
+        restaurantOwnerID: req.body.restaurantOwnerID,
+        restuarantID: req.body.restaurantID
+      };
 
-        console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
-        this.RestaurantManagers.createRestaurantManager(res, createManager)
-      }
+      console.log("[App] Creating new restaurant manager with:" + JSON.stringify(createManager));
+      this.RestaurantManagers.createRestaurantManager(res, createManager)
+      
     })
 
     this.expressApp.use('/', router);
