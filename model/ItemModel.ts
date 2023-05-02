@@ -56,23 +56,7 @@ class ItemModel {
             response.json(numberOfLists) ;
         });
     }
-    /**
-     * Retrieve a single item by ID
-     *@param response - response object
-     *@param filter - filter object
-     *@returns - JSON Object
-     */
-   public retrieveItemByID(response: any, filter: Object) {
-       // TODO: Check if this is working
-       console.log("Query single item with filter: " + JSON.stringify(filter));
-       var query = this.model.findOne(filter);
-       query.exec((err, itemArray) => {
-        if (err) return console.error(err);
-          // response.json(itemArray);
-           return JSON.stringify(itemArray);
-
-    });
-    }
+    
     /**
      * Get a single item by ID
      *@param request - request object
