@@ -3,6 +3,7 @@ import { DataAccess } from '../DataAccess';
 import { IMenuModel } from '../interfaces/IMenuModel';
 import { ItemModel } from "./ItemModel";
 import { Console } from "console";
+import { rmSync } from "fs";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -24,8 +25,8 @@ class MenuModel {
                 menuItems: [String],
                 menuSections: Object,
                 menuDescription: String,
-                menuStartTime: Date,
-                menuEndTime: Date
+                menuStartTime: String,
+                menuEndTime: String
 
             }, { collection: 'Menus' }
         );
@@ -48,14 +49,18 @@ class MenuModel {
      * @param response 
      * @param filter must contain the restaurantId
      */
-    public retrieveAllMenus(response: any, filter: Object): any {
-        console.log("[Menu Model] Retrieving all Menus ...");
-        var query = this.model.find(filter);
-        query.exec((err, menuArray) => {
-            response.json(menuArray);
-            this.error_message(err, response);
-        });
+
+    public async retrieveAllMenus(response: any, filter: Object): Promise<any> {
+        try {
+            console.log("[Menu Model] Retrieving all Menus ...");
+            const query = this.model.find(filter);
+            const menuArray = await query.exec();
+            return menuArray;
+        } catch (err) {
+            throw this.error_message(err, response);
+        }
     }
+
 
     /**
      * Queries the database for a menu and retrieves the menu sections and the items in each section.
@@ -74,24 +79,23 @@ class MenuModel {
             if (menuArray == null)
                 response.send("No menu found with that ID");
             else
-                response.json(menuArray.menuSections);
+                response.json(menuArray);
 
             this.error_message(err, response);
         });
     }
 
-    public createMenu(response: any, newMenu: object): any {
-        console.log("[Menu Model] Creating menu ...");
-        var query = this.model.create(newMenu)
-            .then((menu) => {
-                console.log("[Menu Model] Success!");
-                response.json(menu);
-            })
-            .catch((err) => {
-                this.error_message(err, response);
-            });
-        
+    public async createMenu(response: any, newMenu: object): Promise<any> {
+        try {
+            console.log("[Menu Model] Creating menu ...");
+            const menu = await this.model.create(newMenu);
+            console.log("[Menu Model] Success!");
+            response.json(menu);
+        } catch (err) {
+            this.error_message(err, response);
+        }
     }
+
 
     /**
      * Adds a menu section to a specific menu of a restaurant.
@@ -118,40 +122,67 @@ class MenuModel {
             this.error_message(err, response);
         });
     }
+
     /**
      * check a single item by ID
      *@param filter - filter object
      *@returns - true if item exist.
      */
-    public checkItemInSection(filter: any, itemID: string): any {
-        console.log("[MenuModel] Checking if item"+ itemID +"exist in a section ...");
-        return new Promise((resolve,reject)=>{
-            const searchItemObj = {
-                $or: [
-                    { "menuSections.Mains": { $in: [itemID], $exists: true } },
-                    { "menuSections.Sides": { $in: [itemID], $exists: true } },
-                    { "menuSections.Drinks": { $in: [itemID], $exists: true } },
-                    { "menuSections.Desserts": { $in: [itemID], $exists: true } }
-                ]
-            };
-            this.model.find(filter, searchItemObj).count((err, count) => {
-                if (err) reject(err)//return console.error(err);
-                //return count > 0;
-                console.log("count"+count);
-                resolve(count>0);
-            });
-    
+    public async checkItemInSection(filter: any, itemID: string): Promise<any> {
+        try {
+            console.log("[MenuModel] Checking if item\n" + itemID + "\nexist in a section ...");
+            const searchItemObj = [
+                {
+                    $match: {
+                        menuID: filter["menuID"],
+                        restaurantID: filter["restaurantID"]
+                    }
+                },
+                {
+                    $project: {
+                        count: {
+                            $reduce: {
+                                input: {
+                                    $objectToArray: "$menuSections"
+                                },
+                                initialValue: 0,
+                                in: {
+                                    $cond: [
+                                        {
+                                            $in: [
+                                                itemID,
+                                                "$$this.v"
+                                            ]
+                                        },
+                                        {
+                                            $add: [
+                                                "$$value",
+                                                1
+                                            ]
+                                        },
+                                        "$$value"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ];
+            const result = await this.model.aggregate(searchItemObj);
+            // console.log(result);
+            return result;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    }
 
-        })
-       
         // TODO: FIGURE OUT WHY THIS DOESN'T WORK
         // DO NOT DELETE
         // this.model.countDocuments(filter, searchItemObj, (err, count) => {
         //     if (err) return console.error(err);
         //     return count > 0;
         // });
-
-    }
 
     /**
      * Adds an existing menu item to a menu section.
@@ -176,7 +207,7 @@ class MenuModel {
         });
     }
 
-    public updateMenuTime(response: any, filter: object, startTime: Date, endTime: Date): any {
+    public updateMenuTime(response: any, filter: object, startTime: String, endTime: String): any {
         console.log("[Menu Model] Updating menu time ...");
 
         const updateObject = {
