@@ -201,7 +201,7 @@ const itemsData = [
         "itemName": "Chocolate Cake",
         "itemDescription": "Chocolate flavored cake",
         "itemPrice": 8.99,
-        "itemImg": "https://example.com/images/.jpg",
+        "itemImg": "https://example.com/images/chocolatecake.jpg",
         "itemID": "-",
         "restaurantsID": [""],
         "menusID": [""]
