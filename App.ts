@@ -104,7 +104,7 @@ class App {
     /* Restaurant Routes */
 
     /**
-     * Create a new restaurant
+     * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
     router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
