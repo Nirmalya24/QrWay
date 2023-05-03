@@ -57,7 +57,7 @@ class App {
       "/api/restaurantmanagers/:restaurantOwnerID",
       async (req, res) => {
         let restaurantOwnerID = req.params.restaurantOwnerID;
-        console.log("Query All Restaurant Managers");
+        console.log("[App] Query All Restaurant Managers for restaurant owner: " + restaurantOwnerID);
         const result = await this.RestaurantManagers.retrieveAllRestaurantManagers(
           res,
           restaurantOwnerID
@@ -110,7 +110,7 @@ class App {
     router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
-      const result = this.Restaurants.retrieveAllRestaurants(
+      this.Restaurants.retrieveAllRestaurants(
         res,
         restaurantOwnerID
       );
@@ -185,8 +185,8 @@ class App {
         itemDecription: req.body.itemDecription,
         itemPrice: req.body.itemPrice,
         itemImg: req.body.itemImg,
-        restaurantID: req.body.restaurantId,
-        menusID: req.body.menusid,
+        restaurantID: req.body.restaurantID,
+        menusID: req.body.menusID,
       };
       console.log(createItem);
       this.Items.createItem(res, createItem);
