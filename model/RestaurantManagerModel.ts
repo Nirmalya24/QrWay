@@ -71,8 +71,12 @@ class RestaurantManagerModel {
 
     /**
      * Create a new restaurant manager
-     * @param res 
-     * @param newRestaurantManager 
+     * @param res - response object
+     * @param newRestaurantManager - the new restaurant manager object should contain
+     * - password: string
+     * - managerName: string
+     * - restaurantOwnerID: string
+     * - restuarantID: string
      */
     public createRestaurantManager(res: any, newRestaurantManager: object): any {
         console.log("[RestaurantManager Model] Creating restaurant manager...");
