@@ -17,9 +17,9 @@ class RestaurantModel {
         this.schema = new Mongoose.Schema(
                 {
                     restaurantName:String,
-                    restaurantId:String,
+                restaurantID: String,
                     managerID: [String],
-                    restaurantOwnerId:String,
+                restaurantOwnerID: String,
                     menusID:[String],
                 },{collection: 'Restaurants'}
         );
@@ -39,10 +39,14 @@ class RestaurantModel {
      */
     public async retrieveAllRestaurants(response: any, restaurantOwnerID: string): Promise<any> {
         try {
-            console.log("start query");
+            console.log("[Restaurant Model] Getting all restaurants...");
             const query = this.model.find({ restaurantOwnerID: restaurantOwnerID });
-            const itemArray = await query.exec();
-            return itemArray;
+            const itemArray = await query.exec().then((result) => {
+                return result;
+            });
+            console.log("[Restaurant Model | DEBUG] retrieveAllRestaurants: " + itemArray);
+            // return itemArray;
+            response.json(itemArray);
         } catch (err) {
             throw err;
         }
