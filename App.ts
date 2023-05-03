@@ -43,7 +43,7 @@ class App {
   private routes(): void {
     let router = express.Router();
 
-    router.get("api/health", (req, res, next) => {
+    router.get("/api/health", (req, res, next) => {
       console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
     });
@@ -104,7 +104,7 @@ class App {
     /* Restaurant Routes */
 
     /**
-     * Create a new restaurant
+     * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
     router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
@@ -190,6 +190,18 @@ class App {
       };
       console.log(createItem);
       this.Items.createItem(res, createItem);
+    });
+
+    /* DELETE Routes */
+    router.delete("/api/item/delete/:itemID", async (req, res) => {
+      console.log("[App] Delete item with itemID: " + req.params.itemID);
+      let filter: object = {
+        itemID: req.params.itemID,
+      };
+      const deleteItemRes = await this.Items.deleteItem(filter);
+      if (deleteItemRes === null)
+        res.json({ message: "Item is not found" });
+      else res.json(deleteItemRes);
     });
 
     /**
@@ -378,8 +390,8 @@ class App {
       let endTime: string = req.body.endTime;
       // Get the RestaurantId and menuId from req body
       let filter: object = {
-        restaurantID: req.body.restaurantId,
-        menuID: req.body.menuId,
+        restaurantID: req.body.restaurantID,
+        menuID: req.body.menuID,
       };
 
       console.log("[App] Updating menu time");
