@@ -8,28 +8,28 @@ const restaurantData = [
         restaurantName: "Family Breakfast House",
         restaurantID: "b061d548-e85c-11ed-a05b-0242ac120003",
         managerID: ["d792c9a2-e89c-11ed-a05b-0242ac120003"],
-        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         menusID: ["b061cc9c-e85c-11ed-a05b-0242ac120003"],
     },
     {
         restaurantName: "Frankies",
         restaurantID: "b061d732-e85c-11ed-a05b-0242ac120003",
         managerID: ["d792cb46-e89c-11ed-a05b-0242ac120003"],
-        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         menusID: ["b061e16e-e85c-11ed-a05b-0242ac120003"],
     },
     {
         restaurantName: "Joe's Diner",
         restaurantID: "b061de58-e85c-11ed-a05b-0242ac120003",
         managerID: ["d792ccc2-e89c-11ed-a05b-0242ac120003"],
-        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         menusID: ["b061e2f4-e85c-11ed-a05b-0242ac120003"],
     },
     {
         restaurantName: "Wingman's Pub",
         restaurantID: "b061dffc-e85c-11ed-a05b-0242ac120003",
         managerID: ["d792d136-e89c-11ed-a05b-0242ac120003"],
-        restaurantOwnerId: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         menusID: ["b061e466-e85c-11ed-a05b-0242ac120003"],
     }
 ];
