@@ -28,7 +28,8 @@
     "populate_items": "node ./createDB/createSampleItems.js",
     "populate_menus": "node ./createDB/createSampleMenus.js",
     "populate_restaurants": "node ./createDB/createSampleRestaurants.js",
-    "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants"
+    "populate_users": "node ./createDB/createSampleUsers.js",
+    "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants && npm run populate_users"
   },
   "author": "",
   "license": "ISC"
