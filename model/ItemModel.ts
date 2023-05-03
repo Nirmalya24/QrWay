@@ -95,7 +95,38 @@ class ItemModel {
         });
             response.send(item.itemName + " saved to items collection.");
      }
-     
+
+    /**
+     * Delete an item by ID
+     * 
+     */
+    public async deleteItem(filter: object): Promise<any> {
+        try {
+            console.log("[ItemModel] Deleting Item...");
+            const checkItem = await this.getItem(filter).then((item) => {
+                if (item === null || JSON.stringify(item) === '{}') {
+                    return false;
+                }
+                return true;
+            });
+
+            // Based on checkItem, we can decide whether to delete or not
+            if (!checkItem) {
+                return null;
+            }
+
+            console.log("[Item Model] getItem query: ", checkItem);
+            const query = await this.model.deleteOne(filter).then((item) => {
+                return item;
+            });
+            console.log("[Item Model] delete query: ", query);
+            return query;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    }
+
 
 }
 export {ItemModel};
