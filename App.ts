@@ -75,7 +75,7 @@ class App {
      * - managerName - name of the new restaurant manager
      * - restaurantID - restaurant ID to which the new restaurant manager belongs
      */
-    router.post("/api/restaurantmanagers/create-manager", (req, res) => {
+    router.post("/api/restaurantmanagers/create-manager", (req, res) => { //TODO: create in route is redundant
       //check if restaurantOwnerID passed is empty
       if (req.body.restaurantOwnerID === "") {
         console.log("restaurantOwnerID is invalid!");
@@ -86,7 +86,7 @@ class App {
       //params from request body
       let createManager: object = {
         userID: crypto.randomUUID(),
-        password: req.body.password,
+        password: req.body.password, // TODO: salt & hash  password this shouldn't be here tbh
         connectStatus: true,
         //IRestaurantManagerModel
         managerName: req.body.managerName,
