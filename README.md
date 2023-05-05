@@ -1,38 +1,56 @@
-This directory contains one express servers:
-* Server.js + App.js - Encapsulated Node/Express web server w/ Mongo Access
+
+# QrWay
+
+### Team Members
+Adit, Jen, Nirmalya, Troy
 
 File content:
-* Server.ts - based http server
-* App.ts - express server
-* DbClient.ts - mongo db client
-* DB population files are stored on the createDB file
+* `Server.ts` - based http server
+* `App.ts` - express server
+* `DataAccess.ts` - mongo db client
+* DB population files are stored under the `createDB/` folder
 
-Make sure you install the node.js server and Mongo DB sofware from the side.  Ensure your path variable contains the execution path of the node.js and mongo binary.
+Make sure you have installed the Node.js server and Mongo DB on your machine.  Ensure your path variable contains the execution path of the Node.js and Mongo binary (refer to official docs for instructions).
 
-To execute the server db and then the node server with the following commands:
+## Step 1: Install Node Modules 🤠
+In your terminal, run:
+```shell
+npm install
+```
+This will install the required modules for this project. This is required for Step 3, since the connection
+is made using Mongoose to the MongoDB instance.
 
-//create the db file directory
-0. md db
+__NOTE: Make sure MongoDB instance is running on your machine (varies based on OS: refer MongoDB docs)__
 
-//Starts the DB server on port 3000
-1. start.toDoSample.cmd
+## Step 2: MongoDB db creation and user role creation 🎉
 
-//populate the DB server with sample data
-2. startdbClient.toDoSample2.cmd
->load ('createDB/createToDoSampleData.js');
->load ('createDB/createAdminUser.js');
->exit
+```shell
+mongosh
 
-//install npm packages
-3. npm install
+use qrway_db
 
-//Compile Node/Express Server.  You may need to go to all subdirectories and compile the ts files.
-4. tsc AppServer.ts
+# copy and paste code snippet from createDB/createAdminUser.js
+```
 
-//Execute Node/Express server on port 8080
-5. node AppServer.js 
+### Step 3: Populating the database 🤩
+Run the following script (present in `package.json`) in your shell:
 
-To test server #3, try the following URL on the browser, while the server is running:
-* http://localhost:8080/
-* http://localhost:8080/app/list
-* http://localhost:8080/app/list/1
+```shell
+npm run populate_db
+```
+
+This will delete any existing items in the `qrway_db` and reseed the values for all the collections
+
+### Step 4: Import Postman collections 🪄
+The Postman collection file is located in the root directory. It is called `QrWay.postman_collection.json`.
+Go ahead and import that into your Postman.
+
+### Step 5: Run the server 🚀
+Navigate to your shell, and run the following command:
+```shell
+npm start
+```
+
+This is will clean (remove any *.js files) the directory, compile the TypeScript files, and start the Node server.
+
+Once the server is up and running, Postman endpoints can be lit up 🔥
