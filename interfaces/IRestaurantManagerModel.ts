@@ -3,7 +3,7 @@ import { IUsersModel } from "./IUsersModel";
 
 interface IRestaurantManagerModel extends IUsersModel {
     managerName: string;
-    restaurantOwnerID:string;
-    restuarantID:string;
+    restaurantOwnerID: string;
+    restuarantID: string;
 }
 export {IRestaurantManagerModel};

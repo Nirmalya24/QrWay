@@ -27,7 +27,7 @@ class RestaurantManagerModel {
                 restaurantOwnerID: String,
                 restuarantID: String,
             },
-            { collection: "RestaurantManagers" }
+            { collection: "RestaurantManager" }
         );
     }
 
@@ -48,7 +48,7 @@ class RestaurantManagerModel {
     }
 
     /**
-     * Get all the restaurant managers in 
+     * Get all the restaurant managers for a restaurant owner
      * the database by restaurantOwnerID
      * @param res 
      * @param restaurantOwnerID - the restaurant owner's ID
@@ -58,7 +58,10 @@ class RestaurantManagerModel {
         try {
             console.log("[RestaurantManager Model] Getting all restaurant managers...");
             const query = this.model.find({ restaurantOwnerID: restaurantOwnerID });
-            const managersArr = await query.exec();
+            const managersArr = await query.exec().then((managers) => {
+                return managers;
+            });
+            console.log("[RestaurantManager Model] Manager Array: " + managersArr);
             return managersArr;
         } catch (err) {
             console.log(err);
@@ -68,8 +71,12 @@ class RestaurantManagerModel {
 
     /**
      * Create a new restaurant manager
-     * @param res 
-     * @param newRestaurantManager 
+     * @param res - response object
+     * @param newRestaurantManager - the new restaurant manager object should contain
+     * - password: string
+     * - managerName: string
+     * - restaurantOwnerID: string
+     * - restuarantID: string
      */
     public createRestaurantManager(res: any, newRestaurantManager: object): any {
         console.log("[RestaurantManager Model] Creating restaurant manager...");

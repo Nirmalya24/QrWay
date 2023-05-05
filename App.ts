@@ -43,7 +43,7 @@ class App {
   private routes(): void {
     let router = express.Router();
 
-    router.get("api/health", (req, res, next) => {
+    router.get("/api/health", (req, res, next) => {
       console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
     });
@@ -57,7 +57,7 @@ class App {
       "/api/restaurantmanagers/:restaurantOwnerID",
       async (req, res) => {
         let restaurantOwnerID = req.params.restaurantOwnerID;
-        console.log("Query All Restaurant Managers");
+        console.log("[App] Query All Restaurant Managers for restaurant owner: " + restaurantOwnerID);
         const result = await this.RestaurantManagers.retrieveAllRestaurantManagers(
           res,
           restaurantOwnerID
@@ -75,7 +75,7 @@ class App {
      * - managerName - name of the new restaurant manager
      * - restaurantID - restaurant ID to which the new restaurant manager belongs
      */
-    router.post("/api/restaurantmanagers/create-manager", (req, res) => {
+    router.post("/api/restaurantmanagers/create-manager", (req, res) => { //TODO: create in route is redundant
       //check if restaurantOwnerID passed is empty
       if (req.body.restaurantOwnerID === "") {
         console.log("restaurantOwnerID is invalid!");
@@ -86,7 +86,7 @@ class App {
       //params from request body
       let createManager: object = {
         userID: crypto.randomUUID(),
-        password: req.body.password,
+        password: req.body.password, // TODO: salt & hash  password this shouldn't be here tbh
         connectStatus: true,
         //IRestaurantManagerModel
         managerName: req.body.managerName,
@@ -104,13 +104,13 @@ class App {
     /* Restaurant Routes */
 
     /**
-     * Create a new restaurant
+     * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
     router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
-      const result = this.Restaurants.retrieveAllRestaurants(
+      this.Restaurants.retrieveAllRestaurants(
         res,
         restaurantOwnerID
       );
@@ -185,11 +185,23 @@ class App {
         itemDecription: req.body.itemDecription,
         itemPrice: req.body.itemPrice,
         itemImg: req.body.itemImg,
-        restaurantID: req.body.restaurantId,
-        menusID: req.body.menusid,
+        restaurantID: req.body.restaurantID,
+        menusID: req.body.menusID,
       };
       console.log(createItem);
       this.Items.createItem(res, createItem);
+    });
+
+    /* DELETE Routes */
+    router.delete("/api/item/delete/:itemID", async (req, res) => {
+      console.log("[App] Delete item with itemID: " + req.params.itemID);
+      let filter: object = {
+        itemID: req.params.itemID,
+      };
+      const deleteItemRes = await this.Items.deleteItem(filter);
+      if (deleteItemRes === null)
+        res.json({ message: "Item is not found" });
+      else res.json(deleteItemRes);
     });
 
     /**
@@ -378,8 +390,8 @@ class App {
       let endTime: string = req.body.endTime;
       // Get the RestaurantId and menuId from req body
       let filter: object = {
-        restaurantID: req.body.restaurantId,
-        menuID: req.body.menuId,
+        restaurantID: req.body.restaurantID,
+        menuID: req.body.menuID,
       };
 
       console.log("[App] Updating menu time");

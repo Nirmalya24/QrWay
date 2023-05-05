@@ -211,7 +211,7 @@ const itemsData = [
         "itemDescription": "Cheesecake with strawberry topping",
         "itemPrice": 6.99,
         "itemImg": "https://example.com/images/cheesecake.jpg",
-        "itemID": "-",
+        "itemID": "b061f4a6-e85c-11ed-a05b-0242ac120003",
         "restaurantsID": [""],
         "menusID": [""]
     }

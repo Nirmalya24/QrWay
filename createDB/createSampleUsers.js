@@ -12,22 +12,26 @@ const userData = [
     {   //restaurant manager
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792d136-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     }
     
 ];
@@ -44,22 +48,26 @@ const restaurantManagerData = [
     {   //restaurant manager
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792d136-e89c-11ed-a05b-0242ac120003",
         password: "pwd",
-        connectStatus: false //false by default
+        connectStatus: false, //false by default
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     }
 ];
 
@@ -101,11 +109,11 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log(colors.green('\tDocuments deleted:', deleteResult.deletedCount));
 
         // insert data
-        const insertResultRestaurantManager = await db.collection('RestaurantOwner').insertMany(restaurantManagerData);
+        const insertResultRestaurantManager = await db.collection('RestaurantManager').insertMany(restaurantManagerData);
         console.log(colors.green('\tDocuments inserted:', insertResult.insertedCount));
 
         // count documents
-        const countResultRestaurantManager = await db.collection('RestaurantOwner').countDocuments();
+        const countResultRestaurantManager = await db.collection('RestaurantManager').countDocuments();
         console.log(colors.green('\tTotal # of Documents in collection:', countResult));
 
         await client.close();

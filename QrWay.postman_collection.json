@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "013f7162-002a-4af3-a06b-bef56531e3a0",
+		"_postman_id": "29027f5c-932e-4202-9ab7-7f453f6041fc",
 		"name": "QrWay",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "11378101"
@@ -29,13 +29,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/restaurantmanagers/d792c6be-e89c-11ed-a05b-0242ac120003",
+					"raw": "{{base_url}}/restaurantmanagers/{{restaurantOwnerID}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"restaurantmanagers",
-						"d792c6be-e89c-11ed-a05b-0242ac120003"
+						"{{restaurantOwnerID}}"
 					]
 				}
 			},
@@ -48,7 +48,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"restaurantOwnerID\": \"\",\n    \"password\": \"\",\n    \"managerName\": \"\",\n    \"restaurantID\": \"\"\n}",
+					"raw": "{\n    \"restaurantOwnerID\": \"{{restaurantOwnerID}}\",\n    \"password\": \"pwd\",\n    \"managerName\": \"Manager Joe\",\n    \"restaurantID\": \"b061dffc-e85c-11ed-a05b-0242ac120003\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -74,14 +74,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/restaurants/all/b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf",
+					"raw": "{{base_url}}/restaurant/all/{{restaurantOwnerID}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
-						"restaurants",
+						"restaurant",
 						"all",
-						"b7d77d3e-14a3-4a2a-a9e9-48aa173b7fbf"
+						"{{restaurantOwnerID}}"
 					]
 				}
 			},
@@ -93,13 +93,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/restaurant/b061d732-e85c-11ed-a05b-0242ac120003",
+					"raw": "{{base_url}}/restaurant/{{wingmans_pub}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"restaurant",
-						"b061d732-e85c-11ed-a05b-0242ac120003"
+						"{{wingmans_pub}}"
 					]
 				}
 			},
@@ -129,13 +129,31 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/item/a8b93f6a-1196-4d54-8ce8-4d4b9eb4d69e",
+					"raw": "{{base_url}}/item/{{sushi}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"item",
-						"a8b93f6a-1196-4d54-8ce8-4d4b9eb4d69e"
+						"{{sushi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item by ItemID Copy - COME HERE AFTER YOU DELETE FLAN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/{{flan}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"{{flan}}"
 					]
 				}
 			},
@@ -143,15 +161,12 @@
 		},
 		{
 			"name": "Create Item",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"itemName\": \"\",\n    \"itemDescription\": \"\",\n    \"itemPrice\": 9.99,\n    \"itemImg\": \"\",\n    \"restaurantID\": \"\",\n    \"menusID\": \"\"\n}",
+					"raw": "{\n    \"itemName\": \"Dr.H Special\",\n    \"itemDescription\": \"Dr.H Special item\",\n    \"itemPrice\": 9.99,\n    \"itemImg\": \"\",\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menusID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -215,7 +230,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"restaurantID\": \"b061d732-e85c-11ed-a05b-0242ac120003\",\n    \"menuName\": \"Special\",\n    \"menuDescription\": \"Class Special menu\",\n    \"menuSections\": {\n        \"Mains\": [],\n        \"Dessert\": [],\n        \"Drinks\": []\n    },\n    \"menuStartTime\": \"1600\",\n    \"menuEndTime\": \"2100\"\n}",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuName\": \"Special\",\n    \"menuDescription\": \"Class Special menu\",\n    \"menuSections\": {\n        \"Mains\": [],\n        \"Dessert\": [],\n        \"Drinks\": []\n    },\n    \"menuStartTime\": \"1600\",\n    \"menuEndTime\": \"2100\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,7 +260,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\",\n    \"sectionName\": \"Test\"\n}",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"36e64bd5-fd9c-430e-9361-a3062496b873\",\n    \"sectionName\": \"Test\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -273,7 +288,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\",\n    \"sectionName\": \"Sides\",\n    \"itemID\": \"b061f2c6-e85c-11ed-a05b-0242ac120003\"\n}",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"36e64bd5-fd9c-430e-9361-a3062496b873\",\n    \"sectionName\": \"Test\",\n    \"itemID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -301,7 +316,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"restaurantID\": \"b061d732-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"78558d86-b5ed-4da7-9bc7-059f09a565c0\",\n    \"startTime\": \"0800\",\n    \"endTime\": \"1300\"\n}",
+					"raw": "{\n    \"restaurantID\": \"b061de58-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061e2f4-e85c-11ed-a05b-0242ac120003\",\n    \"startTime\": \"0800\",\n    \"endTime\": \"1300\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -317,6 +332,25 @@
 						"menus",
 						"update",
 						"menu-time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item (Flan)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/delete/{{flan}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"delete",
+						"{{flan}}"
 					]
 				}
 			},
@@ -346,7 +380,27 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8080/api",
+			"value": "http://127.0.0.1:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "restaurantOwnerID",
+			"value": "d792c6be-e89c-11ed-a05b-0242ac120003",
+			"type": "string"
+		},
+		{
+			"key": "wingmans_pub",
+			"value": "b061dffc-e85c-11ed-a05b-0242ac120003",
+			"type": "string"
+		},
+		{
+			"key": "sushi",
+			"value": "2a7198f6-bbf9-4395-a6c5-6af8ed1c5f95",
+			"type": "string"
+		},
+		{
+			"key": "flan",
+			"value": "b061f0e6-e85c-11ed-a05b-0242ac120003",
 			"type": "string"
 		}
 	]
