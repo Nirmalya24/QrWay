@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewRestaurantComponent
+    ViewRestaurantComponent,
+    ManageMenuComponent
   ],
   imports: [
     BrowserModule,
