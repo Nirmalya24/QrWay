@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -9,11 +9,22 @@ import { Router } from '@angular/router';
 })
 export class ViewRestaurantComponent {
 
-  constructor(private router: Router) {}
+  restaurant:any={
+    restaurantName:'',
+    restaurantID:'',
+    managerID:[],
+    restaurantOwnerID:'',
+    menusID:[]
+  }
+
+  @Input() currentRestaurant = [];
 
   viewRestaurant() {
-
+   
     // Navigate to the restaurant details page
-    this.router.navigate(['/restaurant-details']);
+    //this.router.navigate(['/restaurant-details']);
+    
   }
+
+  
 }
