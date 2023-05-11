@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
