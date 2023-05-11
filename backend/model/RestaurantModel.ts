@@ -15,13 +15,15 @@ class RestaurantModel {
     }
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
-                {
-                    restaurantName:String,
+            {
+                restaurantName: String,
                 restaurantID: String,
-                    managerID: [String],
+                managerID: [String],
                 restaurantOwnerID: String,
-                    menusID:[String],
-                },{collection: 'Restaurants'}
+                description: String,
+                menusID: [String],
+            },
+            { collection: 'Restaurants' }
         );
     }
 
