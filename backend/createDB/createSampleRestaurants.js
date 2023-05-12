@@ -10,6 +10,7 @@ const restaurantData = [
         managerID: ["d792c9a2-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "Bring one bring all! We serve breakfast all day!",
+        tag: "Breakfast",
         menusID: ["b061cc9c-e85c-11ed-a05b-0242ac120003"],
     },
     {
@@ -18,6 +19,7 @@ const restaurantData = [
         managerID: ["d792cb46-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "To be frank with you, we have the best hot dogs in town!",
+        tag: "Hot Dawgs",
         menusID: ["b061e16e-e85c-11ed-a05b-0242ac120003"],
     },
     {
@@ -26,6 +28,7 @@ const restaurantData = [
         managerID: ["d792ccc2-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "A diner with a little bit of everything!",
+        tag: "Diner",
         menusID: ["b061e2f4-e85c-11ed-a05b-0242ac120003"],
     },
     {
@@ -34,6 +37,7 @@ const restaurantData = [
         managerID: ["d792d136-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "A pub with the best wings in town!",
+        tag: "Wings",
         menusID: ["b061e466-e85c-11ed-a05b-0242ac120003"],
     }
 ];
