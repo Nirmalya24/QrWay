@@ -3,6 +3,6 @@
 /backend/package-lock.json
 /frontend/package-lock.json
 .env
+!./backend/createDB/*
 *.js
-!createDB/*
 .DS_Store

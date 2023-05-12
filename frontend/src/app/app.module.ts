@@ -7,12 +7,20 @@ import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-r
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutComponent } from './layout/layout.component';
+import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewRestaurantComponent,
-    ManageMenuComponent
+    ManageMenuComponent,
+    LayoutComponent,
+    RestaurantDashboardComponent,
+    HomeComponent,
+    DashboardRestaurantCardComponent
   ],
   imports: [
     BrowserModule,
