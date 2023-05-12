@@ -37,7 +37,7 @@ export class ViewRestaurantComponent {
   }
 
   ngOnInit(){
-    this.viewRestaurant();
+    // this.viewRestaurant();
   }
   
 }
