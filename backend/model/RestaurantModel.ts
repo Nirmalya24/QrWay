@@ -21,6 +21,8 @@ class RestaurantModel {
                 managerID: [String],
                 restaurantOwnerID: String,
                 description: String,
+                tag: String,
+                resturantImage: String,
                 menusID: [String],
             },
             { collection: 'Restaurants' }
