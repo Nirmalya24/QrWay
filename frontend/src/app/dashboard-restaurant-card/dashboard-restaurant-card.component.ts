@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { DashboardServiceService } from '../services/dashboard-service.service';
+import { DashboardService } from '../services/dashboard/dashboard.service';
+import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
 
 @Component({
   selector: 'app-dashboard-restaurant-card',
@@ -10,10 +11,14 @@ import { DashboardServiceService } from '../services/dashboard-service.service';
 })
 export class DashboardRestaurantCardComponent {
   baseURL: string = 'http://localhost:8000/api';
-  menuID: string = 'b061d548-e85c-11ed-a05b-0242ac120003';
+  menuID: string = 'b061cc9c-e85c-11ed-a05b-0242ac120003';
   menus: any = '';
+  
+  @Input() currentRestaurant!: IRestaurantModelAngular;
 
-  constructor(private router: Router, private http: HttpClient, dashboardService: DashboardServiceService) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.currentRestaurant = {} as IRestaurantModelAngular
+   }
 
   restaurant: any = {
     restaurantName: '',
@@ -23,7 +28,7 @@ export class DashboardRestaurantCardComponent {
     menusID: []
   }
 
-  @Input() currentRestaurant = [];
+  
 
   public viewRestaurant(): any {
     this.http.get<any>(`${this.baseURL}/menus/${this.menuID}`).subscribe(data => {
@@ -37,6 +42,7 @@ export class DashboardRestaurantCardComponent {
   }
 
   ngOnInit() {
+    console.log("[Dashboard Restaurant Card]", this.currentRestaurant);
     this.viewRestaurant();
   }
 }
