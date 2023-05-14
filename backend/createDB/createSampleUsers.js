@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors');
 
-const url = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authMechanism=DEFAULT';
+const url = 'mongodb://qrway_admin:qrway_password@127.0.0.1:27017/qrway_db?authMechanism=DEFAULT';
 
 const userData = [
     {   //restaurant owner
