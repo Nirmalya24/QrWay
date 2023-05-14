@@ -39,9 +39,11 @@ class App {
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     this.expressApp.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers','Content-Type');
       next();
     });
   }
+  
 
   // Configure API endpoints.
   private routes(): void {
@@ -105,6 +107,36 @@ class App {
       this.RestaurantManagers.createRestaurantManager(res, createManager);
     });
 
+   /**
+     * update restaurant by ID
+     * @param restaurantID - restaurant ID for which to get a specific restaurant
+     * @param managerID - restaurant ID for which to get a specific restaurant
+     * @param menuID - restaurant ID for which to get a specific restaurant
+     */
+
+   router.post("/api/restaurantmanagers/update-manager", async (req, res) => {
+    console.log(
+      "Update manager with ManagerId: " + req.body.UserID
+    );
+    let filter: object = {
+      userID: req.body.userID
+    };
+
+    let update:object={
+      managerName:req.body.managerName,
+      restaurantOwnerID:req.body.restaurantOwnerID,
+      restaurantID:req.body.restaurantID
+    }
+    console.log(filter);
+    console.log(update);
+
+    const result = await this.RestaurantManagers.updateManagerByID(filter,update);
+    res.json(result);
+  });    
+
+
+
+
     /* Restaurant Routes */
 
     /**
@@ -135,7 +167,30 @@ class App {
       const result = await this.Restaurants.getRestaurantByID(filter);
       res.json(result);
     });
+     /**
+     * update restaurant by ID
+     * @param restaurantID - restaurant ID for which to get a specific restaurant
+     * @param managerID - restaurant ID for which to get a specific restaurant
+     * @param menuID - restaurant ID for which to get a specific restaurant
+     */
 
+     router.post("/api/updateRestaurant/", async (req, res) => {
+      console.log(
+        "Update Restaurant with restaurantId: " + req.body.restaurantID
+      );
+      let filter: object = {
+        restaurantID: req.body.restaurantID,
+      };
+
+      let update:object={
+        restaurantName:req.body.restaurantName,
+        managerID:req.body.managerID,
+        menusID:req.body.menusID
+      }
+      const result = await this.Restaurants.updateRestaurantByID(filter,update);
+      res.json(result);
+    });  
+    
     /* Item Routes */
 
     /* GET Routes */

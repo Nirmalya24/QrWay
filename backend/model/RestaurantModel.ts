@@ -81,6 +81,26 @@ class RestaurantModel {
             throw err;
         }
     }
+    /**
+     * update restaurant values from database that matches the provided filter
+     * 
+     *@param {Object} filter - The filter used to query database
+     *@param {Object} update - The update used to update database
+     *@returns {Promise<Object>} - A Promise resolves to the restaurant document that matches the provided filter
+     *@throws {Error} - throw error when errors occur during databse querying
+     */
+     public async updateRestaurantByID(filter: Object,update:Object): Promise<any> {
+        console.log(`[Restaurant Model] updateRestaurantByID: ${filter['restaurantID']}`);
+        console.log(`[Restaurant Model] updateRestaurantByID: ${update['restaurantName']}`);
+        try {
+            const result = await this.model.findOneAndUpdate(filter,update,{new:true});
+         //   const itemArray = await query.exec();
+            console.log("[Restaurant Model | DEBUG] UpdateRestaurant: " + result['restaurantName']);
+            return true;
+        } catch (err) {
+            throw err;
+        }
+    }
 
 }
 export {RestaurantModel};
