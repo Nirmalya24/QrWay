@@ -104,7 +104,8 @@ export class EditRestaurantComponent {
 
 
   public async getManagers():Promise<any> {
-    this.http.get<any>(`${this.baseURL}/restaurantmanagers/d792c6be-e89c-11ed-a05b-0242ac120003`).subscribe(data => {
+    console.log("this.curRestaurant.restaurantOwnerID:"+this.curRestaurant.restaurantOwnerID);
+    this.http.get<any>(`${this.baseURL}/restaurantmanagers/${this.curRestaurant.restaurantOwnerID}`).subscribe(data => {
       this.managers= data;
       console.log("get managers from API"+this.managers);
       this.managers.map(manager=>{
@@ -212,6 +213,7 @@ export class EditRestaurantComponent {
         console.log("curRes"+curRes['managerID'].split(",")[1] );
      
       this.curRestaurant.restaurantID=curRes['restaurantID'];
+      this.curRestaurant.restaurantOwnerID=curRes['restaurantOwnerID'];
       this.curRestaurant.managerID=curRes['managerID'].split(",")
       this.curRestaurant.menusID=curRes['menusID'].split(",")
       this.curRestaurant.restaurantName=curRes['restaurantName'];
