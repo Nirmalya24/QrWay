@@ -11,6 +11,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/da
     LayoutComponent,
     RestaurantDashboardComponent,
     HomeComponent,
-    DashboardRestaurantCardComponent
+    DashboardRestaurantCardComponent,
+    EditRestaurantComponent
   ],
   imports: [
     BrowserModule,

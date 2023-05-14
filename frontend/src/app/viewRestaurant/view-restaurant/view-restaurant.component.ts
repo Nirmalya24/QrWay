@@ -39,5 +39,9 @@ export class ViewRestaurantComponent {
   ngOnInit(){
     // this.viewRestaurant();
   }
+
+  goToEditPage() {
+    this.router.navigate(['/edit-restaurant']);
+  }
   
 }

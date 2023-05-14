@@ -5,12 +5,14 @@ import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-
 import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
 import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
 import { AppComponent } from './app.component';
+import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
   //{path: 'viewRes', component: ViewRestaurantComponent},
-  {path: 'menus', component: ManageMenuComponent}
+  {path: 'menus', component: ManageMenuComponent},
+  {path: 'edit-restaurant', component: EditRestaurantComponent}
 ];
 
 @NgModule({

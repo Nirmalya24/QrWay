@@ -32,11 +32,14 @@ export class DashboardRestaurantCardComponent {
     })
 
     //this.router.navigate(['/menus']);
-    console.log('redirect success')
+    console.log('redirect success'); 
 
   }
+
 
   ngOnInit() {
     this.viewRestaurant();
   }
+
+  
 }
