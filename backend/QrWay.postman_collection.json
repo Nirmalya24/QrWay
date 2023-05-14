@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "29027f5c-932e-4202-9ab7-7f453f6041fc",
+		"name": "QrWay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11378101"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Restaurant Managers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurantmanagers/{{restaurantOwnerID}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurantmanagers",
+						"{{restaurantOwnerID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new restaurant manager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantOwnerID\": \"{{restaurantOwnerID}}\",\n    \"password\": \"pwd\",\n    \"managerName\": \"Manager Joe\",\n    \"restaurantID\": \"b061dffc-e85c-11ed-a05b-0242ac120003\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/restaurantmanagers/create-manager",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurantmanagers",
+						"create-manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Restaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurant/all/{{restaurantOwnerID}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurant",
+						"all",
+						"{{restaurantOwnerID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A single restaurant by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/restaurant/{{wingmans_pub}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"restaurant",
+						"{{wingmans_pub}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/all",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item by ItemID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/{{sushi}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"{{sushi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Item by ItemID Copy - COME HERE AFTER YOU DELETE FLAN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/{{flan}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"{{flan}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemName\": \"Dr.H Special\",\n    \"itemDescription\": \"Dr.H Special item\",\n    \"itemPrice\": 9.99,\n    \"itemImg\": \"\",\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menusID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/item/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Menus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/menus/b061d548-e85c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"b061d548-e85c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get menu sections for a restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/menus/b061d548-e85c-11ed-a05b-0242ac120003/b061cc9c-e85c-11ed-a05b-0242ac120003",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"b061d548-e85c-11ed-a05b-0242ac120003",
+						"b061cc9c-e85c-11ed-a05b-0242ac120003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Menu",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuName\": \"Special\",\n    \"menuDescription\": \"Class Special menu\",\n    \"menuSections\": {\n        \"Mains\": [],\n        \"Dessert\": [],\n        \"Drinks\": []\n    },\n    \"menuStartTime\": \"1600\",\n    \"menuEndTime\": \"2100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/menus/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"menus",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Section",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"36e64bd5-fd9c-430e-9361-a3062496b873\",\n    \"sectionName\": \"Test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/menus/add/section",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"add",
+						"section"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item to an existing section",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061d548-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"36e64bd5-fd9c-430e-9361-a3062496b873\",\n    \"sectionName\": \"Test\",\n    \"itemID\": \"b061cc9c-e85c-11ed-a05b-0242ac120003\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/items/add/item",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"items",
+						"add",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Menu Time",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurantID\": \"b061de58-e85c-11ed-a05b-0242ac120003\",\n    \"menuID\": \"b061e2f4-e85c-11ed-a05b-0242ac120003\",\n    \"startTime\": \"0800\",\n    \"endTime\": \"1300\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/menus/update/menu-time",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menus",
+						"update",
+						"menu-time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Item (Flan)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/item/delete/{{flan}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"item",
+						"delete",
+						"{{flan}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "restaurantOwnerID",
+			"value": "d792c6be-e89c-11ed-a05b-0242ac120003",
+			"type": "string"
+		},
+		{
+			"key": "wingmans_pub",
+			"value": "b061dffc-e85c-11ed-a05b-0242ac120003",
+			"type": "string"
+		},
+		{
+			"key": "sushi",
+			"value": "2a7198f6-bbf9-4395-a6c5-6af8ed1c5f95",
+			"type": "string"
+		},
+		{
+			"key": "flan",
+			"value": "b061f0e6-e85c-11ed-a05b-0242ac120003",
+			"type": "string"
+		}
+	]
+}

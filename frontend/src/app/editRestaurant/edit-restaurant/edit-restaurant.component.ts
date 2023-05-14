@@ -172,7 +172,9 @@ export class EditRestaurantComponent {
           console.log(isupdate);
       })
   }
+
   public setUpdateRestaurant():void{
+ 
 
     this.curRestaurant.managerID.splice(0,this.curRestaurant.managerID.length);
     this.curRestaurant.menusID.splice(0,this.curRestaurant.menusID.length);
