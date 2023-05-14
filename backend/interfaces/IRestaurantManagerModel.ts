@@ -4,6 +4,6 @@ import { IUsersModel } from "./IUsersModel";
 interface IRestaurantManagerModel extends IUsersModel {
     managerName: string;
     restaurantOwnerID: string;
-    restuarantID: string;
+    restuarantID: [String];
 }
 export {IRestaurantManagerModel};
