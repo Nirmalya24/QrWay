@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { CreateRestaurantDialogComponent } from '../create-restaurant-dialog/create-restaurant-dialog.component';
 
 @Component({
   selector: 'app-layout',
@@ -8,13 +8,16 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+  }
 
   openDialog() {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(CreateRestaurantDialogComponent, {
       data: {
-        title: 'Dialog Title',
-        message: 'This is the dialog message'
+        title: 'Create a new restaurant',
       }
     });
   }
