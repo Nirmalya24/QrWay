@@ -5,11 +5,15 @@ import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+// Services
 import { DashboardService } from './services/dashboard/dashboard.service';
+import {CreateRestaurantService} from "./services/dashboard/create-restaurant.service";
+// Material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -40,7 +44,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatInputModule
   ],
-  providers: [DashboardService, HttpClientModule],
+  providers: [DashboardService, CreateRestaurantService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
