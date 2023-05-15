@@ -13,7 +13,10 @@ import { DashboardService } from './services/dashboard/dashboard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './dialog/dialog.component';
+import { CreateRestaurantDialogComponent } from './create-restaurant-dialog/create-restaurant-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,7 @@ import { DialogComponent } from './dialog/dialog.component';
     RestaurantDashboardComponent,
     HomeComponent,
     DashboardRestaurantCardComponent,
-    DialogComponent
+    CreateRestaurantDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,10 @@ import { DialogComponent } from './dialog/dialog.component';
     NgbModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [DashboardService, HttpClientModule],
   bootstrap: [AppComponent]
