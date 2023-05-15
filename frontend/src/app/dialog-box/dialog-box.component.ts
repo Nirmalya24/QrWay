@@ -13,5 +13,11 @@ export class DialogBoxComponent {
     //TODO: add code for deleting a restaurant
 
     console.log("RESTAURANT DELETION TRIGGERED");
+    this.dialogRef.close();
+  }
+
+  dontDeleteRestaurant() {
+
+    this.dialogRef.close();
   }
 }
