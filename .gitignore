@@ -6,3 +6,4 @@
 !./backend/createDB/*
 *.js
 .DS_Store
+.idea/*
