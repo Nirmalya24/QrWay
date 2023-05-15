@@ -8,4 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogBoxComponent {
   constructor(public dialogRef: MatDialogRef<DialogBoxComponent>) {}
+
+  deleteRestaurant() {
+    //TODO: add code for deleting a restaurant
+
+    console.log("RESTAURANT DELETION TRIGGERED");
+  }
 }

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Delete file</h1>
+
 <div mat-dialog-content>
-  Would you like to delete cat.jpeg?
+  <p>Are you sure you want to delete?</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  <button mat-button>No Thanks</button>
+  <button mat-button (click)="deleteRestaurant()">Ok</button>
 </div>
