@@ -2,24 +2,4 @@
 
 
 
-
-<!-- modal button -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmRestaurantDeletion">
-Delete
-</button>
-  
-<!-- Modal -->
-
-<div class="modal fade" id="confirmRestaurantDeletion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="dialog">
-    <div class="modal-content">
-    <div class="modal-body">
-    Are you sure you want to delete?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
-    </div>
-    </div>
-</div>
-</div>
+<button mat-raised-button (click)="openDeleteDialog()">Open dialog</button>

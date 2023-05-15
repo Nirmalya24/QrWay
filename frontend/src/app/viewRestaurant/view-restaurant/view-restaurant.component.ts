@@ -40,7 +40,7 @@ export class ViewRestaurantComponent {
     // this.viewRestaurant();
   }
 
-  goToEditPage() {
+  public goToEditPage() {
     this.router.navigate(['/edit-restaurant']);
   }
   
