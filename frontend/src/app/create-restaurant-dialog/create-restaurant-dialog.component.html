@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="addRestaurantForm" class="add-restaurant-form">
+  <!-- Add error message for restaurantName field -->
+  <mat-error *ngIf="restaurantName.invalid && (restaurantName.dirty || restaurantName.touched)">
+    Restaurant Name is required.
+  </mat-error>
+  
+    <mat-form-field appearance="outline">
+    
+    
+
+    <mat-label>Restaurant Name</mat-label>
+    <input
+      matInput
+      placeholder="Restaurant Name"
+      [formControl]="restaurantName"
+      required
+    />
+  </mat-form-field>
+
+  
+
+  <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+    Description is required.
+  </mat-error>
+
+  <mat-form-field appearance="outline">
+    <!-- Add error message for description field -->
+  
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      placeholder="Description"
+      [formControl]="description"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <!-- Add error message for tag field -->
+  <mat-error *ngIf="tag.invalid && (tag.dirty || tag.touched)">
+    Tag is required.
+  </mat-error>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tag</mat-label>
+    <input
+      matInput
+      placeholder="Tag"
+      [formControl]="tag"
+      required
+    />
+  </mat-form-field>
+
+  
+
+  <!-- Add error message for imageUrl field -->
+  <mat-error *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)">
+    Image URL is required.
+  </mat-error>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Image URL</mat-label>
+    <input
+      matInput
+      placeholder="Image URL"
+      [formControl]="imageUrl"
+      required
+    />
+  </mat-form-field>
+
+  
+</form>
+
+
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions-position">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Add</button>
+</mat-dialog-actions>
