@@ -10,8 +10,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+// import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -21,14 +25,17 @@ import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.compo
     LayoutComponent,
     RestaurantDashboardComponent,
     HomeComponent,
-    DashboardRestaurantCardComponent,
-    EditRestaurantComponent
+    EditRestaurantComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
