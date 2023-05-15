@@ -5,10 +5,10 @@
   <mat-error *ngIf="restaurantName.invalid && (restaurantName.dirty || restaurantName.touched)">
     Restaurant Name is required.
   </mat-error>
-  
+
     <mat-form-field appearance="outline">
-    
-    
+
+
 
     <mat-label>Restaurant Name</mat-label>
     <input
@@ -19,7 +19,7 @@
     />
   </mat-form-field>
 
-  
+
 
   <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
     Description is required.
@@ -27,7 +27,7 @@
 
   <mat-form-field appearance="outline">
     <!-- Add error message for description field -->
-  
+
     <mat-label>Description</mat-label>
     <textarea
       matInput
@@ -52,10 +52,10 @@
     />
   </mat-form-field>
 
-  
+
 
   <!-- Add error message for imageUrl field -->
-  <mat-error *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)">
+  <mat-error *ngIf="restaurantImage.invalid && (restaurantImage.dirty || restaurantImage.touched)">
     Image URL is required.
   </mat-error>
 
@@ -64,12 +64,12 @@
     <input
       matInput
       placeholder="Image URL"
-      [formControl]="imageUrl"
+      [formControl]="restaurantImage"
       required
     />
   </mat-form-field>
 
-  
+
 </form>
 
 
