@@ -4,7 +4,7 @@
             <p class="card-text">{{currentRestaurant.description}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                    <button class="btn btn-primary"> View </button>
+                    <button class="btn btn-primary" (click)="viewRestaurant()"> View </button>
                     <button class="btn btn-warning"> Edit </button>
                 </div>
             <small class="text-muted">{{currentRestaurant.tag}}</small>

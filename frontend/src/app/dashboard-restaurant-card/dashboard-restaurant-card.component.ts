@@ -16,6 +16,7 @@ export class DashboardRestaurantCardComponent {
   
   @Input() currentRestaurant!: IRestaurantModelAngular;
 
+
   constructor(private router: Router, private http: HttpClient) {
     this.currentRestaurant = {} as IRestaurantModelAngular
    }
@@ -28,21 +29,13 @@ export class DashboardRestaurantCardComponent {
     menusID: []
   }
 
-  
-
   public viewRestaurant(): any {
-    this.http.get<any>(`${this.baseURL}/menus/${this.menuID}`).subscribe(data => {
-      this.menus = data;
-      console.log(this.menus);
-    })
-
-    //this.router.navigate(['/menus']);
-    console.log('redirect success')
+    this.router.navigate(['/menus']);
+    console.log('[view button clicked] redirect to', this.currentRestaurant.restaurantID)
 
   }
 
   ngOnInit() {
     console.log("[Dashboard Restaurant Card]", this.currentRestaurant);
-    this.viewRestaurant();
   }
 }
