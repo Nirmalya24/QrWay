@@ -20,6 +20,4 @@ export class RestaurantDashboardComponent {
     console.log(`Restaurants: ${this.restaurants}`);
   }
 
-
-
 }
