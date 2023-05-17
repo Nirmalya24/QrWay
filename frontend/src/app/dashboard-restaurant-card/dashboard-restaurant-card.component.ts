@@ -1,19 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { DashboardServiceService } from '../services/dashboard-service.service';
+import { DashboardService } from '../services/dashboard/dashboard.service';
+import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
 
 @Component({
   selector: 'app-dashboard-restaurant-card',
   templateUrl: './dashboard-restaurant-card.component.html',
-  styleUrls: ['./dashboard-restaurant-card.component.css']
+  styleUrls: ['./dashboard-restaurant-card.component.css'],
 })
 export class DashboardRestaurantCardComponent {
   baseURL: string = 'http://localhost:8000/api';
-  menuID: string = 'b061d548-e85c-11ed-a05b-0242ac120003';
+  menuID: string = 'b061cc9c-e85c-11ed-a05b-0242ac120003';
   menus: any = '';
+  
+  @Input() currentRestaurant!: IRestaurantModelAngular;
+  //restaurantData = this.currentRestaurant.restaurantID;
 
-  constructor(private router: Router, private http: HttpClient, dashboardService: DashboardServiceService) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.currentRestaurant = {} as IRestaurantModelAngular
+   }
 
   restaurant: any = {
     restaurantName: '',
@@ -23,21 +29,13 @@ export class DashboardRestaurantCardComponent {
     menusID: []
   }
 
-  @Input() currentRestaurant = [];
-
   public viewRestaurant(): any {
-    this.http.get<any>(`${this.baseURL}/menus/${this.menuID}`).subscribe(data => {
-      this.menus = data;
-      console.log(this.menus);
-    })
-
-    //this.router.navigate(['/menus']);
-    console.log('redirect success')
+    this.router.navigate(['/menus', {"restaurantID":this.currentRestaurant.restaurantID}]);
+    console.log('[view button clicked] redirect to', this.currentRestaurant.restaurantID)
 
   }
 
   ngOnInit() {
-    this.viewRestaurant();
-    this.restaurant=this.currentRestaurant;
+    console.log("[Dashboard Restaurant Card]", this.currentRestaurant);
   }
 }

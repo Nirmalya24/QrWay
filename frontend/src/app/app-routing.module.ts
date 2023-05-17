@@ -10,7 +10,6 @@ import { EditRestaurantComponent } from './editRestaurant/edit-restaurant/edit-r
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
-  //{path: 'viewRes', component: ViewRestaurantComponent},
   {path: 'menus', component: ManageMenuComponent},
   {path:'editRes',component:EditRestaurantComponent}
 ];

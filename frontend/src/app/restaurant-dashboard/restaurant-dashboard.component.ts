@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { DashboardService } from '../services/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-restaurant-dashboard',
@@ -10,19 +11,13 @@ export class RestaurantDashboardComponent {
   private baseURL: string = 'http://localhost:8000/api';
   public restaurants: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.getRestaurants();
-  }
-
-  public getRestaurants(): any {
-    this.http.get<any>(`${this.baseURL}/restaurant/all/d792c6be-e89c-11ed-a05b-0242ac120003`).subscribe(data => {
-      this.restaurants = data;
-
-    })
-    console.log(`[Restaurant Dashboard]: All Restaurants onInit: ${this.restaurants}`);
-
+    this.dashboardService.getAllRestaurants().subscribe((res: any) => {
+      this.restaurants = res;
+    });
+    console.log(`Restaurants: ${this.restaurants}`);
   }
 
 }

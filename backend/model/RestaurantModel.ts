@@ -22,9 +22,8 @@ class RestaurantModel {
                 restaurantOwnerID: String,
                 description: String,
                 menusID: [String],
-                tag:String,
-                restaurantImage
-                :String
+                tag: String,
+                restaurantImage: String
             },
             { collection: 'Restaurants' }
         );
@@ -32,6 +31,30 @@ class RestaurantModel {
 
     public createModel(): void {
         this.model = mongooseConnection.model<IRestaurantModel>("Restaurants", this.schema);
+    }
+
+    /**
+     * Create a new restaurant in database
+     * @param {Object} response - HTTP response Object
+     * @param {Object} restaurantObj - The restaurant object to be created
+     * - restaurantName: string;
+     * - restaurantID:string;
+     * - managerID:[string];
+     * - restaurantOwnerID: string;
+     * - description: string;
+     * - tag: string;
+     * - restaurantImage: string;
+     */
+    public async createRestaurant(response: any, restaurantObj: any): Promise<any> {
+        try {
+            console.log("[Restaurant Model] Creating restaurant...");
+            const query = new this.model(restaurantObj);
+            const item = await query.save();
+            console.log("[Restaurant Model | DEBUG] createRestaurant: " + item);
+            response.json(item);
+        } catch (err) {
+            throw err;
+        }
     }
 
     /**

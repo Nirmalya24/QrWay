@@ -13,7 +13,7 @@ class DataAccess {
     static connect(): Mongoose.Connection {
         if (this.mongooseInstance) return this.mongooseInstance;
 
-        this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING, { useNewUrlParser: true });
+        this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
         this.mongooseConnection = Mongoose.connection;
         this.mongooseConnection.on("open", () => {

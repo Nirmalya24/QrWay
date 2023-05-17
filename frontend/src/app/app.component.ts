@@ -20,7 +20,6 @@ export class AppComponent {
       this.restaurants = data;
     })
   }
-  
 
   ngOnInit(){}
 
