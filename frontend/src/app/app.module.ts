@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 // Services
 import { DashboardService } from './services/dashboard/dashboard.service';
 import {CreateRestaurantService} from "./services/dashboard/create-restaurant.service";
@@ -30,7 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     RestaurantDashboardComponent,
     HomeComponent,
     DashboardRestaurantCardComponent,
-    CreateRestaurantDialogComponent
+    CreateRestaurantDialogComponent,
+    EditRestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -42,46 +45,47 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   providers: [DashboardService, CreateRestaurantService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LayoutComponent } from './layout/layout.component';
-import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
-import { HomeComponent } from './home/home.component';
-import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
-import { EditRestaurantComponent } from './editRestaurant/edit-restaurant/edit-restaurant.component';
+// import { NgModule } from '@angular/core';
+// import { BrowserModule } from '@angular/platform-browser';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    ViewRestaurantComponent,
-    ManageMenuComponent,
-    LayoutComponent,
-    RestaurantDashboardComponent,
-    HomeComponent,
-    DashboardRestaurantCardComponent,
-    EditRestaurantComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+// import { AppRoutingModule } from './app-routing.module';
+// import { AppComponent } from './app.component';
+// import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
+// import { HttpClient, HttpClientModule } from '@angular/common/http';
+// import { ManageMenuComponent } from './manageMenu/manage-menu/manage-menu.component';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { LayoutComponent } from './layout/layout.component';
+// import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
+// import { HomeComponent } from './home/home.component';
+// import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+
+
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//     ViewRestaurantComponent,
+//     ManageMenuComponent,
+//     LayoutComponent,
+//     RestaurantDashboardComponent,
+//     HomeComponent,
+//     DashboardRestaurantCardComponent,
+//     EditRestaurantComponent
+//   ],
+//   imports: [
+//     BrowserModule,
+//     AppRoutingModule,
+//     HttpClientModule,
+//     NgbModule,
+//     FormsModule
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }
