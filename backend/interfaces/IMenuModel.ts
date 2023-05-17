@@ -10,6 +10,7 @@ interface IMenuModel extends Mongoose.Document {
     menuDescription: string;
     menuStartTime: string;
     menuEndTime: string;
+    public:boolean;
 }
 export { IMenuModel };
 
