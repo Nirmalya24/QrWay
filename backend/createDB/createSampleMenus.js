@@ -17,6 +17,7 @@ const menusData = [
         menuDescription: "Breakfast menu",
         menuStartTime: "07:00",
         menuEndTime: "11:00",
+        public:true,
     },
     {
         menuID: "b061e16e-e85c-11ed-a05b-0242ac120003",
@@ -31,6 +32,7 @@ const menusData = [
         menuDescription: "Lunch menu",
         menuStartTime: "11:00",
         menuEndTime: "15:00",
+        public:true,
     },
     {
         menuID: "b061e2f4-e85c-11ed-a05b-0242ac120003",
@@ -51,6 +53,7 @@ const menusData = [
         menuDescription: "Dinner menu",
         menuStartTime: "15:00",
         menuEndTime: "23:00",
+        public:true,
     },
     {
         menuID: "b061e466-e85c-11ed-a05b-0242ac120003",
@@ -65,6 +68,7 @@ const menusData = [
         menuDescription: "Brunch menu",
         menuStartTime: "10:00",
         menuEndTime: "13:00",
+        public:true,
     }
 ];
 

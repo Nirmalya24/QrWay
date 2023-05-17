@@ -1,7 +1,4 @@
-import Mongoose = require("mongoose");
-import { IItemModel } from "./IItemModel";
-
-interface IMenuModel extends Mongoose.Document {
+interface IMenuModelAngular {
     menuID: string;
     restaurantID: string;
     menuName: string;
@@ -10,8 +7,5 @@ interface IMenuModel extends Mongoose.Document {
     menuDescription: string;
     menuStartTime: string;
     menuEndTime: string;
-    public:boolean;
 }
-export { IMenuModel };
-
-
+export default IMenuModelAngular;

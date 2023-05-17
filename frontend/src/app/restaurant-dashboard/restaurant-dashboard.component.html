@@ -1,13 +1,15 @@
 <main role="main">
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6" *ngFor="let restaurant of restaurants">
-            <div class="card mb-4 box-shadow">
-              <app-view-restaurant [currentRestaurant]="restaurant"></app-view-restaurant>
-            </div>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" *ngFor="let restaurant of restaurants">
+          <div class="card mb-4 box-shadow">
+            <app-dashboard-restaurant-card
+              [currentRestaurant]="restaurant"
+            ></app-dashboard-restaurant-card>
           </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
+</main>

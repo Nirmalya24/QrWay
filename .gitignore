@@ -1,8 +1,11 @@
+<<<<<<< HEAD
+.env
+.DS_Store
+.idea/*
+/frontend/.angular/*
 /backend/node_modules/*
 /frontend/node_modules/*
 /backend/package-lock.json
 /frontend/package-lock.json
-.env
-!./backend/createDB/*
 *.js
-.DS_Store
+!/backend/createDB/*

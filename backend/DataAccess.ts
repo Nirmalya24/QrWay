@@ -3,7 +3,8 @@ import Mongoose = require("mongoose");
 class DataAccess {
     static mongooseInstance: any;
     static mongooseConnection: Mongoose.Connection;
-    static DB_CONNECTION_STRING: string = 'mongodb://qrway_admin:qrway_password@127.0.0.1:27017/qrway_db?authMechanism=DEFAULT';
+   // static DB_CONNECTION_STRING: string = 'mongodb://qrway_admin:qrway_password@127.0.0.1:27017/qrway_db?authMechanism=DEFAULT';
+   static DB_CONNECTION_STRING: string = 'mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.net/qrway_db?retryWrites=true&w=majority';
 
     constructor() {
         DataAccess.connect();
@@ -12,7 +13,7 @@ class DataAccess {
     static connect(): Mongoose.Connection {
         if (this.mongooseInstance) return this.mongooseInstance;
 
-        this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING, { useNewUrlParser: true });
+        this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
         this.mongooseConnection = Mongoose.connection;
         this.mongooseConnection.on("open", () => {

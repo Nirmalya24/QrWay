@@ -1,3 +1,4 @@
+import { restaurantModel } from './../../share/restaurantModel';
 import { Component, Input } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -13,18 +14,11 @@ export class ViewRestaurantComponent {
   menuID: string= 'b061d548-e85c-11ed-a05b-0242ac120003';
   menus:any = '';
 
-  constructor(private router: Router, private http: HttpClient) {}
-
-  restaurant:any={
-    restaurantName:'',
-    restaurantID:'',
-    managerID:[],
-    restaurantOwnerID:'',
-    menusID:[]
+  constructor(private router: Router, private http: HttpClient) {
+  //  this.restaurant=new restaurantModel();
+    this.currentRestaurant= new restaurantModel();
   }
-
-  @Input() currentRestaurant = [];
-
+  @Input() currentRestaurant;
   public viewRestaurant():any {
     this.http.get<any>(`${this.baseURL}/menus/${this.menuID}`).subscribe(data => {
       this.menus = data;
@@ -35,6 +29,16 @@ export class ViewRestaurantComponent {
     console.log('redirect success')
 
   }
+  editRes(){
+
+    var y = typeof this.currentRestaurant.managerID; 
+    console.log(" this.curRestaurant Type:"+y);
+    console.log(" this.curRestaurant:"+ this.currentRestaurant.managerID[0]);
+    console.log("clicked"+this.currentRestaurant);
+    this.router.navigate(['/editRes',this.currentRestaurant]);
+
+  }
+
 
   ngOnInit(){
     // this.viewRestaurant();

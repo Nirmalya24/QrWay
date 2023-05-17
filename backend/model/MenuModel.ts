@@ -26,7 +26,9 @@ class MenuModel {
                 menuSections: Object,
                 menuDescription: String,
                 menuStartTime: String,
-                menuEndTime: String
+                menuEndTime: String,
+                public:Boolean
+
 
             }, { collection: 'Menus' }
         );
@@ -246,6 +248,26 @@ class MenuModel {
             response.json(menuItemArray);
             this.error_message(err, response);
         });
+    }
+    /**
+     * update menu values from database that matches the provided filter
+     * 
+     *@param {Object} filter - The filter used to query database
+     *@param {Object} update - The update used to update database
+     *@returns {Promise<Object>} - A Promise resolves to the restaurant document that matches the provided filter
+     *@throws {Error} - throw error when errors occur during databse querying
+     */
+     public async updateMenuByID(filter: Object,update:Object): Promise<any> {
+        console.log(`[Menu Model] updateMenuByID: ${filter['menuID']}`);
+       
+        try {
+            const result = await this.model.findOneAndUpdate(filter,update,{new:true});
+         //   const itemArray = await query.exec();
+            console.log("[Manager Model | DEBUG] UpdateMenu: " + result);
+            return true;
+        } catch (err) {
+            throw err;
+        }
     }
 
 }

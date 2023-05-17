@@ -7,5 +7,7 @@ interface IRestaurantModel extends Mongoose.Document {
     restaurantOwnerID: string;
     description: string;
     menusID:[string],
+    tag:string,
+    restaurantImage:string
 }
 export {IRestaurantModel};

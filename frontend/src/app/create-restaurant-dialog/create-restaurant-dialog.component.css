@@ -1,0 +1,15 @@
+.add-restaurant-form {
+  padding-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-actions-position {
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-error {
+    /* margin-bottom: 0.5em; */
+    font-size: x-small;
+}
