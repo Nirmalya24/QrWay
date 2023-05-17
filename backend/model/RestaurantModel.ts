@@ -22,6 +22,9 @@ class RestaurantModel {
                 restaurantOwnerID: String,
                 description: String,
                 menusID: [String],
+                tag:String,
+                restaurantImage
+                :String
             },
             { collection: 'Restaurants' }
         );
@@ -90,12 +93,13 @@ class RestaurantModel {
      *@throws {Error} - throw error when errors occur during databse querying
      */
      public async updateRestaurantByID(filter: Object,update:Object): Promise<any> {
-        console.log(`[Restaurant Model] updateRestaurantByID: ${filter['restaurantID']}`);
-        console.log(`[Restaurant Model] updateRestaurantByID: ${update['restaurantName']}`);
+       // console.log(`[Restaurant Model] updateRestaurantByID: ${filter['restaurantID']}`);
+        console.log(`[Restaurant Model] Updatetag: ${update['tag']}`)
+        console.log(`[Restaurant Model] UpdateImage: ${update['restaurantImage']}`)
         try {
             const result = await this.model.findOneAndUpdate(filter,update,{new:true});
          //   const itemArray = await query.exec();
-            console.log("[Restaurant Model | DEBUG] UpdateRestaurant: " + result['restaurantName']);
+            console.log("[Restaurant Model | DEBUG] UpdateRestaurant: " + result);
             return true;
         } catch (err) {
             throw err;
