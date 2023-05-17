@@ -1,0 +1,86 @@
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> -->
+<div class="container justify-content-center">
+    <h2>Edit Restaurant</h2>
+
+    <div class="mb-3">
+        <label for="RestaurantName">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="curRestaurant.restaurantName" value="{{curRestaurant.restaurantName}}">
+    </div>
+    <div class="mb-3">
+        <label for="RestaurantName">Description</label>
+        <input type="text" class="form-control"  [(ngModel)]="curRestaurant.description" value="{{curRestaurant.description}}">
+    </div>  
+    <div class="mb-3">
+        <label for="RestaurantName">Tag</label>
+        <input type="text" class="form-control" [(ngModel)]="curRestaurant.tag" value="{{curRestaurant.tag}}">
+    </div>
+    <div class="mb-3">
+        <label for="RestaurantName">Imag URL</label>
+        <input type="text" class="form-control" [(ngModel)]="curRestaurant.restaurantImage" value="{{curRestaurant.restaurantImage}}">
+    </div>
+    <div class="mb-3">
+        <label for="RestaurantName">Managers</label>
+        <div class="form-group">
+            <div style="float:left">
+                <div style="float:center">Available</div>
+                <div>
+                <select class="form-select" aria-label="Disabled select example" aria-label=".form-select-lg example" size="5" multiple  (ng-model)="availableManager"  style="width:100px ; height:100px " (change)="setAvailableManager($event)">
+            <!--   <select size ="5"  ng-model="available"   style="width:100px ; height:100px ">-->
+                    <option  *ngFor="let manager of availableManagers"  id="manager.id">{{ manager.managerName }} </option>
+                </select>          
+                </div>
+            </div>
+            <div style="float:left; width: 100px; text-align:center">
+                <div>&nbsp;</div>
+                <input  type="button" class="btn btn-primary" id="move right" value=">" (click)="addManager(availableManager)" />  
+                <div>&nbsp;</div>
+                <input id="move left" type="button" class="btn btn-danger" value="<" (click)="removeManager(selectedManager)" />
+            </div>
+            <div style="float:left">
+                <div>Selected</div>
+                <div>
+                <select class="form-select" aria-label="Disabled select example" size="5"multiple  (ng-model)="selectedManager" style="width:100px;height:100px" (change)="setSelectedManager($event)">
+                <option  *ngFor="let manager of selectedManagers" id="method.id">{{ manager.managerName }}</option>
+                </select>
+                </div>
+            </div>
+            <div style="clear:both">
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="RestaurantName">Menu</label>
+        <div class="form-group">
+            <div style="float:left">
+                <div style="float:center">Unpublic</div>
+                <div>
+                    <select size="5" multiple  (ng-model)="availableMenu"  style="width:100px ; height:100px " (change)="setAvailableMenu($event)">
+            <!--   <select size ="5"  ng-model="available"   style="width:100px ; height:100px ">-->
+                    <option  *ngFor="let menu of availableMenus"  id="manager.id">{{ menu.menuName }} </option>
+                    </select>          
+                </div>
+            </div>
+            <div style="float:left; width: 100px; text-align:center">
+            <div>&nbsp;</div>
+            <input id="move right" class="btn btn-primary" type="button" value=">" (click)="addMenu(availableMenu)" />
+            <div>&nbsp;</div>
+            <input id="move left" class="btn btn-danger" type="button" value="<" (click)="removeMenu(selectedMenu)" />
+            </div>
+            <div style="float:left">
+            <div>Publiced</div>
+            <div>
+            <select size="5"multiple  (ng-model)="selectedMenu" style="width:100px;height:100px" (change)="setSelectedMenu($event)">
+                <option  *ngFor="let menu of selectedMenus" id="method.id">{{ menu.menuName }}</option>
+            </select>
+            </div>
+            </div>
+            <div style="clear:both">
+            <br/>
+            </div>
+        </div>
+    </div>
+        <button  type="submit" class="btn btn-primary" (click)="updateRestaurant()" >update</button>
+
+</div>    
