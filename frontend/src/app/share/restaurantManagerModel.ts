@@ -1,6 +1,7 @@
 export class restaurantManagerModel{
-    userID:string="";
-    managerName: string="";
-    restaurantOwnerID: string="";
-    restaurantID: string="";
+    userID!:string;
+    managerName!: string;
+    restaurantOwnerID!: string;
+    restaurantID!: [string];
+    
 }

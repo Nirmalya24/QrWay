@@ -6,9 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { restaurantManagerModel } from 'src/app/share/restaurantManagerModel';
 import { Router } from '@angular/router';
 // ...
-
-
-
 @Component({
   selector: 'app-edit-restaurant',
   templateUrl: './edit-restaurant.component.html',
@@ -45,8 +42,9 @@ export class EditRestaurantComponent {
     console.log(filter)
     if(filter.length==0) return;
     var idx =  this.availableManagers.map(e => e.managerName).indexOf(filter);
-    const item = this.availableManagers[idx];
-    console.log(item)
+    var item = this.availableManagers[idx];
+    item.restaurantID.push(this.curRestaurant.restaurantID);
+    console.log("currentManager"+ item.restaurantID); 
     this.availableManagers.splice(idx,1);
     this.selectedManagers.push(item);
     this.availableManager =[];
@@ -57,7 +55,13 @@ export class EditRestaurantComponent {
   public removeManager(filter:any):any{
     if(filter.length==0) return;
     var idx =  this.selectedManagers.map(e => e.managerName).indexOf(filter);
-    const item = this.selectedManagers[idx];
+    var item = this.selectedManagers[idx];
+    //get the index of restaurantID from the selected manager
+    var itemIdx = item.restaurantID.indexOf(this.curRestaurant.restaurantID);
+    console.log("itemIdx"+itemIdx);
+    item.restaurantID.slice(itemIdx,1);
+    console.log("currentManager:"+ item.restaurantID); 
+    //update select boxes
     this.selectedManagers.splice(idx, 1);
     this.availableManagers.push(item);
     this.availableManager =[];
@@ -68,7 +72,8 @@ export class EditRestaurantComponent {
     console.log(filter)
     if(filter.length==0) return;
     var idx =  this.availableMenus.map(e => e.menuName).indexOf(filter);
-    const item = this.availableMenus[idx];
+    var item = this.availableMenus[idx];
+    item.public=true;
     this.availableMenus.splice(idx,1);
     this.selectedMenus.push(item);
     this.availableMenu =[];
@@ -78,7 +83,8 @@ export class EditRestaurantComponent {
   public removeMenu(filter:any):any{
     if(filter.length==0) return;
     var idx =  this.selectedMenus.map(e => e.menuName).indexOf(filter);
-    const item = this.selectedMenus[idx];
+    var item = this.selectedMenus[idx];
+    item.public=false;
     this.selectedMenus.splice(idx, 1);
     this.availableMenus.push(item);
     this.availableMenu =[];
@@ -98,8 +104,8 @@ export class EditRestaurantComponent {
     this.selectedMenu= event.target.value
   }
   public setRestaurantName(event:any):any{
-    this.curRestaurant.restaurantName= event.target.value;
-  //  console.log(this.curRestaurant.restaurantName);
+    //this.curRestaurant.restaurantName= event.target.value;
+    console.log(this.curRestaurant.restaurantName);
   }
 
 
@@ -168,6 +174,7 @@ export class EditRestaurantComponent {
 
     this.setUpdateRestaurant();
     const headers ={'Content-Type':'application/json'}
+    console.log(JSON.stringify(this.curRestaurant));
     const result= this.http.post<restaurantModel>(`${this.baseURL}/updateRestaurant`,JSON.stringify(this.curRestaurant),{"headers":headers})
       .subscribe(isupdate=>{
           console.log(isupdate);
@@ -191,8 +198,15 @@ export class EditRestaurantComponent {
     });
     console.log("setSelectedManagerID:"+ this.curRestaurant.managerID);
     console.log("setselectedMenusID:"+ this.curRestaurant.menusID);
-    this.router.navigate(['/dashboard']);
+    alert('Update Success');
+    //this.router.navigate(['/dashboard']);
+    window.location.reload();
    // this.curRestaurant.managerID
+   this.router.navigate(['/editRes',this.curRestaurant])
+  .then(() => {
+    window.location.reload();
+  });
+
 
   }
 
@@ -200,8 +214,6 @@ export class EditRestaurantComponent {
     this.msg = "Button is Clicked";
     return this.msg;
   }
-  
-
   ngOnInit() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    // this.getRestaurant();
@@ -217,6 +229,9 @@ export class EditRestaurantComponent {
       this.curRestaurant.managerID=curRes['managerID'].split(",")
       this.curRestaurant.menusID=curRes['menusID'].split(",")
       this.curRestaurant.restaurantName=curRes['restaurantName'];
+      this.curRestaurant.tag=curRes['tag'];
+      this.curRestaurant.description=curRes['description'];
+      this.curRestaurant.restaurantImage=curRes['restaurantImage'];
       //console.log("this.curRestaurant.restaurantID:"+this.curRestaurant.restaurantID)
       console.log("this.curRestaurant.managerID:"+this.curRestaurant.managerID)
       this.getManagers();
