@@ -5,7 +5,10 @@
       <a href="#" class="navbar-brand d-flex align-items-center">
         <img class="" src="assets/logo.png" alt="QRWay Logo" width="100" height="auto" />
       </a>
-      <button mat-raised-button (click)="openDialog()">Add Restaurant</button>
+      <button 
+        mat-raised-button
+        *ngIf="shouldShowCreateRestaurantButton"
+        (click)="openDialog()">Create Restaurant</button>
     </div>
   </div>
 </header>
