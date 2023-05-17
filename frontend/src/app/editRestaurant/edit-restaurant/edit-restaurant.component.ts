@@ -166,11 +166,16 @@ export class EditRestaurantComponent {
   }
 
   public updateRestaurant():any{
-    if(this.selectedManagers.length==0||this.selectedMenus.length==0){
+    if(this.selectedManagers.length==0){
     //  console.log(this.selectedMenu.length)
-      alert('selected boxes must be not empty');
+      alert('Selected managers box must be not empty');
       return
     }
+    if(this.selectedMenus.length==0){
+      alert('Public menus box must be not empty');
+      return
+    }
+
 
     this.setUpdateRestaurant();
     const headers ={'Content-Type':'application/json'}
