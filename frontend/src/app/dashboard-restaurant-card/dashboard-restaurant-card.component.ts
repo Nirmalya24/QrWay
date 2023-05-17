@@ -35,6 +35,16 @@ export class DashboardRestaurantCardComponent {
 
   }
 
+  editRes(){
+
+    var y = typeof this.currentRestaurant.managerID; 
+    console.log(" this.curRestaurant Type:"+y);
+    console.log(" this.curRestaurant:"+ this.currentRestaurant.managerID[0]);
+    console.log("clicked"+this.currentRestaurant);
+    this.router.navigate(['/restaurant',this.currentRestaurant]);
+
+  }
+
   ngOnInit() {
     console.log("[Dashboard Restaurant Card]", this.currentRestaurant);
   }
