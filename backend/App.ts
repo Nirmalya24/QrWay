@@ -185,8 +185,12 @@ class App {
       let update:object={
         restaurantName:req.body.restaurantName,
         managerID:req.body.managerID,
-        menusID:req.body.menusID
+        menusID:req.body.menusID,
+        description:req.body.description,
+        restaurantImage:req.body.restaurantImage,
+        tag:req.body.tag
       }
+      console.log("update restaurants: "+update['tag']+" "+update['restaurantImage']);
       const result = await this.Restaurants.updateRestaurantByID(filter,update);
       res.json(result);
     });  
@@ -431,6 +435,37 @@ class App {
         res.status(500).json({ message: "Internal server error " });
       }
     });
+     /**
+     * update restaurant by ID
+     * @param restaurantID - restaurant ID for which to get a specific restaurant
+     * @param managerID - restaurant ID for which to get a specific restaurant
+     * @param menuID - restaurant ID for which to get a specific restaurant
+     */
+
+     router.post("/api/updateMenus/", async (req, res) => {
+      console.log(
+        "Update Restaurant with restaurantId: " + req.body.restaurantID
+      );
+      let filter: object = {
+        menuID: req.body.menuID,
+        restaurantID:req.body.restaurantID
+      };
+
+      let update:object={
+        menuName:req.body.menuName,
+        menuItems:req.body.menuItems,
+        menuSections:req.body.menuSections,
+        menuDescription:req.body.menuDescription,
+        menuStartTime:req.body.menuStartTime,
+        menuEndTime:req.body.menuEndTime,
+        public:req.body.public
+      }
+      console.log("update menu menuID: "+update['menuID']);
+      const result = await this.Menus.updateMenuByID(filter,update);
+      res.json(result);
+    });  
+
+
 
     // PATCH Routes
 
