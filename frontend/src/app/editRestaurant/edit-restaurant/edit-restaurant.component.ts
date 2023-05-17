@@ -176,7 +176,6 @@ export class EditRestaurantComponent {
       return
     }
 
-
     this.setUpdateRestaurant();
     const headers ={'Content-Type':'application/json'}
     console.log(JSON.stringify(this.curRestaurant));
