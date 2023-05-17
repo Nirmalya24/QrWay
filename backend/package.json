@@ -13,7 +13,6 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "debug": "^2.6.3",
-    "dotenv": "^16.0.3",
     "express": "^4.15.2",
     "mongodb": "^3.1.13",
     "mongoose": "^5.7.5",
@@ -33,5 +32,8 @@
     "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants && npm run populate_users"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
