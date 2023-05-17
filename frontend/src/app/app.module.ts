@@ -21,6 +21,8 @@ import { CreateRestaurantDialogComponent } from './create-restaurant-dialog/crea
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   providers: [DashboardService, CreateRestaurantService, HttpClientModule],
   bootstrap: [AppComponent]
