@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { restaurantManagerModel } from 'src/app/share/restaurantManagerModel';
 import { Router } from '@angular/router';
 import {EditRestaurantService} from  '../services/edit-restaurant/edit-restaurant.service';
+import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
+import IMenuModelAngular from '../share/IMenuModelAngular';
+import IRestaurantManagerModelAngular from '../share/IRestaurantManagerModelAngular';
 // ...
 @Component({
   selector: 'app-edit-restaurant',
@@ -13,22 +16,22 @@ import {EditRestaurantService} from  '../services/edit-restaurant/edit-restauran
   styleUrls: ['./edit-restaurant.component.css'],
 })
 export class EditRestaurantComponent {
-  curRestaurant: restaurantModel;
+  curRestaurant: IRestaurantModelAngular;
   //curRestaurantName:string="";
   msg: string = '';
   //restaurant variable
   availableManager: any[] = [];
   selectedManager: any[] = [];
-  managers: restaurantManagerModel[] = [];
-  selectedManagers: restaurantManagerModel[] = [];
-  availableManagers: restaurantManagerModel[] = [];
+  managers: IRestaurantManagerModelAngular[] = [];
+  selectedManagers: IRestaurantManagerModelAngular[] = [];
+  availableManagers: IRestaurantManagerModelAngular[] = [];
 
   //menu variable
   availableMenu: menuModel[] = [];
-  selectedMenu: menuModel[] = [];
-  menus: menuModel[] = [];
-  selectedMenus: menuModel[] = [];
-  availableMenus: menuModel[] = [];
+  selectedMenu: IMenuModelAngular[] = [];
+  menus: IMenuModelAngular[] = [];
+  selectedMenus: IMenuModelAngular[] = [];
+  availableMenus: IMenuModelAngular[] = [];
   baseURL: string = 'http://localhost:8000/api';
 
   constructor(
@@ -37,8 +40,10 @@ export class EditRestaurantComponent {
     private router: Router,
     private editRestaurantService:EditRestaurantService
   ) {
-    this.curRestaurant = new restaurantModel();
-    console.log(this.curRestaurant.managerID);
+    this.curRestaurant ={}as IRestaurantModelAngular;
+    
+    //this.curRestaurant = new restaurantModel();
+    //console.log(this.curRestaurant.managerID);
     //this.getRestaurant();
     //this.getManagers();
     // this.getMeuns();
@@ -228,10 +233,6 @@ export class EditRestaurantComponent {
   }
   ngOnInit() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // this.getRestaurant();
-    //this.getManagers();
-    //  this.getMeuns();
-
     this.route.params.subscribe((curRes) => {
       console.log('curRes' + curRes['managerID'].split(',')[1]);
 
@@ -252,5 +253,10 @@ export class EditRestaurantComponent {
 
       // use the ID to fetch the restaurant data from a data source
     });
+    // this.getRestaurant();
+    //this.getManagers();
+    //  this.getMeuns();
+
+
   }
 }
