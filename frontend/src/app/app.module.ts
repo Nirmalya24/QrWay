@@ -48,7 +48,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     FormsModule
   ],
-  providers: [DashboardService, CreateRestaurantService, HttpClientModule],
+  providers: [DashboardService, CreateRestaurantService, HttpClientModule,EditRestaurantComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

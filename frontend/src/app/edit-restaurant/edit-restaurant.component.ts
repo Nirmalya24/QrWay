@@ -5,6 +5,7 @@ import { menuModel } from 'src/app/share/menuModel';
 import { HttpClient } from '@angular/common/http';
 import { restaurantManagerModel } from 'src/app/share/restaurantManagerModel';
 import { Router } from '@angular/router';
+import {EditRestaurantService} from  '../services/edit-restaurant/edit-restaurant.service';
 // ...
 @Component({
   selector: 'app-edit-restaurant',
@@ -33,7 +34,8 @@ export class EditRestaurantComponent {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private editRestaurantService:EditRestaurantService
   ) {
     this.curRestaurant = new restaurantModel();
     console.log(this.curRestaurant.managerID);
@@ -47,7 +49,7 @@ export class EditRestaurantComponent {
     if (filter.length == 0) return;
     var idx = this.availableManagers.map((e) => e.managerName).indexOf(filter);
     var item = this.availableManagers[idx];
-    item.restaurantID.push(this.curRestaurant.restaurantID);
+   // item.restaurantID.push(this.curRestaurant.restaurantID);
     console.log('currentManager' + item.restaurantID);
     this.availableManagers.splice(idx, 1);
     this.selectedManagers.push(item);
@@ -106,22 +108,20 @@ export class EditRestaurantComponent {
   }
   public setSelectedMenu(event: any): any {
     this.selectedMenu = event.target.value;
-  }
-  public setRestaurantName(event: any): any {
-    //this.curRestaurant.restaurantName= event.target.value;
-    console.log(this.curRestaurant.restaurantName);
-  }
-
+   }
   public async getManagers(): Promise<any> {
     console.log(
       'this.curRestaurant.restaurantOwnerID:' +
         this.curRestaurant.restaurantOwnerID
     );
-    this.http
-      .get<any>(
-        `${this.baseURL}/restaurantmanagers/${this.curRestaurant.restaurantOwnerID}`
-      )
-      .subscribe((data) => {
+    
+
+    // this.http
+    //   .get<any>(
+    //     `${this.baseURL}/restaurantmanagers/${this.curRestaurant.restaurantOwnerID}`
+    //   )
+    this.editRestaurantService.getManagers(this.curRestaurant.restaurantOwnerID)
+      .subscribe((data:any) => {
         this.managers = data;
         console.log('get managers from API' + this.managers);
         this.managers.map((manager) => {
@@ -139,9 +139,8 @@ export class EditRestaurantComponent {
   }
   public async getMeuns(): Promise<any> {
     console.log('get menus' + this.curRestaurant.restaurantID);
-    this.http
-      .get<any>(`${this.baseURL}/menus/${this.curRestaurant.restaurantID}`)
-      .subscribe((data) => {
+    this.editRestaurantService.getMenus(this.curRestaurant.restaurantID)
+      .subscribe((data:any) => {
         this.menus = data;
         console.log('get managers from API' + this.managers);
         this.menus.map((menu) => {
@@ -187,17 +186,18 @@ export class EditRestaurantComponent {
     }
 
     this.setUpdateRestaurant();
-    const headers = { 'Content-Type': 'application/json' };
-    console.log(JSON.stringify(this.curRestaurant));
-    const result = this.http
-      .post<restaurantModel>(
-        `${this.baseURL}/updateRestaurant`,
-        JSON.stringify(this.curRestaurant),
-        { headers: headers }
-      )
-      .subscribe((isupdate) => {
-        console.log(isupdate);
-      });
+    this.editRestaurantService.updateRestaurant(this.curRestaurant);
+    // const headers = { 'Content-Type': 'application/json' };
+    // console.log(JSON.stringify(this.curRestaurant));
+    // const result = this.http
+    //   .post<restaurantModel>(
+    //     `${this.baseURL}/updateRestaurant`,
+    //     JSON.stringify(this.curRestaurant),
+    //     { headers: headers }
+    //   )
+    //   .subscribe((isupdate) => {
+    //     console.log(isupdate);
+    //   });
   }
 
   public setUpdateRestaurant(): void {
@@ -216,13 +216,12 @@ export class EditRestaurantComponent {
     console.log('setselectedMenusID:' + this.curRestaurant.menusID);
     alert('Update Success');
     //this.router.navigate(['/dashboard']);
-    window.location.reload();
+   // window.location.reload();
     // this.curRestaurant.managerID
-    this.router.navigate(['/editRes', this.curRestaurant]).then(() => {
-      window.location.reload();
-    });
+     this.router.navigate(['/restaurant', this.curRestaurant]).then(() => {
+       window.location.reload();
+     });
   }
-
   clickEvent() {
     this.msg = 'Button is Clicked';
     return this.msg;
