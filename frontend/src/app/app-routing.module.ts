@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full' },
   {path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
   {path: 'menus', component: ManageMenuComponent},
-  {path:'restaurant/:restaurantID',component:EditRestaurantComponent},
+  {path: 'menus/:restaurantID', component: AllMenusComponent, pathMatch: 'full'},
   {path: 'menus/:restaurantID/:menuID', component: ManageMenuComponent, pathMatch: 'full'},
   {path:'restaurant',component:EditRestaurantComponent}
 ];
