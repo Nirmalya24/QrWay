@@ -6,11 +6,12 @@ import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { ViewRestaurantComponent } from './viewRestaurant/view-restaurant/view-restaurant.component';
 import { AppComponent } from './app.component';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
+import { AllMenusComponent } from './all-menus/all-menus.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
-  {path: 'menus', component: ManageMenuComponent},
+  {path: 'menus/:restaurantID', component: AllMenusComponent, pathMatch: 'full'},
   {path:'restaurant',component:EditRestaurantComponent}
 ];
 
