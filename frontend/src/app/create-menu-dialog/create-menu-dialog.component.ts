@@ -51,11 +51,11 @@ export class CreateMenuDialogComponent {
       // Process the form data here
       this.sendNewMenu.menuName = this.menuForm.value.menuName;
       this.sendNewMenu.menuDescription = this.menuForm.value.menuDescription;
-      // create an object with menuSections as keys and empty array as values
+      // convert form's menuSection array to object with the array values are keys and empty array as values
       let menuSectionsObject: any = {};
       this.menuForm.value.menuSections.forEach((section: string) => {
-        console.log("[CreateMenuDialog] section: ", section);
         menuSectionsObject[section] = [];
+        console.log("[CreateMenuDialog] section: ", section);
       });
       console.log("[CreateMenuDialog] menuSectionsObject: ", menuSectionsObject);
       this.sendNewMenu.menuSections = menuSectionsObject;
