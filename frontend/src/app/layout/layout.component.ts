@@ -27,11 +27,17 @@ export class LayoutComponent {
 
   ngOnInit(): void {
     this.evaluateConditions();
+    
   }
 
   private evaluateConditions(): void {
     this.shouldShowCreateRestaurantButton = this.router.url === '/dashboard';
     this.shouldShowCreateMenuButton = this.checkDynamicURL();
+    this.route.params.subscribe(params => {
+      const restaurantID = params['restaurantID']; // Assuming 'restaurantID' is the parameter name in your route
+      console.log("[LayoutComponent]: restaurantID: ", restaurantID); // Use the ID as needed in your component logic
+      console.log("[LayoutComponent]: router.url: ", this.router.url.split('/')[2]);
+    });
   }
 
   checkDynamicURL(): boolean {
@@ -54,7 +60,8 @@ export class LayoutComponent {
     this.dialog.open(CreateMenuDialogComponent, {
       data: {
         title: 'Create a new menu',
-        restaurantID: "testID"
+        // Pass the restaurant ID to the dialog from the URL
+        restaurantID: this.router.url.split('/')[2]
       }
     });
   }
