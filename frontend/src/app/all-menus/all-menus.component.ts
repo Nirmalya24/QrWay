@@ -12,7 +12,7 @@ export class AllMenusComponent {
   public menus: any[] = [];
   constructor(
     private route: ActivatedRoute,
-    private menuService: MenuService
+    private menuService: MenuService,
     ) { }
 
   ngOnInit() {
