@@ -54,7 +54,7 @@
         <label for="RestaurantName">Menu</label>
         <div class="form-group">
             <div style="float:left">
-                <div style="float:center">Unpublic</div>
+                <div style="float:center">Draft</div>
                 <div>
                     <select size="5" multiple  (ng-model)="availableMenu"  style="width:100px ; height:100px " (change)="setAvailableMenu($event)">
             <!--   <select size ="5"  ng-model="available"   style="width:100px ; height:100px ">-->
@@ -69,7 +69,7 @@
             <input id="move left" class="btn btn-danger" type="button" value="<" (click)="removeMenu(selectedMenu)" />
             </div>
             <div style="float:left">
-            <div>Publiced</div>
+            <div>Publish</div>
             <div>
             <select size="5"multiple  (ng-model)="selectedMenu" style="width:100px;height:100px" (change)="setSelectedMenu($event)">
                 <option  *ngFor="let menu of selectedMenus" id="method.id">{{ menu.menuName }}</option>

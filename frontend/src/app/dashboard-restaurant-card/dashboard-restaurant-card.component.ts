@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardService } from '../services/dashboard/dashboard.service';
 import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
+import {EditRestaurantService} from  '../services/edit-restaurant/edit-restaurant.service';
 
 @Component({
   selector: 'app-dashboard-restaurant-card',
@@ -17,7 +18,7 @@ export class DashboardRestaurantCardComponent {
   @Input() currentRestaurant!: IRestaurantModelAngular;
   //restaurantData = this.currentRestaurant.restaurantID;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private editRestaurantService :EditRestaurantService) {
     this.currentRestaurant = {} as IRestaurantModelAngular
    }
 
@@ -36,13 +37,12 @@ export class DashboardRestaurantCardComponent {
   }
 
   editRes(){
-
     var y = typeof this.currentRestaurant.managerID; 
     console.log(" this.curRestaurant Type:"+y);
     console.log(" this.curRestaurant:"+ this.currentRestaurant.managerID[0]);
     console.log("clicked"+this.currentRestaurant);
-    this.router.navigate(['/restaurant',this.currentRestaurant]);
-
+    this.editRestaurantService.setRestaurant(this.currentRestaurant);
+    this.router.navigate(['/restaurant',this.currentRestaurant.restaurantID]);
   }
 
   ngOnInit() {

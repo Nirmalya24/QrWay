@@ -47,7 +47,6 @@ export class EditRestaurantService {
      return this.restaurant
   }
 
-  // TODO: add delete function
   public deleteRestaurant(restaurantID: string): any {
     console.log("[EditRestaurantService] deleteRestaurant: " + restaurantID);
     this.http.delete(`${this.baseURL}/restaurant/delete/${restaurantID}`)

@@ -3,6 +3,8 @@ import IUsersModelAngular from "./IUsersModelAngular";
 interface IRestaurantManagerModelAngular extends IUsersModelAngular {
     managerName: string;
     restaurantOwnerID: string;
-    restuarantID: string;
+    restaurantID: [string];
+    userID:string;
+
 }
 export default IRestaurantManagerModelAngular;
