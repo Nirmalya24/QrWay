@@ -41,7 +41,7 @@ const restaurantData = [
         managerID: ["d792d136-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "A pub with the best wings in town!",
-        restaurantImage: "https://www.santafehillssanmarcos.com/wp-content/uploads/2015/09/Buffalo-Wild-Wings-Inside2.jpg",
+        restaurantImage: "https://1.bp.blogspot.com/-oMUhUi9BVhc/W0NEHhbrxRI/AAAAAAAARq8/OQ6OLV5XZpcuZ1RoTbT7Cg-D4-tpmyy4ACLcBGAs/s1600/P1260822.JPG",
         tag: "Wings",
         menusID: ["b061e466-e85c-11ed-a05b-0242ac120003"],
     }
