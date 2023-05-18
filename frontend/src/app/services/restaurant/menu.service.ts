@@ -15,4 +15,12 @@ export class MenuService {
   public getAllMenus(restaurantID: string): any {
     return this.http.get<any>(`${this.baseURL}/menus/${restaurantID}`);
   }
+
+  setMenu(menu: any): void {
+    this.menu = menu;
+  }
+
+  getMenu(): any {
+    return this.menu;
+  }
 }
