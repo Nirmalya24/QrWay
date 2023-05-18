@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
   {path: 'menus', component: ManageMenuComponent},
-  {path:'restaurant',component:EditRestaurantComponent}
+  {path:'restaurant/:restaurantID',component:EditRestaurantComponent}
 ];
 
 @NgModule({

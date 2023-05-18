@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { restaurantModel } from 'src/app/share/restaurantModel';
+import IRestaurantModelAngular from 'src/app/share/IRestaurantModelAngular';
+
 //import { restaurantModel } from 'src/app/share/restaurantModel';
 
 @Injectable({
@@ -10,7 +12,7 @@ export class EditRestaurantService {
   baseURL: string = 'http://localhost:8000/api';
   restaurantIDs: any[] = [];
   restaurants: any[] = [];
-
+  restaurant!: IRestaurantModelAngular;
   constructor(private http: HttpClient) { }
 
   // Fetch all restaurants from backend
@@ -37,6 +39,12 @@ export class EditRestaurantService {
     .subscribe((isupdate) => {
       console.log(isupdate);
     });
+  }
+  public setRestaurant(restaurant:IRestaurantModelAngular):void{
+    this.restaurant=restaurant;
+  }
+  public getRestaurant():IRestaurantModelAngular{
+     return this.restaurant
   }
 
 }

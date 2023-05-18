@@ -23,15 +23,15 @@ export class EditRestaurantComponent {
   availableManager: any[] = [];
   selectedManager: any[] = [];
   managers: IRestaurantManagerModelAngular[] = [];
-  selectedManagers: IRestaurantManagerModelAngular[] = [];
-  availableManagers: IRestaurantManagerModelAngular[] = [];
+  selectedManagers: IRestaurantManagerModelAngular[] ;
+  availableManagers: IRestaurantManagerModelAngular[];
 
   //menu variable
   availableMenu: menuModel[] = [];
   selectedMenu: IMenuModelAngular[] = [];
   menus: IMenuModelAngular[] = [];
-  selectedMenus: IMenuModelAngular[] = [];
-  availableMenus: IMenuModelAngular[] = [];
+  selectedMenus: IMenuModelAngular[] ;
+  availableMenus: IMenuModelAngular[] ;
   baseURL: string = 'http://localhost:8000/api';
 
   constructor(
@@ -41,6 +41,10 @@ export class EditRestaurantComponent {
     private editRestaurantService:EditRestaurantService
   ) {
     this.curRestaurant ={}as IRestaurantModelAngular;
+    this.selectedManagers=[]
+    this.availableManagers=[]
+    this.selectedMenus=[]
+    this.availableMenus=[]
     
     //this.curRestaurant = new restaurantModel();
     //console.log(this.curRestaurant.managerID);
@@ -48,7 +52,6 @@ export class EditRestaurantComponent {
     //this.getManagers();
     // this.getMeuns();
   }
-
   public addManager(filter: any): any {
     console.log(filter);
     if (filter.length == 0) return;
@@ -119,8 +122,7 @@ export class EditRestaurantComponent {
       'this.curRestaurant.restaurantOwnerID:' +
         this.curRestaurant.restaurantOwnerID
     );
-    
-
+  
     // this.http
     //   .get<any>(
     //     `${this.baseURL}/restaurantmanagers/${this.curRestaurant.restaurantOwnerID}`
@@ -156,29 +158,6 @@ export class EditRestaurantComponent {
         });
       });
   }
-
-  public getRestaurant(): any {
-    /*
-  
-   this.http.get<restaurant>(`${this.baseURL}/restaurant/b061dffc-e85c-11ed-a05b-0242ac120003`).subscribe(data => {
-    this.curRestaurant = data;
-    console.log("current restautant"+this.curRestaurant.managerID);
-  })
-   *
-  this.curRestaurant={
-    "managerID": [
-        "ancs1","ancs134"
-    ],
-    "menusID": [
-        "b061e466-e85c-11ed-a05b-0242ac120003"
-    ],
-    "restaurantName": "Wingman's Pub",
-    "restaurantID": "b061dffc-e85c-11ed-a05b-0242ac120003",
-    "restaurantOwnerID": "d792c6be-e89c-11ed-a05b-0242ac120003"
-}
-*/
-  }
-
   public updateRestaurant(): any {
     if (this.selectedManagers.length == 0) {
       //  console.log(this.selectedMenu.length)
@@ -220,39 +199,58 @@ export class EditRestaurantComponent {
     console.log('setSelectedManagerID:' + this.curRestaurant.managerID);
     console.log('setselectedMenusID:' + this.curRestaurant.menusID);
     alert('Update Success');
-    //this.router.navigate(['/dashboard']);
-   // window.location.reload();
-    // this.curRestaurant.managerID
-     this.router.navigate(['/restaurant', this.curRestaurant]).then(() => {
-       window.location.reload();
-     });
+
+    this.editRestaurantService.setRestaurant(this.curRestaurant);
+    this.router.navigate(['/restaurant',this.curRestaurant.restaurantID])
+
   }
   clickEvent() {
     this.msg = 'Button is Clicked';
     return this.msg;
   }
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.params.subscribe((curRes) => {
-      console.log('curRes' + curRes['managerID'].split(',')[1]);
+    this.curRestaurant= this.editRestaurantService.getRestaurant();
+    var y = typeof this.curRestaurant.managerID;
+    console.log("tyoe of managerID"+y)
+    console.log( "managerID"+this.curRestaurant.managerID[0]);
+    //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.route.queryParams.subscribe(curRes => {
+    //   this.curRestaurant.restaurantID = curRes['restaurantID'];
+    //   this.curRestaurant.restaurantOwnerID = curRes['restaurantOwnerID'];
+    //   this.curRestaurant.managerID = curRes['managerID'];
+    //   this.curRestaurant.menusID = curRes['menusID'];
+    //   this.curRestaurant.restaurantName = curRes['restaurantName'];
+    //   this.curRestaurant.tag = curRes['tag'];
+    //   this.curRestaurant.description = curRes['description'];
+    //   this.curRestaurant.restaurantImage = curRes['restaurantImage'];
+    //   //console.log("this.curRestaurant.restaurantID:"+this.curRestaurant.restaurantID)
+    //   console.log(
+    //     'this.curRestaurant.managerID:' + this.curRestaurant.managerID
+    //   );
+       this.getManagers();
+       this.getMeuns();
+    // });    
 
-      this.curRestaurant.restaurantID = curRes['restaurantID'];
-      this.curRestaurant.restaurantOwnerID = curRes['restaurantOwnerID'];
-      this.curRestaurant.managerID = curRes['managerID'].split(',');
-      this.curRestaurant.menusID = curRes['menusID'].split(',');
-      this.curRestaurant.restaurantName = curRes['restaurantName'];
-      this.curRestaurant.tag = curRes['tag'];
-      this.curRestaurant.description = curRes['description'];
-      this.curRestaurant.restaurantImage = curRes['restaurantImage'];
-      //console.log("this.curRestaurant.restaurantID:"+this.curRestaurant.restaurantID)
-      console.log(
-        'this.curRestaurant.managerID:' + this.curRestaurant.managerID
-      );
-      this.getManagers();
-      this.getMeuns();
+    // this.route.params.subscribe((curRes) => {
+    //   console.log('curRes' + curRes['queryParams']);
 
-      // use the ID to fetch the restaurant data from a data source
-    });
+    //   this.curRestaurant.restaurantID = curRes['restaurantID'];
+    //   this.curRestaurant.restaurantOwnerID = curRes['restaurantOwnerID'];
+    //   this.curRestaurant.managerID = curRes['managerID'].split(',');
+    //   this.curRestaurant.menusID = curRes['menusID'].split(',');
+    //   this.curRestaurant.restaurantName = curRes['restaurantName'];
+    //   this.curRestaurant.tag = curRes['tag'];
+    //   this.curRestaurant.description = curRes['description'];
+    //   this.curRestaurant.restaurantImage = curRes['restaurantImage'];
+    //   //console.log("this.curRestaurant.restaurantID:"+this.curRestaurant.restaurantID)
+    //   console.log(
+    //     'this.curRestaurant.managerID:' + this.curRestaurant.managerID
+    //   );
+    //   this.getManagers();
+    //   this.getMeuns();
+
+    //   // use the ID to fetch the restaurant data from a data source
+    // });
     // this.getRestaurant();
     //this.getManagers();
     //  this.getMeuns();
