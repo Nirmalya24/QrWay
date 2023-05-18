@@ -22,7 +22,7 @@
     "url": "^0.11.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec",
     "build": "tsc",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
     "start": "npm run clean && npm run build && node AppServer.js",
@@ -33,5 +33,12 @@
     "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants && npm run populate_users"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "async": "^3.2.4",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "dotenv": "^16.0.3",
+    "mocha": "^10.2.0"
+  }
 }
