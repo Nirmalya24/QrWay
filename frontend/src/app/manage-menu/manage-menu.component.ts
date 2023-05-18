@@ -30,13 +30,12 @@ export class ManageMenuComponent {
 
   
   ngOnInit(): void {
-    console.log(`[ManageMenuComponent] menu: ${JSON.stringify(this.menuData)}`);
-    console.log(`[ManageMenuComponent] restaurantName: ${this.restaurantName}`)
+    // console.log(`[ManageMenuComponent] menu: ${JSON.stringify(this.menuData)}`);
+    // console.log(`[ManageMenuComponent] restaurantName: ${this.restaurantName}`)
   }
 
   getMenuSections(): void {
-    this.menuSections = [...Object.keys(this.menuData.menuSections)];
-    console.log(`[ManageMenuComponent] menuSections: ${this.menuSections[0]}`);
+    this.menuSections = this.menuData.menuSections;
   }
 }
 
