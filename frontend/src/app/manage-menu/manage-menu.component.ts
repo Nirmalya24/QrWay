@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import IMenuModelAngular from '../share/IMenuModelAngular';
 import { JsonPipe } from '@angular/common';
+import { MenuService } from '../services/restaurant/menu.service';
 
 @Component({
   selector: 'app-managae-menu',
@@ -22,7 +23,7 @@ export class ManageMenuComponent {
   menuOutput:any[]=[];
 
   //@Output() menus: any[] = [];
-  constructor(private http: HttpClient, private dashboardService: DashboardService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private http: HttpClient, private menuService: MenuService, private router: Router, private route: ActivatedRoute) { 
   // this.menuOutput = new IMenuModelAngular();
   }
 
@@ -36,24 +37,26 @@ export class ManageMenuComponent {
   // }
   
   ngOnInit(): void {
-    var resID="";
+    let menus = this.menuService.getMenu();
+    console.log(`[ManageMenuComponent] menu: ${JSON.stringify(menus)}`);
+    // var resID="";
 
-    this.route.params.subscribe(curRes => {
-      resID = curRes['restaurantID'];
+    // this.route.params.subscribe(curRes => {
+    //   resID = curRes['restaurantID'];
 
-    })
+    // })
 
-    console.log(this.route.params);
-    this.dashboardService.getAllMenus(resID).subscribe((res: any) => {
-      var result = JSON.stringify(res);
-      this.menuOutput = JSON.parse(result);
+    // console.log(this.route.params);
+    // this.dashboardService.getAllMenus(resID).subscribe((res: any) => {
+    //   var result = JSON.stringify(res);
+    //   this.menuOutput = JSON.parse(result);
 
-      console.log("result:"+result);
-      console.log("menuName"+this.menuOutput[0]['menuName']);
-     // this.menuOutput =res
-      //console.log(`Menus: ${JSON.stringify(res)}`); //${JSON.stringify(res)}
-    });
-    console.log(`MenusOut: ${this.menuOutput[0]}`);
+    //   console.log("result:"+result);
+    //   console.log("menuName"+this.menuOutput[0]['menuName']);
+    //  // this.menuOutput =res
+    //   //console.log(`Menus: ${JSON.stringify(res)}`); //${JSON.stringify(res)}
+    // });
+    // console.log(`MenusOut: ${this.menuOutput[0]}`);
 
 
     // console.log(this.currentRestaurant.restaurantID);
