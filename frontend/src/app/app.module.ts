@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
@@ -55,7 +56,8 @@ import { CreateMenuDialogComponent } from './create-menu-dialog/create-menu-dial
     ReactiveFormsModule,
     MatInputModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [DashboardService, CreateRestaurantService, MenuService, HttpClientModule],
   bootstrap: [AppComponent]
