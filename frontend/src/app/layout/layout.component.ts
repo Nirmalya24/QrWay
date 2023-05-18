@@ -35,8 +35,8 @@ export class LayoutComponent {
   }
 
   checkDynamicURL(): boolean {
-    const restaurantID = this.router.url.split('/')[2];
-    if(restaurantID && this.router.url.includes('menu')) {
+    const restaurantID = this.router.url.split('/');
+    if(restaurantID[2] && this.router.url.includes('menu') && restaurantID.length <= 3) {
       return true;
     }
     return false;
