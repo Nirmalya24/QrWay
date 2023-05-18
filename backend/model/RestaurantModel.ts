@@ -129,5 +129,36 @@ class RestaurantModel {
         }
     }
 
+    /**
+     * Delete restaurant by ID
+     * 
+     */
+    public async deleteRestaurant(filter: object): Promise<any> {
+        try {
+            console.log("[RestaurantModel] Deleting Restaurant...");
+            const checkRestaurant = await this.getRestaurantByID(filter)
+            .then((restaurant) => {
+                if(restaurant === null || JSON.stringify(restaurant) === '{}') {
+                    return false;
+                }
+                return true;
+            });
+
+            if(!checkRestaurant) {
+                return null;
+            }
+
+            console.log("[Restaurant Model] Result of getRestaurantByID: ", checkRestaurant);
+            const query = await this.model.deleteOne(filter).then((restaurant) => {
+                return restaurant;
+            });
+            console.log("[Restaurant Model] Result of delete query: ", query);
+            return query;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    }
+
 }
 export {RestaurantModel};

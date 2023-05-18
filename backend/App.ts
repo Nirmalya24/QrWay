@@ -301,6 +301,37 @@ class App {
       else res.json(deleteItemRes);
     });
 
+
+
+
+
+
+    /**
+     * delete a restaurant
+     * @param req
+     * - restaurantID: string - ID of restaurant
+     */
+
+    router.delete("/api/restaurant/delete/:restaurantID", async (req, res) => {
+      console.log("[App] Delete restaurant with restaurantID: " + req.params.restaurantID);
+      let filter: object = {
+        restaurantID: req.params.restaurantID,
+      }
+
+      const deleteRestaurantRes = await this.Restaurants.deleteRestaurant(filter);
+      if(deleteRestaurantRes === null) {
+        res.json({message: "Restaurant is not found"});
+      } else {
+        res.json(deleteRestaurantRes);
+      }
+
+    });
+
+
+
+
+
+
     /**
      * Menu Routes
      */
