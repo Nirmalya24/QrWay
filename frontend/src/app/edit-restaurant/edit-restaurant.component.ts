@@ -199,10 +199,8 @@ export class EditRestaurantComponent {
     console.log('setSelectedManagerID:' + this.curRestaurant.managerID);
     console.log('setselectedMenusID:' + this.curRestaurant.menusID);
     alert('Update Success');
-
-    this.editRestaurantService.setRestaurant(this.curRestaurant);
+    localStorage.setItem('restaurant', JSON.stringify(this.curRestaurant));
     this.router.navigate(['/restaurant',this.curRestaurant.restaurantID])
-
   }
   clickEvent() {
     this.msg = 'Button is Clicked';
@@ -210,8 +208,16 @@ export class EditRestaurantComponent {
   }
   ngOnInit() {
     this.curRestaurant= this.editRestaurantService.getRestaurant();
-    var y = typeof this.curRestaurant.managerID;
-    console.log("tyoe of managerID"+y)
+    if(this.curRestaurant !==undefined){
+      localStorage.setItem('restaurant', JSON.stringify(this.curRestaurant));
+    }
+    if(this.curRestaurant==undefined){
+      var data:any = localStorage.getItem('restaurant'||'{}');
+      this.curRestaurant=JSON.parse(data)
+    }
+   // this.curRestaurant=JSON.parse(localStorage.getItem('restaurant'));
+   // var y = typeof this.curRestaurant.managerID;
+   // console.log("tyoe of managerID"+y)
     console.log( "managerID"+this.curRestaurant.managerID[0]);
     //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     // this.route.queryParams.subscribe(curRes => {
