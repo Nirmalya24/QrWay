@@ -1,4 +1,4 @@
-
+console.log(process.env.ATLAS_URI);
 db.createUser(
     { 
         user: "qrway_admin",

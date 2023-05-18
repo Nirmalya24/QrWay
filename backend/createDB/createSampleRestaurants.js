@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors');
-
-const url = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authMechanism=DEFAULT';
+const dotenv = require('dotenv').config();
+const url = process.env.ATLAS_URI;
 
 const restaurantData = [
     {
@@ -40,7 +40,7 @@ const restaurantData = [
         managerID: ["d792d136-e89c-11ed-a05b-0242ac120003"],
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
         description: "A pub with the best wings in town!",
-        restaurantImage: "https://media-cdn.tripadvisor.com/media/photo-s/1c/f4/78/20/wingmans.jpg",
+        restaurantImage: "https://www.santafehillssanmarcos.com/wp-content/uploads/2015/09/Buffalo-Wild-Wings-Inside2.jpg",
         tag: "Wings",
         menusID: ["b061e466-e85c-11ed-a05b-0242ac120003"],
     }

@@ -25,7 +25,7 @@ class RestaurantManagerModel {
                 //IRestaurantManagerModel
                 managerName: String,
                 restaurantOwnerID: String,
-                restuarantID: String,
+                restuarantID: [String],
             },
             { collection: "RestaurantManager" }
         );
@@ -90,6 +90,26 @@ class RestaurantManagerModel {
             });
 
         console.log("[RestaurantManager Model] Success!");
+    }
+    /**
+     * update manager values from database that matches the provided filter
+     * 
+     *@param {Object} filter - The filter used to query database
+     *@param {Object} update - The update used to update database
+     *@returns {Promise<Object>} - A Promise resolves to the restaurant document that matches the provided filter
+     *@throws {Error} - throw error when errors occur during databse querying
+     */
+     public async updateManagerByID(filter: Object,update:Object): Promise<any> {
+        console.log(`[Manager Model] updateManagerByID: ${filter['usertID']}`);
+        console.log(`[Manager Model] updateRestaurantByID: ${update['managerName']}`);
+        try {
+            const result = await this.model.findOneAndUpdate(filter,update,{new:true});
+         //   const itemArray = await query.exec();
+            console.log("[Manager Model | DEBUG] UpdateManager: " + result['managerName']);
+            return true;
+        } catch (err) {
+            throw err;
+        }
     }
 }
 
