@@ -6,18 +6,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-// Components
-import { LayoutComponent } from './layout/layout.component';
-import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
-import { HomeComponent } from './home/home.component';
-// import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
-import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
-import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
-import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 // Services
 import { DashboardService } from './services/dashboard/dashboard.service';
 import {CreateRestaurantService} from "./services/dashboard/create-restaurant.service";
+import { MenuService } from './services/restaurant/menu.service';
 // Material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +19,18 @@ import { CreateRestaurantDialogComponent } from './create-restaurant-dialog/crea
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+// Components
+import { LayoutComponent } from './layout/layout.component';
+import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
+import { AllMenusComponent } from './all-menus/all-menus.component';
+import { MenuCardComponent } from './menu-card/menu-card.component';
+import { CreateMenuDialogComponent } from './create-menu-dialog/create-menu-dialog.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,10 @@ import { MatInputModule } from '@angular/material/input';
     DialogBoxComponent,
     DashboardRestaurantCardComponent, 
     CreateRestaurantDialogComponent,
-    EditRestaurantComponent
+    EditRestaurantComponent,
+    AllMenusComponent,
+    MenuCardComponent,
+    CreateMenuDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +58,11 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatIconModule
   ],
-  providers: [DashboardService, CreateRestaurantService, HttpClientModule,EditRestaurantComponent],
+  providers: [DashboardService, CreateRestaurantService, HttpClientModule,EditRestaurantComponent, MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

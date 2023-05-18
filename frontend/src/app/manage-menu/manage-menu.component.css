@@ -1,92 +1,85 @@
 .manage-menu {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: calc(100% / 6);
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  
-  .sidebar h2 {
-    margin-top: 0;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin-bottom: 10px;
-  }
-  
-  .content {
-    width: calc(2 * (100% / 3));
-    padding: 20px;
-  }
-  
-  .title {
-    font-weight: bold;
-  }
-  
-  .dropdowns {
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  table th, table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table th:last-child, table td:last-child {
-    text-align: center;
-  }
-  
-  .add-item-button,
-  .save-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .add-item-button:hover,
-  .save-button:hover {
-    background-color: #45a049;
-  }
-  
-  .save-button {
-    /* Remove the position, top, and margin properties */
-    /* position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 20px;
-    margin-right: 20px; */
-  
-    /* Add the following styles */
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-  
-  .delete-button {
-    padding: 5px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .delete-button:hover {
-    color: #ff0000;
-  }
-  
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar {
+  width: calc(100% / 6);
+  background-color: #f2f2f2;
+  padding: 20px;
+  padding-bottom: 10px; /* Add spacing at the bottom */
+  color: #333;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.content {
+  width: calc(2 * (100% / 3));
+  padding: 20px;
+}
+
+.title {
+  font-weight: bold;
+  color: #333;
+}
+
+.dropdowns {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+table th:last-child,
+table td:last-child {
+  text-align: center;
+}
+
+.delete-button {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: #ff0000;
+}
+
+.add-section-button {
+  /* existing styles */
+  margin-bottom: 10px; /* Add margin at the bottom */
+}
+
+.save-button {
+  /* existing styles */
+  margin-top: 10px; /* Add margin at the top */
+}
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  height: 75%;
+}

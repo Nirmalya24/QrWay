@@ -31,9 +31,13 @@ export class DashboardRestaurantCardComponent {
   }
 
   public viewRestaurant(): any {
-    this.router.navigate(['/menus', {"restaurantID":this.currentRestaurant.restaurantID}]);
+    this.router.navigate(['/menus', this.currentRestaurant.restaurantID]);
     console.log('[view button clicked] redirect to', this.currentRestaurant.restaurantID)
+  }
 
+  public viewMenus(restaurantID: string): any {
+    this.router.navigate(['/menus', restaurantID]);
+    console.log('[Dashboard Restaurant Card] View button clicked: redirect to', restaurantID);
   }
 
   editRes(){

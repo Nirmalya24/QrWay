@@ -5,14 +5,17 @@ import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { AppComponent } from './app.component';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
+import { AllMenusComponent } from './all-menus/all-menus.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
-  //{path: 'viewRes', component: ViewRestaurantComponent},
+  {path: '', component: HomeComponent, pathMatch: 'full' },
+  {path: 'dashboard', component: RestaurantDashboardComponent, pathMatch: 'full' },
   {path: 'menus', component: ManageMenuComponent},
-  {path:'restaurant/:restaurantID',component:EditRestaurantComponent}
+  {path:'restaurant/:restaurantID',component:EditRestaurantComponent},
+  {path: 'menus/:restaurantID/:menuID', component: ManageMenuComponent, pathMatch: 'full'},
+  {path:'restaurant',component:EditRestaurantComponent}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,{useHash:true})],
