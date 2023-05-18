@@ -1,22 +1,25 @@
 <router-outlet></router-outlet>
-<div *ngFor="let menu of menuOutput">{{menu['menuID']}}</div> 
+<!-- <div *ngFor="let menu of menuOutput">{{menu['menuID']}}</div>  -->
 <div class="manage-menu">
     <div class="sidebar">
-      <h1> Restaurant Name</h1>
-      <h2>Menu Section</h2>
+      <h1>{{restaurantName}}</h1>
+      <h3>Menu Sections</h3>
       <ul>
-        <li><a href="#">Starters</a></li>
-        <li><a href="#">Mains</a></li>
+        <li *ngFor="let section of menuSections">
+          <a href="#">{{ section }}</a>
+        </li>
       </ul>
       <button class="add-section-button">+ Add Section</button>
     </div>
   
     <div class="content">
-      <h2 class="title">Title</h2>
+      <!-- <h2 class="title">Title</h2> -->
       <div class="dropdowns">
         <select>
-          <option value="starters">Starters</option>
-          <option value="mains">Mains</option>
+          <option *ngFor="let section of menuSections">
+            {{ section }}  
+          </option>
+          
         </select>
     </div>
 
