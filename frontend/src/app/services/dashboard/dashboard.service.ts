@@ -7,10 +7,6 @@ import { Injectable } from '@angular/core';
 export class DashboardService {
 
   private baseURL: string = 'http://localhost:8000/api';
-  //private restaurantIDs: any[] = [];
-  //private restaurants: any[] = [];
-  //private menus: any[] = [];
-  //private menuID: any[] = [];
 
   constructor(private http: HttpClient) { }
 
