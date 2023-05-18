@@ -34,8 +34,8 @@ import { MatInputModule } from '@angular/material/input';
     LayoutComponent,
     RestaurantDashboardComponent,
     HomeComponent,
-    DialogBoxComponent
-    DashboardRestaurantCardComponent,
+    DialogBoxComponent,
+    DashboardRestaurantCardComponent, 
     CreateRestaurantDialogComponent,
     EditRestaurantComponent
   ],
