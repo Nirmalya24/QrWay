@@ -7,7 +7,7 @@ import { MenuService } from '../services/restaurant/menu.service';
 @Component({
   selector: 'app-managae-menu',
   templateUrl: './manage-menu.component.html',
-  styleUrls: ['./manage-menu.component.css'],
+  styleUrls: ['./manage-menu.component.css']
 })
 
 
@@ -39,3 +39,12 @@ export class ManageMenuComponent {
   }
 }
 
+
+// public generateMenuOutput(): any{
+  //   console.log(this.currentRestaurant.restaurantID);
+  //   this.dashboardService.getAllMenus(this.currentRestaurant.restaurantID).subscribe((res: any) => {
+  //     this.menuOutput = res;
+  //     console.log(`Menus: ${res}`); //${JSON.stringify(res)}
+  //   });
+  //   console.log(`Menus: ${this.menuOutput}`);
+  // }
