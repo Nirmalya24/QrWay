@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-restaurant.component.css'],
 })
 export class EditRestaurantComponent {
+
+
   curRestaurant: restaurantModel;
   //curRestaurantName:string="";
   msg: string = '';
@@ -37,17 +39,23 @@ export class EditRestaurantComponent {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.curRestaurant = new restaurantModel();
     console.log(this.curRestaurant.managerID);
+
+
     //this.getRestaurant();
     //this.getManagers();
     // this.getMeuns();
   }
 
   openDeleteDialog():void {
-    this.dialog.open(DialogBoxComponent);
+    this.dialog.open(DialogBoxComponent, {
+      data: {
+        restaurantID: this.curRestaurant.restaurantID
+      }
+    });
   }
 
   public addManager(filter: any): any {
@@ -262,4 +270,5 @@ export class EditRestaurantComponent {
       // use the ID to fetch the restaurant data from a data source
     });
   }
+
 }

@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { restaurantModel } from 'src/app/share/restaurantModel';
+import { EditRestaurantService } from '../services/edit-restaurant/edit-restaurant.service';
+import { RouterModule, Routes, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dialog-box',
@@ -7,13 +12,28 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-box.component.css']
 })
 export class DialogBoxComponent {
-  constructor(public dialogRef: MatDialogRef<DialogBoxComponent>) {}
+  restaurantID: string = '';
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogBoxComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private editRestaurantService: EditRestaurantService,
+    private http: HttpClient,
+    public router: Router
+  ) { 
+    this.restaurantID = this.data.restaurantID;
+  }
+
+  ngOnInit(): void {
+    this.restaurantID = this.data.restaurantID;
+    console.log('[DialogBoxComponent] restaurantID: ${this.restaurantID}');
+  }
 
   deleteRestaurant() {
-    //TODO: add code for deleting a restaurant
-
-    console.log("RESTAURANT DELETION TRIGGERED");
+    // console.log('[DialogBoxComponent] Deleting restaurant with ID of: ', this.data.restaurantID);
+    this.editRestaurantService.deleteRestaurant(this.restaurantID);
     this.dialogRef.close();
+    this.router.navigate(['/dashboard']);
   }
 
   dontDeleteRestaurant() {
