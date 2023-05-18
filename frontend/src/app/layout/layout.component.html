@@ -8,7 +8,12 @@
       <button 
         mat-raised-button
         *ngIf="shouldShowCreateRestaurantButton"
-        (click)="openDialog()">Create Restaurant</button>
+        (click)="openCreateRestaurantDialog()">Create Restaurant</button>
+      <button 
+        mat-raised-button
+        *ngIf="shouldShowCreateMenuButton"
+        (click)="openCreateMenuDialog()"
+        >Create Menu</button>
     </div>
   </div>
 </header>
