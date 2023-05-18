@@ -164,10 +164,10 @@ export class EditRestaurantComponent {
       alert('Selected managers box must be not empty');
       return;
     }
-    if (this.selectedMenus.length == 0) {
-      alert('Public menus box must be not empty');
-      return;
-    }
+    // if (this.selectedMenus.length == 0) {
+    //   alert('Public menus box must be not empty');
+    //   return;
+    // }
 
     this.setUpdateRestaurant();
     this.editRestaurantService.updateRestaurant(this.curRestaurant);
