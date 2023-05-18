@@ -27,6 +27,7 @@ import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/da
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 import { AllMenusComponent } from './all-menus/all-menus.component';
 import { MenuCardComponent } from './menu-card/menu-card.component';
+import { CreateMenuDialogComponent } from './create-menu-dialog/create-menu-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MenuCardComponent } from './menu-card/menu-card.component';
     CreateRestaurantDialogComponent,
     EditRestaurantComponent,
     AllMenusComponent,
-    MenuCardComponent
+    MenuCardComponent,
+    CreateMenuDialogComponent
   ],
   imports: [
     BrowserModule,
