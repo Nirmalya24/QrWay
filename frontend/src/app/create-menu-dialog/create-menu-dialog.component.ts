@@ -10,8 +10,6 @@ import { MenuService } from '../services/restaurant/menu.service';
 })
 export class CreateMenuDialogComponent {
 
-  restaurantID: string = '';
-
   constructor(
     public dialogRef: MatDialogRef<CreateMenuDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -22,12 +20,9 @@ export class CreateMenuDialogComponent {
   }
 
   ngOnInit(): void {
-    this.restaurantID = this.data.restaurantID;
-    console.log(`[CreateMenuDialogComponent] restaurantID: ${this.restaurantID}`);
   }
 
   onSubmit() {
-    console.log("[CreateMenuDialogComponent] onSubmit(): Deleting ", this.restaurantID);
   }
 
 }
