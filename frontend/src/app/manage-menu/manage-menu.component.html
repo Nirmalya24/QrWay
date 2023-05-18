@@ -1,4 +1,4 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 <!-- <div *ngFor="let menu of menuOutput">{{menu['menuID']}}</div>  -->
 <div class="manage-menu">
     <div class="sidebar">
@@ -9,11 +9,11 @@
           <a href="#">{{ section }}</a>
         </li>
       </ul>
-      <button class="add-section-button">+ Add Section</button>
+      <button mat-raised-button color="primary">+ Add Section</button>
     </div>
   
     <div class="content">
-      <!-- <h2 class="title">Title</h2> -->
+
       <div class="dropdowns">
         <select>
           <option *ngFor="let section of menuSections">
@@ -23,7 +23,7 @@
         </select>
     </div>
 
-      <table>
+      <table class="item-table">
         <thead>
           <tr>
             <th>Dish Name</th>
@@ -40,11 +40,11 @@
             <td>{{ dish.price }}</td>
             <td>{{ dish.image }}</td>
             <td><button class="delete-button" (click)="deleteDish(dish.name)"><i class="fas fa-trash"></i></button></td>
-          </tr> -->
+          </tr>  -->
         </tbody>
       </table>
-      <button class="add-item-button">+ Add Item</button>
-      <button class="save-button">Save Changes</button>
+      <button mat-raised-button color="primary" class="mx-4">+ Add Item</button>
+      <button mat-raised-button color="primary">Save Changes</button>
     
     </div>
   </div>
