@@ -1,74 +1,42 @@
-import { Component, Input, Output } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { DashboardService } from '../services/dashboard/dashboard.service';
-import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import IMenuModelAngular from '../share/IMenuModelAngular';
-import { JsonPipe } from '@angular/common';
 import { MenuService } from '../services/restaurant/menu.service';
 
 @Component({
   selector: 'app-managae-menu',
   templateUrl: './manage-menu.component.html',
   styleUrls: ['./manage-menu.component.css'],
-  //template:'<p>{{ menuOutput }}</p>'
 })
 
 
 export class ManageMenuComponent {
-  //public menus: any[] = [];
+  menuData: any;
+  restaurantName: string = '';
+  menuSections: any[] = [];
 
   //@Input() currentRestaurant: IRestaurantModelAngular;
   menuOutput:any[]=[];
 
   //@Output() menus: any[] = [];
   constructor(private http: HttpClient, private menuService: MenuService, private router: Router, private route: ActivatedRoute) { 
-  // this.menuOutput = new IMenuModelAngular();
+    this.menuData = this.menuService.getMenu();
+    this.getMenuSections();
+    this.menuService.getRestaurantName(this.menuData.restaurantID).subscribe((name: string) => {
+      this.restaurantName = name;
+    });
   }
 
-  // public generateMenuOutput(): any{
-  //   console.log(this.currentRestaurant.restaurantID);
-  //   this.dashboardService.getAllMenus(this.currentRestaurant.restaurantID).subscribe((res: any) => {
-  //     this.menuOutput = res;
-  //     console.log(`Menus: ${res}`); //${JSON.stringify(res)}
-  //   });
-  //   console.log(`Menus: ${this.menuOutput}`);
-  // }
   
   ngOnInit(): void {
-    let menus = this.menuService.getMenu();
-    console.log(`[ManageMenuComponent] menu: ${JSON.stringify(menus)}`);
-    // var resID="";
+    console.log(`[ManageMenuComponent] menu: ${JSON.stringify(this.menuData)}`);
+    console.log(`[ManageMenuComponent] restaurantName: ${this.restaurantName}`)
+  }
 
-    // this.route.params.subscribe(curRes => {
-    //   resID = curRes['restaurantID'];
-
-    // })
-
-    // console.log(this.route.params);
-    // this.dashboardService.getAllMenus(resID).subscribe((res: any) => {
-    //   var result = JSON.stringify(res);
-    //   this.menuOutput = JSON.parse(result);
-
-    //   console.log("result:"+result);
-    //   console.log("menuName"+this.menuOutput[0]['menuName']);
-    //  // this.menuOutput =res
-    //   //console.log(`Menus: ${JSON.stringify(res)}`); //${JSON.stringify(res)}
-    // });
-    // console.log(`MenusOut: ${this.menuOutput[0]}`);
-
-
-    // console.log(this.currentRestaurant.restaurantID);
-    // this.dashboardService.getAllMenus(this.currentRestaurant.restaurantID).subscribe((res: any) => {
-    //   this.menuOutput = res;
-    //   console.log(`Menus: ${res}`); //${JSON.stringify(res)}
-    // });
-    // console.log(`Menus: ${this.menuOutput}`);
-    //console.log(this.dashboardService.getAllMenus(this.currentRestaurant.restaurantID));
-
-    //generateRestaurant(): any {
-
+  getMenuSections(): void {
+    this.menuSections = [...Object.keys(this.menuData.menuSections)];
+    console.log(`[ManageMenuComponent] menuSections: ${this.menuSections[0]}`);
   }
 }
 
