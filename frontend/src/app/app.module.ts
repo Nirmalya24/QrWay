@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
