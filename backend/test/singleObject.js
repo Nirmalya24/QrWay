@@ -52,21 +52,21 @@ describe("Test to get ONE restaurants", function () {
 
   it("Restaurant contains expected attribute types", function (done) {
     const expectedAttributeTypes = {
-        "managerID": "array",
-        "menusID": "array",
-        "_id": "string",
-        "restaurantName": "string",
-        "restaurantID": "string",
-        "restaurantOwnerID": "string",
-        "description": "string",
-        "restaurantImage": "string",
-        "tag": "string"
+      "managerID": "array",
+      "menusID": "array",
+      "_id": "string",
+      "restaurantName": "string",
+      "restaurantID": "string",
+      "restaurantOwnerID": "string",
+      "description": "string",
+      "restaurantImage": "string",
+      "tag": "string"
     }
 
     Object.keys(expectedAttributeTypes).forEach(key => {
-        const expectedType = expectedAttributeTypes[key];
-        expect(responseBody[key]).that.is.a(expectedType);
-      });
+      const expectedType = expectedAttributeTypes[key];
+      expect(responseBody[key]).that.is.a(expectedType);
+    });
 
     done();
   });
