@@ -7,5 +7,6 @@ interface IMenuModelAngular {
     menuDescription: string;
     menuStartTime: string;
     menuEndTime: string;
+    public:boolean;
 }
 export default IMenuModelAngular;

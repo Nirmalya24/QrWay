@@ -1,0 +1,28 @@
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  mat-form-field,
+  textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .section-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  button[type="submit"] {
+    align-self: flex-start;
+  }
+
+.add-menu-section {
+    margin-bottom: 2em;
+}
+
+.cancel-button {
+  margin-right: 0.5em;
+}

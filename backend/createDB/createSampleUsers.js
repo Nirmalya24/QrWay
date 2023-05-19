@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors');
 
-const url = 'mongodb://qrway_admin:qrway_password@localhost:27017/qrway_db?authMechanism=DEFAULT';
+require('dotenv').config();
+const url = process.env.ATLAS_URI;
 
 const userData = [
     {   //restaurant owner
@@ -11,25 +12,28 @@ const userData = [
     },
     {   //restaurant manager
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
+        managerName: "Jack",
         password: "pwd",
         connectStatus: false, //false by default
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
+        managerName: "Bob",
         password: "pwd",
         connectStatus: false, //false by default
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
+        managerName: "Rose",
         password: "pwd",
         connectStatus: false, //false by default
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     },
     {   //restaurant manager
         userID: "d792d136-e89c-11ed-a05b-0242ac120003",
-        password: "pwd",
+        password: "Kelly",
         connectStatus: false, //false by default
         restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
     }
@@ -47,27 +51,35 @@ const restaurantOwnerData = [
 const restaurantManagerData = [
     {   //restaurant manager
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
+        managerName: "Jack",
         password: "pwd",
         connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantID:["b061d548-e85c-11ed-a05b-0242ac120003"]
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
+        managerName: "Jack",
         password: "pwd",
         connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantID:["b061d548-e85c-11ed-a05b-0242ac120003"]
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
+        managerName: "Bob",
         password: "pwd",
         connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantID:["b061d548-e85c-11ed-a05b-0242ac120003"]
     },
     {   //restaurant manager
         userID: "d792d136-e89c-11ed-a05b-0242ac120003",
+        managerName: "Rose",
         password: "pwd",
         connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
+        restaurantID:["b061de58-e85c-11ed-a05b-0242ac120003"]
     }
 ];
 

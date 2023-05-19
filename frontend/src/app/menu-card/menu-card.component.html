@@ -1,0 +1,9 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{menu.menuName}}</mat-card-title>
+        <mat-card-subtitle>{{menu.menuStartTime}} to {{menu.menuEndTime}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="start">
+        <button mat-button (click)="redirectToMenu(menu.restaurantID, menu.menuID)">View Menu</button>
+    </mat-card-actions>
+</mat-card>

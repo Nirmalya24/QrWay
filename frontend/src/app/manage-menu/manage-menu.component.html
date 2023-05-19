@@ -1,0 +1,51 @@
+<!-- <router-outlet></router-outlet> -->
+<!-- <div *ngFor="let menu of menuOutput">{{menu['menuID']}}</div>  -->
+<div class="manage-menu">
+    <div class="sidebar">
+      <h1>{{restaurantName}}</h1>
+      <h3>Menu Sections</h3>
+      <ul>
+        <li *ngFor="let section of menuSections">
+          <a href="#">{{ section }}</a>
+        </li>
+      </ul>
+      <button mat-raised-button color="primary">+ Add Section</button>
+    </div>
+  
+    <div class="content">
+
+      <div class="dropdowns">
+        <select>
+          <option *ngFor="let section of menuSections">
+            {{ section }}  
+          </option>
+          
+        </select>
+    </div>
+
+      <table class="item-table">
+        <thead>
+          <tr>
+            <th>Dish Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Upload Image</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--<tr *ngFor="let dish of dishes">
+            <td>{{ dish.name }}</td>
+            <td>{{ dish.description }}</td>
+            <td>{{ dish.price }}</td>
+            <td>{{ dish.image }}</td>
+            <td><button class="delete-button" (click)="deleteDish(dish.name)"><i class="fas fa-trash"></i></button></td>
+          </tr>  -->
+        </tbody>
+      </table>
+      <button mat-raised-button color="primary" class="mx-4">+ Add Item</button>
+      <button mat-raised-button color="primary">Save Changes</button>
+    
+    </div>
+  </div>
+  

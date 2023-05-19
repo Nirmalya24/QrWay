@@ -1,0 +1,9 @@
+
+<div mat-dialog-content>
+  <p>Are you sure you want to delete?</p>
+  <p>This restaurant will be deleted: {{restaurantID}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dontDeleteRestaurant()">No Thanks</button>
+  <button mat-button (click)="deleteRestaurant()">Ok</button>
+</div>

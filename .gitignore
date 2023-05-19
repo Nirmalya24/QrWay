@@ -4,7 +4,8 @@
 /frontend/package-lock.json
 /frontend/.angular
 .env
-!./backend/createDB/*
 *.js
+!/backend/createDB/*
+!/backend/test/*
 .DS_Store
-.idea/
+.idea/*

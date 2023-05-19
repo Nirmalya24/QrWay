@@ -1,0 +1,60 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  
+  <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Menu Name</mat-label>
+      <input matInput formControlName="menuName">
+      <mat-error *ngIf="menuForm.get('menuName')?.invalid && menuForm.get('menuName')?.touched">
+        Menu Name is required.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Menu Description</mat-label>
+      <textarea matInput formControlName="menuDescription"></textarea>
+    </mat-form-field>
+  
+    <div formArrayName="menuSections">
+      <div *ngFor="let section of menuSections.controls; let i = index" class="section-row">
+        <mat-form-field>
+          <mat-label>Menu Section {{ i + 1 }}</mat-label>
+          <input matInput [formControlName]="i">
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="removeMenuSection(i)">
+          <mat-icon class="material-symbols-outlined">close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" (click)="addMenuSection()" class="add-menu-section">Add Menu Section</button>
+  
+    <mat-form-field>
+      <mat-label>Menu Start Time</mat-label>
+      <input matInput formControlName="menuStartTime">
+      <mat-error *ngIf="menuForm.get('menuStartTime')?.invalid && menuForm.get('menuStartTime')?.touched">
+        Menu Start Time is required.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Menu End Time</mat-label>
+      <input matInput formControlName="menuEndTime">
+      <mat-error *ngIf="menuForm.get('menuEndTime')?.invalid && menuForm.get('menuEndTime')?.touched">
+        Menu End Time is required.
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="button-container">
+      <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()" class="cancel-button">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+  
+
+</mat-dialog-content>
+<!-- <mat-dialog-actions class="dialog-actions-position">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="primary" (click)="onSubmit()">Create</button>
+</mat-dialog-actions> -->
