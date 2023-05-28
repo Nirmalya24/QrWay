@@ -10,6 +10,9 @@ import * as cors from "cors";
 
 import * as crypto from "crypto";
 
+import GooglePassport from "./GooglePassport";
+import * as passport from "passport";
+
 // Creates and configures an ExpressJS web server.
 class App {
   // ref to Express instance
@@ -20,9 +23,11 @@ class App {
   public Restaurants: RestaurantModel;
   public Items: ItemModel;
   public Menus: MenuModel;
+  public GooglePassport: GooglePassport;
 
   //Run configuration methods on the Express instance.
   constructor() {
+    this.GooglePassport = new GooglePassport();
     this.expressApp = express();
     this.middleware();
     this.routes();
@@ -44,16 +49,34 @@ class App {
       res.header("Access-Control-Allow-Headers", "Content-Type");
       next();
     });
+    this.expressApp.use(passport.initialize());
+    this.expressApp.use(passport.session());
+  }
+
+  private validateAuth(req, res, next) {
+    if(req.isAuthenticated()) {
+      console.log("[App] User is authenticated"); 
+      return next();
+    }
+    console.log("[App] User is not authenticated");
+    res.redirect('/');
   }
 
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
 
+    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+      console.log("[App] Google User Authentication Success, redirecting to dashboard");
+      res.redirect('/#/dashboard');
+    });
+
     router.get("/api/health", (req, res, next) => {
       console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
     });
+
+    router.get('/auth/google')
 
     /**
      * Get all restaurant managers for a restaurant owner
@@ -570,7 +593,8 @@ class App {
     this.expressApp.use("/", router);
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
-    this.expressApp.use("/", express.static(__dirname + "/pages"));
+    // this.expressApp.use("/", express.static(__dirname + "/pages"));
+    this.expressApp.use("/", express.static(__dirname + "/angularDist"));
   }
 }
 
