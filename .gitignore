@@ -1,5 +1,4 @@
 /backend/node_modules/*
-/backend/angularDist/*
 /frontend/node_modules/*
 /frontend/dist/*
 /backend/package-lock.json
