@@ -23,8 +23,8 @@ import {MatIconModule} from '@angular/material/icon';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
-import { HomeComponent } from './home/home.component';
 import { DashboardRestaurantCardComponent } from './dashboard-restaurant-card/dashboard-restaurant-card.component';
+import { HomeComponent } from './home/home.component';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 import { AllMenusComponent } from './all-menus/all-menus.component';
 import { MenuCardComponent } from './menu-card/menu-card.component';
