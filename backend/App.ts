@@ -76,7 +76,9 @@ class App {
       res.json({ healthy: true }).status(200);
     });
 
-    router.get('/auth/google')
+    router.get('/auth/google', passport.authenticate('google', { 
+      scope: ['profile'] 
+    }));
 
     /**
      * Get all restaurant managers for a restaurant owner
