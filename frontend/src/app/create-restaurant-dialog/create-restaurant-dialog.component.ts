@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CreateRestaurantService} from "../services/dashboard/create-restaurant.service";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CreateRestaurantService } from "../services/dashboard/create-restaurant.service";
 
 @Component({
   selector: 'app-create-restaurant-dialog',
@@ -17,9 +17,8 @@ export class CreateRestaurantDialogComponent {
   restaurantImage: FormControl;
 
   constructor(public dialogRef: MatDialogRef<CreateRestaurantDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private fb: FormBuilder,
-              private createRestaurantService: CreateRestaurantService) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private createRestaurantService: CreateRestaurantService) {
 
     this.restaurantName = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
@@ -46,7 +45,7 @@ export class CreateRestaurantDialogComponent {
           console.log(`[Add Restaurant Form] Error from createRestaurantService: ${JSON.stringify(error)}`);
           this.dialogRef.close();
         }
-      );
+        );
     } else {
       // Display error messages for all fields
       this.addRestaurantForm.markAllAsTouched();

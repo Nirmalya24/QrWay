@@ -19,14 +19,14 @@ export class CreateMenuDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private menuService: MenuService) {
-      this.sendNewMenu = {} as IMenuModelAngular;
-      this.menuForm = this.fb.group({
-        menuName: ['', Validators.required],
-        menuDescription: [''],
-        menuSections: this.fb.array([]),
-        menuStartTime: ['', Validators.required],
-        menuEndTime: ['', Validators.required]
-      });
+    this.sendNewMenu = {} as IMenuModelAngular;
+    this.menuForm = this.fb.group({
+      menuName: ['', Validators.required],
+      menuDescription: [''],
+      menuSections: this.fb.array([]),
+      menuStartTime: ['', Validators.required],
+      menuEndTime: ['', Validators.required]
+    });
 
   }
 

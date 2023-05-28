@@ -1,9 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { restaurantModel } from 'src/app/share/restaurantModel';
 import { EditRestaurantService } from '../services/edit-restaurant/edit-restaurant.service';
-import { RouterModule, Routes, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +19,7 @@ export class DialogBoxComponent {
     private editRestaurantService: EditRestaurantService,
     private http: HttpClient,
     public router: Router
-  ) { 
+  ) {
     this.restaurantID = this.data.restaurantID;
   }
 
@@ -30,7 +29,6 @@ export class DialogBoxComponent {
   }
 
   deleteRestaurant() {
-    // console.log('[DialogBoxComponent] Deleting restaurant with ID of: ', this.data.restaurantID);
     this.editRestaurantService.deleteRestaurant(this.restaurantID);
     this.dialogRef.close();
     this.router.navigate(['/dashboard']);
