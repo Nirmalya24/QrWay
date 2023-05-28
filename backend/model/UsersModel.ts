@@ -51,5 +51,33 @@ class UsersModel {
             response.json(numberOfLists);
         });
     }
+
+    /**
+     * Retrieve a user by userID
+     * @param response 
+     * @param filter 
+     */
+    // TODO: Fix/Test this method
+    public retrieveUser(response: any, filter: Object) {
+        console.log("[UsersModel] Retrieving user...");
+        var query = this.model.find(filter);
+        query.exec((err, itemArray) => {
+            response.json(itemArray);
+        });
+    }
+
+    /**
+     * Create a new user in the database
+     * @param response
+     */
+    // TODO: Fix/Test this method
+    public registerNewUser(response: any, body: any): any {
+        console.log("[UsersModel] Creating new user...");
+        console.log("[UsersModel] userID: " + body.userID);
+        console.log("[UsersModel] oauthID: " + body.oauthID);
+        console.log("[UsersModel] email: " + body.email);
+        console.log("[UsersModel] image: " + body.image);
+        // query db to create a new user
+    }
 }
 export { UsersModel };
