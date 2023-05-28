@@ -1,5 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as session from "express-session";
+import * as cookieParser from "cookie-parser";
 import { UsersModel } from "./model/UsersModel";
 import { RestaurantModel } from "./model/RestaurantModel";
 import { RestaurantManagerModel } from "./model/RestaurantManagerModel";
@@ -44,6 +46,8 @@ class App {
     this.expressApp.use(cors());
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+    this.expressApp.use(cookieParser());
+    this.expressApp.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 60000 }}));
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
@@ -54,8 +58,8 @@ class App {
   }
 
   private validateAuth(req, res, next) {
-    if(req.isAuthenticated()) {
-      console.log("[App] User is authenticated"); 
+    if (req.isAuthenticated()) {
+      console.log("[App] User is authenticated");
       return next();
     }
     console.log("[App] User is not authenticated");
@@ -76,8 +80,8 @@ class App {
       res.json({ healthy: true }).status(200);
     });
 
-    router.get('/auth/google', passport.authenticate('google', { 
-      scope: ['profile'] 
+    router.get('/auth/google', passport.authenticate('google', {
+      scope: ['email', 'profile']
     }));
 
     /**
@@ -91,7 +95,7 @@ class App {
         let restaurantOwnerID = req.params.restaurantOwnerID;
         console.log(
           "[App] Query All Restaurant Managers for restaurant owner: " +
-            restaurantOwnerID
+          restaurantOwnerID
         );
         const result =
           await this.RestaurantManagers.retrieveAllRestaurantManagers(
@@ -133,7 +137,7 @@ class App {
 
       console.log(
         "[App] Creating new restaurant manager with:" +
-          JSON.stringify(createManager)
+        JSON.stringify(createManager)
       );
       this.RestaurantManagers.createRestaurantManager(res, createManager);
     });
@@ -172,7 +176,7 @@ class App {
      * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
-    router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
+    router.get("/api/restaurant/all/:restaurantOwnerID", this.validateAuth, async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
       this.Restaurants.retrieveAllRestaurants(res, restaurantOwnerID);
@@ -344,8 +348,8 @@ class App {
       }
 
       const deleteRestaurantRes = await this.Restaurants.deleteRestaurant(filter);
-      if(deleteRestaurantRes === null) {
-        res.json({message: "Restaurant is not found"});
+      if (deleteRestaurantRes === null) {
+        res.json({ message: "Restaurant is not found" });
       } else {
         res.json(deleteRestaurantRes);
       }
@@ -394,9 +398,9 @@ class App {
 
       console.log(
         "Query all menu sections for: " +
-          menuID +
-          " for restaurant: " +
-          restaurantID
+        menuID +
+        " for restaurant: " +
+        restaurantID
       );
 
       // Query the database for all menus
@@ -470,11 +474,11 @@ class App {
 
       console.log(
         "Adding " +
-          sectionName +
-          " : " +
-          menuID +
-          " for restaurant: " +
-          restaurantID
+        sectionName +
+        " : " +
+        menuID +
+        " for restaurant: " +
+        restaurantID
       );
 
       // Query the database to add a section to the menu
@@ -596,7 +600,7 @@ class App {
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
     // this.expressApp.use("/", express.static(__dirname + "/pages"));
-    this.expressApp.use("/", express.static(__dirname + "/angularDist"));
+    this.expressApp.use("/", express.static(__dirname + "/dist/frontend"));
   }
 }
 
