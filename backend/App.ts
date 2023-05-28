@@ -47,7 +47,7 @@ class App {
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     this.expressApp.use(cookieParser());
-    this.expressApp.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 60000 }}));
+    this.expressApp.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 3600000 }}));
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
