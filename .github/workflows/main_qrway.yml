@@ -28,15 +28,10 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Install dependencies
-        run: cd frontend && npm install && cd ../backend
-
-      # - name: Navigate to backend directory
-      #   run: cd ../backend
-
-      # - name: Print working directory
+        run: cd frontend && npm install
 
       - name: Install and build backend
-        run: npm install && npm run build
+        run: cd backend && npm install && npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
