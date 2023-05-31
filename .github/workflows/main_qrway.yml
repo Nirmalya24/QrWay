@@ -23,6 +23,9 @@ jobs:
 
       - name: Print wd
         run: pwd
+
+      - name: Print ls
+        run: ls
         
       - name: Change directory to backend
         run: cd ./backend
