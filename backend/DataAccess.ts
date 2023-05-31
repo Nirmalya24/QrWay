@@ -1,10 +1,10 @@
+require('dotenv').config();
 import Mongoose = require("mongoose");
 
 class DataAccess {
     static mongooseInstance: any;
     static mongooseConnection: Mongoose.Connection;
-   // static DB_CONNECTION_STRING: string = 'mongodb://qrway_admin:qrway_password@127.0.0.1:27017/qrway_db?authMechanism=DEFAULT';
-   static DB_CONNECTION_STRING: string = 'mongodb+srv://james8192:james987@cluster0.qanfmbi.mongodb.net/qrway_db?retryWrites=true&w=majority';
+   static DB_CONNECTION_STRING: string = process.env.ATLAS_URI;
 
     constructor() {
         DataAccess.connect();
