@@ -9,10 +9,6 @@ on:
       - main
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: backend
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +26,12 @@ jobs:
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+
+      - name: Install Angular dependencies
+        run: cd frontend && npm install
+
+      - name: Navigate to backend directory
+        run: cd ../backend
 
       - name: Print working directory
         run: pwd
