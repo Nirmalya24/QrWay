@@ -28,6 +28,9 @@ jobs:
       # - name: Change directory to backend
       #   run: cd backend
 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
       - name: Print working directory
         run: pwd
 
