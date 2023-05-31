@@ -9,7 +9,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 })
 
 export class AppComponent {
-  baseURL: string = 'http://localhost:8000/api';
+  baseURL: string = 'http://localhost:8080/api';
   title = 'frontend';
   restaurants:any[]=[];
 

@@ -11,7 +11,7 @@ import {EditRestaurantService} from  '../services/edit-restaurant/edit-restauran
   styleUrls: ['./dashboard-restaurant-card.component.css'],
 })
 export class DashboardRestaurantCardComponent {
-  baseURL: string = 'http://localhost:8000/api';
+  baseURL: string = 'http://localhost:8080/api';
   menuID: string = 'b061cc9c-e85c-11ed-a05b-0242ac120003';
   menus: any = '';
   
