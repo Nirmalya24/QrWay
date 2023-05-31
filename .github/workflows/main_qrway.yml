@@ -21,12 +21,17 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Print wd
+        run: pwd
+        
       - name: Change directory to backend
-        run: cd backend
+        run: cd ./backend
+
+      - name: Print wd
+        run: pwd
 
       - name: npm install, build, and test
-        run: |
-          npm start
+        run: npm run start
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
