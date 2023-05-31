@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: backend
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,12 +25,17 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Change directory to backend
-        run: cd backend
+      # - name: Change directory to backend
+      #   run: cd backend
+
+      - name: Print working directory
+        run: pwd
+
+      - name: Print directory contents
+        run: ls -a
 
       - name: npm install, build, and test
-        run: |
-          npm start
+        run: npm install && npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
