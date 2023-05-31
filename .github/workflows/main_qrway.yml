@@ -27,19 +27,15 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
-      - name: Install Angular dependencies
-        run: cd frontend && npm install
+      - name: Install dependencies
+        run: cd frontend && npm install && cd ../backend
 
-      - name: Navigate to backend directory
-        run: cd ../backend
+      # - name: Navigate to backend directory
+      #   run: cd ../backend
 
-      - name: Print working directory
-        run: pwd
+      # - name: Print working directory
 
-      - name: Print directory contents
-        run: ls -a
-
-      - name: npm install, build, and test
+      - name: Install and build backend
         run: npm install && npm run build
 
       - name: Upload artifact for deployment job
