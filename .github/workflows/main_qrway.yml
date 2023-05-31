@@ -32,6 +32,9 @@ jobs:
 
       - name: Print wd
         run: pwd
+        
+      - name: Print ls
+        run: ls
 
       - name: npm install, build, and test
         run: npm run start
