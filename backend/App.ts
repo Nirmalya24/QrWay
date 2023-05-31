@@ -51,6 +51,7 @@ class App {
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
+      res.header("Content-Security-Policy", "default-src 'self'")
       next();
     });
     this.expressApp.use(passport.initialize());
@@ -308,7 +309,7 @@ class App {
     router.post("/api/item/create", (req, res) => {
       console.log("Insert item into items collection");
       let createItem: object = {
-        ItemID: crypto.randomUUID(),
+        itemID: crypto.randomUUID(),
         itemName: req.body.itemName,
         itemDecription: req.body.itemDecription,
         itemPrice: req.body.itemPrice,
