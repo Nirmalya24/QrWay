@@ -1,5 +1,3 @@
-import googleAppAuth2 from './googleOAuth2';
-
 let passport = require('passport');
 let GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -17,7 +15,6 @@ class GooglePassport {
             clientID: this.clientId,
             clientSecret: this.secretId,
             callbackURL: "/auth/google/callback"
-            //                profileFields: ['id', 'displayName', 'emails']
         },
             (accessToken, refreshToken, profile, done) => {
                 console.log("[GooglePassport] Inside new password google strategy");
