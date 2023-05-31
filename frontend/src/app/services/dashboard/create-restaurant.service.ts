@@ -6,7 +6,7 @@ import IRestaurantModelAngular from "../../share/IRestaurantModelAngular";
   providedIn: 'root'
 })
 export class CreateRestaurantService {
-  private baseURL: string = 'http://localhost:8080/api';
+  private baseURL: string = 'http://localhost:3000/api';
   constructor(private http: HttpClient) { }
 
   createRestaurant(restaurantData: IRestaurantModelAngular) { 

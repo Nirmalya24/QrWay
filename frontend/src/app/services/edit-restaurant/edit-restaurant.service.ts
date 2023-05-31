@@ -7,7 +7,7 @@ import IRestaurantModelAngular from 'src/app/share/IRestaurantModelAngular';
   providedIn: 'root'
 })
 export class EditRestaurantService {
-  baseURL: string = 'http://localhost:8080/api';
+  baseURL: string = 'http://localhost:3000/api';
   restaurantIDs: any[] = [];
   restaurants: any[] = [];
   restaurant!: IRestaurantModelAngular;
