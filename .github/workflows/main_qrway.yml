@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: '18.x'
 
-      # - name: Change directory to backend
-      #   run: cd backend
-
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
@@ -31,13 +28,19 @@ jobs:
         run: cd frontend && npm install
 
       - name: Install and build backend
-        run: cd backend && npm install && npm run build
+        run: |
+          cd backend
+          npm install
+          npm run build
+
+      - name: Create artifact archive
+        run: zip -r node-app.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: node-app.zip
 
   deploy:
     runs-on: ubuntu-latest
