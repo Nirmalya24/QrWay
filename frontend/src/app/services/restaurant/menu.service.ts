@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import IMenuModelAngular from 'src/app/share/IMenuModelAngular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
-  private baseURL: string = 'http://localhost:3000/api';
+  private baseURL: string = environment.apiUrl;
   private menu: any = {};
 
   constructor(private http: HttpClient) { }

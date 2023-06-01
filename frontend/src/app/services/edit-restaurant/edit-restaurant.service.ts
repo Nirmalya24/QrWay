@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { restaurantModel } from 'src/app/share/restaurantModel';
 import IRestaurantModelAngular from 'src/app/share/IRestaurantModelAngular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditRestaurantService {
-  baseURL: string = 'http://localhost:3000/api';
+  baseURL: string = environment.apiUrl;
   restaurantIDs: any[] = [];
   restaurants: any[] = [];
   restaurant!: IRestaurantModelAngular;

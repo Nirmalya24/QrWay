@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import IRestaurantModelAngular from "../../share/IRestaurantModelAngular";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateRestaurantService {
-  private baseURL: string = 'http://localhost:3000/api';
+  baseURL: string = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   createRestaurant(restaurantData: IRestaurantModelAngular) { 

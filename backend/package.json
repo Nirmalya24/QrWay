@@ -1,5 +1,5 @@
 {
-  "name": "expressmongoserver",
+  "name": "qrway-backend",
   "version": "1.0.0",
   "description": "This directory contains two express servers: * AppServer.js - Combined Node/Express web server w/ Mongo Access * Server.js - Encapsulated Node/Express web server w/ Mongo Access",
   "main": "AppServer.js",
@@ -29,10 +29,11 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
-    "build": "tsc && npm run build-frontend",
+    "build": "tsc",
     "build-frontend": "rm -rf ./dist && cd ../frontend && npm run build && cp -r ./dist ../backend/dist && rm -rf ./dist",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
-    "start": "npm run clean && npm run build && node AppServer.js",
+    "start-dev": "npm run clean && npm run build-frontend && node AppServer.js",
+    "start": "npm run clean && npm run build-frontend && tsc && node AppServer.js",
     "populate_items": "node ./createDB/createSampleItems.js",
     "populate_menus": "node ./createDB/createSampleMenus.js",
     "populate_restaurants": "node ./createDB/createSampleRestaurants.js",

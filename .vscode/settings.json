@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d62a9c6e-201a-4d7c-9c55-e6413ec4170c/resourceGroups/qrway/providers/Microsoft.Web/sites/qrway",
+    "appService.deploySubpath": "backend"
+}

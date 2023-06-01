@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 })
 
 export class AppComponent {
-  baseURL: string = 'http://localhost:3000/api';
+  baseURL: string = environment.apiUrl;
   title = 'frontend';
   restaurants:any[]=[];
 

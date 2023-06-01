@@ -11,7 +11,7 @@ describe("Test to get ONE restaurants", function () {
 
   before(function (done) {
     chai
-      .request("http://localhost:3000")
+      .request(`http://localhost:${process.env.PORT}`)
       .get(`/api/restaurant/${restaurantID}`)
       .then(function (res) {
         response = res;
