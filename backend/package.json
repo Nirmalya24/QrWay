@@ -32,7 +32,7 @@
     "build": "tsc",
     "build-frontend": "rm -rf ./dist && cd ../frontend && npm run build && cp -r ./dist ../backend/dist && rm -rf ./dist",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
-    "start-dev": "npm run clean && npm run build-frontend && node AppServer.js",
+    "start-dev": "npm run clean && npm run build-frontend && tsc && node AppServer.js",
     "start": "npm run build && node AppServer.js",
     "populate_items": "node ./createDB/createSampleItems.js",
     "populate_menus": "node ./createDB/createSampleMenus.js",
