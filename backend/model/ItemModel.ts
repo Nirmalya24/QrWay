@@ -24,7 +24,7 @@ class ItemModel {
                 restaurantsID:[String],
                 menusID:[String]
 
-            },{collection: 'Items'}
+            },{collection: 'Items',versionKey: false}
         );
     }
     public createModel(): void {

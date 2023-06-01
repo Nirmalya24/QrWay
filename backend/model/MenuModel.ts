@@ -30,7 +30,7 @@ class MenuModel {
                 public:Boolean
 
 
-            }, { collection: 'Menus' }
+            }, { collection: 'Menus',versionKey: false }
         );
     }
     public createModel(): void {
