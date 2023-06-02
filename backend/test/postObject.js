@@ -44,23 +44,11 @@ describe("Test to post ONE restaurants ", function () {
         done();
       });
   });
-
-  it("Return Status is 200 OK", function (done) {
+  it("POST - Creates a new restaurant", function (done) {
     expect(response.statusCode).to.equal(200);
-    done();
-  });
-
-  it("Returns value is an object", function (done) {
     expect(responseBody).to.be.an("object");
-    done();
-  });
-
-  it("Return type of body is JSON", function (done) {
     expect(response).to.be.json;
-    done();
-  });
-
-  it("Restaurant contains expected attribute names", function (done) {
+  
     expect(responseBody).to.have.all.keys(
       "managerID",
       "menusID",
@@ -72,10 +60,6 @@ describe("Test to post ONE restaurants ", function () {
       "restaurantImage",
       "tag"
     );
-    done();
-  });
-
-  it("Restaurant contains expected attribute types", function (done) {
     const expectedAttributeTypes = {
       "managerID": "array",
       "menusID": "array",
@@ -86,16 +70,19 @@ describe("Test to post ONE restaurants ", function () {
       "description": "string",
       "restaurantImage": "string",
       "tag": "string"
-    }
-
+    };
+  
     Object.keys(expectedAttributeTypes).forEach(key => {
       const expectedType = expectedAttributeTypes[key];
-      expect(responseBody[key]).that.is.a(expectedType);
+      expect(responseBody[key]).to.be.a(expectedType);
     });
-
+  
+    expect(responseBody).to.have.property("_id");
+    expect(responseBody).to.have.property("restaurantID");
+  
     done();
   });
-
+ 
 
 });
 
