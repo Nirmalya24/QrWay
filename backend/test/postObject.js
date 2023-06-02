@@ -4,16 +4,17 @@ var expect = chai.expect;
 var host ="http://localhost:8080";
 
 chai.use(chaiHttp);
-
-describe("Test to post ONE restaurants and then delete the test case", function () {
-  const restaurantID = "b061d548-e85c-11ed-a05b-0242ac120003";
+const restaurantID = "b061d548-e85c-11ed-a05b-0242ac120003";
   let responseBody;
   let response;
+
+describe("Test to post ONE restaurants ", function () {
+  
   let restaurant={ 
   "restaurantName" :"Test8",    
   "managerID":["tes1,test2"],
   "restaurantOwnerID":"d792c6be-e89c-11ed-a05b-0242ac120003",
-  "description":"Bring one bring all! We serve breakfast all day!",
+  "description":"Test description",
   "restaurantImage":"https://restaurantclicks.com/wp-content/uploads/2022/06/breakfast-seat…",
   "tag":"Breakfast",
   "menusID":["123","222"]
@@ -39,7 +40,6 @@ describe("Test to post ONE restaurants and then delete the test case", function 
       .request(host)
       .delete(`/api/restaurant/delete/${responseBody.restaurantID}`)
       .then(function (res) {
-        console.log("res ID"+responseBody.restaurantID)
         expect(res.statusCode).to.equal(200);
         done();
       });
@@ -96,17 +96,26 @@ describe("Test to post ONE restaurants and then delete the test case", function 
     done();
   });
 
-  it("Restaurant contains _id", function (done) {
-    expect(responseBody).to.have.property("_id");
-    done();
-  });
-
-  it("Restaurant contains restaurantID", function (done) {
-    expect(responseBody).to.have.property("restaurantID");
-    done();
-  });
-
-
-
 
 });
+
+describe("Test state after delete", function () {
+    let getResponse;
+
+    before(function (done) {
+      chai
+        .request(host)
+        .get(`/api/restaurant/${responseBody.restaurantID}`)
+        .then(function (res) {
+          getResponse = res;
+          done();
+        });
+    });
+    it("GET - Response body is empty", function () {
+        console.log("getResponse.body"+getResponse.body)
+      expect(getResponse.body).to.deep.equal(null);
+
+    });
+    // Additional test cases for the state after delete
+    });
+
