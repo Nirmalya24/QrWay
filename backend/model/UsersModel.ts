@@ -3,7 +3,6 @@ import { DataAccess } from './../DataAccess';
 import { IUsersModel } from '../interfaces/IUsersModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
-// let mongooseObj = DataAccess.mongooseInstance;
 
 class UsersModel {
     public schema: any;
