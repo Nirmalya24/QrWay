@@ -1,6 +1,8 @@
+require("dotenv").config();
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
+const apiURL = `http://localhost:${process.env.PORT}`;
 
 chai.use(chaiHttp);
 
@@ -11,7 +13,7 @@ describe("Test to get ONE item", function () {
 
   before(function (done) {
     chai
-      .request("http://localhost:8000")
+      .request(apiURL)
       .get(`/api/item/${itemID}`)
       .then(function (res) {
         response = res;

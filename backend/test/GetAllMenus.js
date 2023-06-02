@@ -1,6 +1,8 @@
+require("dotenv").config();
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
+const apiURL = `http://localhost:${process.env.PORT}`;
 
 chai.use(chaiHttp);
 
@@ -11,12 +13,15 @@ describe("Test to get all menus", function () {
 
   before(function (done) {
     chai
-      .request("http://localhost:8000")
+      .request(apiURL)
       .get(`/api/menus/${restaurantID}`)
       .then(function (res) {
         response = res;
         responseBody = res.body;
         done();
+      })
+      .catch(function (err) {
+        done(err);
       });
   });
 
