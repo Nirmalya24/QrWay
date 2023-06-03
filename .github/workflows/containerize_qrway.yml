@@ -25,6 +25,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
+          cd backend
           touch .env
           echo "ATLAS_URI=${{ secrets.ATLAS_URI }}" >> .env
           echo "GOOGLE_OAUTH_ID=${{ secrets.GOOGLE_OAUTH_ID }}" >> .env
