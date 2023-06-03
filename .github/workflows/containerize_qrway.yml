@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Set Environment Variables
+        run: |
+          export ATLAS_URI = ${{ secrets.ATLAS_URI }}
+          export GOOGLE_OAUTH_ID = ${{ secrets.GOOGLE_OAUTH_ID }}
+          export GOOGLE_OAUTH_SECRET = ${{ secrets.GOOGLE_OAUTH_SECRET }}
+
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
