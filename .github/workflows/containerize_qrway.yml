@@ -73,23 +73,24 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: node-app
-
       - name: Sign in to Azure 
         # Use the GitHub secret you added.
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: node-app
+
       - name: Deploy to Azure Web App
-        # Remove publish-profile.
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'qrway'
           slot-name: 'production'
-          package: ./backend/node-app.zip
+          package: node-app.zip
       - name: Sign out of Azure.
         run: |
           az logout
