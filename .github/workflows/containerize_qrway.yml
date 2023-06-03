@@ -93,12 +93,3 @@ jobs:
       - name: Sign out of Azure.
         run: |
           az logout
-
-      # - name: 'Deploy to Azure Web App'
-      #   id: deploy-to-webapp
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: 'qrway'
-      #     slot-name: 'Production'
-      #     publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DC3E272B6A0647B58851CFF7A76183EA }}
-      #     package: .
