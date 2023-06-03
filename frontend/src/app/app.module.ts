@@ -30,6 +30,7 @@ import { AllMenusComponent } from './all-menus/all-menus.component';
 import { MenuCardComponent } from './menu-card/menu-card.component';
 import { CreateMenuDialogComponent } from './create-menu-dialog/create-menu-dialog.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     EditRestaurantComponent,
     AllMenusComponent,
     MenuCardComponent,
-    CreateMenuDialogComponent
+    CreateMenuDialogComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
