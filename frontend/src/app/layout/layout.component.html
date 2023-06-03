@@ -26,8 +26,12 @@
         Create Menu
       </button>
 
-      <button mat-raised-button *ngIf="shouldShowUserProfileButton">
-        User Profile
+      <button
+        mat-raised-button
+        class="circular-button"
+        *ngIf="shouldShowUserProfileButton"
+      >
+        User
       </button>
 
       <!-- TODO: ADD BUTTON HERE FOR LOGIN BUTTON (IT SHOULD SHOW UP ON EVERY PAGE EXCEPT LOGIN PAGE) -->
