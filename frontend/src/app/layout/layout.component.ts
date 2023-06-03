@@ -14,6 +14,7 @@ export class LayoutComponent {
 
   shouldShowCreateRestaurantButton: boolean = true;
   shouldShowCreateMenuButton: boolean;
+  shouldShowUserProfileButton: boolean = false;
 
   constructor(public dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
     this.shouldShowCreateMenuButton = this.checkDynamicURL();
@@ -33,6 +34,7 @@ export class LayoutComponent {
   private evaluateConditions(): void {
     this.shouldShowCreateRestaurantButton = this.router.url === '/dashboard';
     this.shouldShowCreateMenuButton = this.checkDynamicURL();
+    this.shouldShowUserProfileButton = !(this.router.url === '/');
     this.route.params.subscribe(params => {
       const restaurantID = params['restaurantID']; // Assuming 'restaurantID' is the parameter name in your route
       console.log("[LayoutComponent]: restaurantID: ", restaurantID); // Use the ID as needed in your component logic
@@ -65,4 +67,6 @@ export class LayoutComponent {
       }
     });
   }
+
+  checkIfOnLogin
 }
