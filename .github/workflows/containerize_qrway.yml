@@ -42,7 +42,6 @@ jobs:
 
       - name: Nuke DB
         run: |
-          echo ${{ secrets.ATLAS_URI }}
           cd backend && npm run populate_db
 
       - name: Install Backend Dependencies
