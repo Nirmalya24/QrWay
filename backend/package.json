@@ -32,6 +32,7 @@
     "build": "tsc",
     "build-frontend": "rm -rf ./dist && cd ../frontend && npm run build && cp -r ./dist ../backend/dist && rm -rf ./dist",
     "build-frontend-dev": "rm -rf ./dist && cd ../frontend && npm run build-dev && cp -r ./dist ../backend/dist && rm -rf ./dist",
+    "build-frontend-windows": "rmdir /s /q .\\dist & cd ..\\frontend & npm run build & xcopy .\\dist ..\\backend\\dist /s /e & rmdir /s /q .\\dist",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
     "start-dev": "npm run clean && npm run build-frontend-dev && tsc && node AppServer.js",
     "start": "npm run build && node AppServer.js",
