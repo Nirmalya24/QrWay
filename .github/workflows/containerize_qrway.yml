@@ -41,7 +41,9 @@ jobs:
         run: cd backend && npm install
 
       - name: Nuke DB
-        run: cd backend && npm run populate_db
+        run: |
+          echo ${{ secrets.ATLAS_URI }}
+          cd backend && npm run populate_db
 
       - name: Install Backend Dependencies
         run: cd backend && npm install
@@ -85,9 +87,9 @@ jobs:
         # Remove publish-profile.
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'node-app'
+          app-name: 'qrway'
           slot-name: 'production'
-          package: .
+          package: ./backend/node-app.zip
       - name: Sign out of Azure.
         run: |
           az logout
