@@ -3,21 +3,34 @@
   <div class="navbar navbar-dark bg-dark box-shadow">
     <div class="container d-flex justify-content-between">
       <a href="#" class="navbar-brand d-flex align-items-center">
-        <img class="" src="assets/logo.png" alt="QRWay Logo" width="100" height="auto" />
+        <img
+          class=""
+          src="assets/logo.png"
+          alt="QRWay Logo"
+          width="100"
+          height="auto"
+        />
       </a>
-      <button 
+      <button
         mat-raised-button
         *ngIf="shouldShowCreateRestaurantButton"
-        (click)="openCreateRestaurantDialog()">Create Restaurant</button>
-      <button 
+        (click)="openCreateRestaurantDialog()"
+      >
+        Create Restaurant
+      </button>
+      <button
         mat-raised-button
         *ngIf="shouldShowCreateMenuButton"
         (click)="openCreateMenuDialog()"
-        >Create Menu</button>
+      >
+        Create Menu
+      </button>
 
+      <button mat-raised-button *ngIf="shouldShowUserProfileButton">
+        User Profile
+      </button>
 
-        TODO: ADD BUTTON HERE FOR LOGIN BUTTON (IT SHOULD SHOW UP ON EVERY PAGE EXCEPT LOGIN PAGE)
-
+      <!-- TODO: ADD BUTTON HERE FOR LOGIN BUTTON (IT SHOULD SHOW UP ON EVERY PAGE EXCEPT LOGIN PAGE) -->
     </div>
   </div>
 </header>
@@ -27,14 +40,39 @@
 </main>
 
 <footer class="footer fixed-bottom">
-  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+  <div
+    class="
+      container
+      d-flex
+      flex-wrap
+      justify-content-between
+      align-items-center
+    "
+  >
     <p class="col-md-4 mb-0 text-body-secondary">© 2023 Company, Inc</p>
-    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <img class="bi me-2" src="assets/logo-dark.png" alt="QRWay Logo" width="40" height="auto" />
+    <a
+      href="/"
+      class="
+        col-md-4
+        d-flex
+        align-items-center
+        justify-content-center
+        mb-3 mb-md-0
+        me-md-auto
+        link-body-emphasis
+        text-decoration-none
+      "
+    >
+      <img
+        class="bi me-2"
+        src="assets/logo-dark.png"
+        alt="QRWay Logo"
+        width="40"
+        height="auto"
+      />
     </a>
   </div>
 </footer>
-
 
 <!-- <footer class="footer">
   <div class="container">
