@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
@@ -61,7 +62,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatInputModule,
     FormsModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [DashboardService, CreateRestaurantService, HttpClientModule,EditRestaurantComponent, MenuService],
   bootstrap: [AppComponent]
