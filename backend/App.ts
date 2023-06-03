@@ -72,8 +72,6 @@ class App {
 
     router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
       console.log("[App] Google User Authentication Success, redirecting to dashboard");
-      console.log(`[App] Google OAuth Token: ${process.env.GOOGLE_OAUTH_ID}`);
-      console.log(`[App] Google OAuth Token: ${process.env.GOOGLE_OAUTH_SECRET}`);
       // TODO: Check if user already exists in database, if not, create new user
       res.redirect('/#/dashboard');
     });
@@ -85,7 +83,9 @@ class App {
 
     router.get('/auth/google', passport.authenticate('google', {
       scope: ['email', 'profile']
-    }));
+    }), () => {
+      console.log("[App] Google Authentication");
+    });
 
     /**
      * Get all restaurant managers for a restaurant owner
