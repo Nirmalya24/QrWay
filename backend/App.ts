@@ -179,7 +179,7 @@ class App {
      * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
-    router.get("/api/restaurant/all/:restaurantOwnerID", this.validateAuth, async (req, res) => {
+    router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
       this.Restaurants.retrieveAllRestaurants(res, restaurantOwnerID);
