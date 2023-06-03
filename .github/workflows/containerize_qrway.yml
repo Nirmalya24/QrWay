@@ -88,7 +88,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'qrway'
-          slot-name: 'production'
+          slot-name: 'Production'
           package: node-app.zip
       - name: Sign out of Azure.
         run: |
