@@ -75,4 +75,8 @@ export class LayoutComponent {
       },
     });
   }
+
+  goToUserProfile() {
+    this.router.navigateByUrl('/profile');
+  }
 }

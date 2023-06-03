@@ -6,6 +6,7 @@ import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { AppComponent } from './app.component';
 import { EditRestaurantComponent } from './edit-restaurant/edit-restaurant.component';
 import { AllMenusComponent } from './all-menus/all-menus.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'menus/:restaurantID', component: AllMenusComponent, pathMatch: 'full'},
   {path:'restaurant/:restaurantID',component:EditRestaurantComponent},
   {path: 'menus/:restaurantID/:menuID', component: ManageMenuComponent, pathMatch: 'full'},
-  {path:'restaurant',component:EditRestaurantComponent}
+  {path:'restaurant',component:EditRestaurantComponent},
+  {path: 'profile', component: UserProfileComponent}
 ];
 
 
