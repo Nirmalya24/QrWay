@@ -11,8 +11,8 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   // Fetch all restaurants from backend
-  public getAllRestaurants(): any {
-    return this.http.get<any>(`${this.baseURL}/restaurant/all/d792c6be-e89c-11ed-a05b-0242ac120003`);
+  public getAllRestaurants(UserID:String): any {
+    return this.http.get<any>(`${this.baseURL}/restaurant/all/${UserID}`);
   }
 
   // Fetch all menus from backend
@@ -24,6 +24,10 @@ export class DashboardService {
   public getRestaurant(restaurantID: string):any {
     return this.http.get<any>(`${this.baseURL}/restaurant/${restaurantID}`);
   }
+  public getUserID(): any {
+    return this.http.get<any>(`${this.baseURL}/userID`);
+  }
+
     
   }
 

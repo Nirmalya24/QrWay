@@ -8,5 +8,6 @@ interface IUsersModel extends Mongoose.Document {
     email: string;
     isOwner: boolean; // set this true for now
     isManager: boolean;
+    connectStatus:boolean;
 }
 export { IUsersModel };

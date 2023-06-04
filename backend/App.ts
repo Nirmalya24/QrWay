@@ -9,11 +9,18 @@ import { RestaurantOwnerModel } from "./model/RestaurantOwnerModel";
 import { ItemModel } from "./model/ItemModel";
 import { MenuModel } from "./model/MenuModel";
 import * as cors from "cors";
+import { Request, Response, NextFunction } from 'express';
+const cookieParser = require('cookie-parser');
 
 import * as crypto from "crypto";
 
 import GooglePassport from "./GooglePassport";
 import * as passport from "passport";
+
+// Define a custom type declaration for req object
+interface CustomRequest extends Request {
+  user?: any; // Add the 'user' property to the req object
+}
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -26,6 +33,7 @@ class App {
   public Items: ItemModel;
   public Menus: MenuModel;
   public GooglePassport: GooglePassport;
+  public User:any;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -40,8 +48,12 @@ class App {
     this.Items = new ItemModel();
     this.Menus = new MenuModel();
   }
+  
+
+  
 
   // Configure Express middleware.
+
   private middleware(): void {
     this.expressApp.use(cors());
     this.expressApp.use(bodyParser.json());
@@ -55,27 +67,47 @@ class App {
     });
     this.expressApp.use(passport.initialize());
     this.expressApp.use(passport.session());
-  }
+    (passport.authenticate('session'));
 
+  }
+  // Define a middleware function to set req.user
+ // Modify setUser to use CustomRequest type
+private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
+  req.user = req.user || null; // Set req.user to null if it doesn't exist
+  next();
+}
   private validateAuth(req, res, next) {
     if (req.isAuthenticated()) {
       console.log("[App] User is authenticated");
+      console.log("validateAuth User"+JSON.stringify(req.user))
       return next();
     }
     console.log("[App] User is not authenticated");
     res.redirect('/');
   }
-
+  
   // Configure API endpoints.
   private routes(): void {
+    
     let router = express.Router();
+    router.use(this.setUser.bind(this));
 
-    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), async(req: CustomRequest, res: Response) => {
       console.log("[App] Google User Authentication Success, redirecting to dashboard");
       // TODO: Check if user already exists in database, if not, create new user
-      res.redirect('/#/dashboard');
+       var user = await this.Users.retrieveUser(res,{oauthID:req.user.id}); 
+       if(user==null){
+        console.log("[App] Current User has not registered yet"); 
+        user = await this.Users.registerNewUser(res,req.user)
+       }  
+      res.cookie('userID', user.userID, { httpOnly: true });
+      res.redirect('/#/dashboard/');
     });
-
+  
+    router.get('/api/userID', function(req, res) {
+      res.json( req.cookies.userID );
+    });
+    
     router.get("/api/health", (req, res, next) => {
       console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
@@ -84,7 +116,64 @@ class App {
     router.get('/auth/google', passport.authenticate('google', {
       scope: ['email', 'profile']
     }));
+    /**
+     * Register a new user
+     * @param req
+     * - UserID - ID of the new user
+     * - oauthID - oauthID of the new User from google auth
+     * - email - Email of the new user
+     * - image - image url of the new user
+     * - isOwner - check if the new user is owner
+     * - isManager - check of the new user is manager
+     *  - connectStatus - check the user connection of status
+     */
+    router.post("/api/newUser/", async (req, res) => {
+      //params from request body
+      let newUser: object = {
+        userID: crypto.randomUUID(),
+        oauthID: req.body.oauthID,
+        name: req.body.name,
+        profile_image: req.body.profile_image,
+        email: req.body.email,
+        isOwner: req.body.isOwner,
+        isManager: req.body.isManager,
+        connectStatus: req.body.connectStatus
+      };
 
+      console.log(
+        "[App] Registering a new user with:" + JSON.stringify(newUser)
+      );
+      const result = await this.Users.registerNewUser(
+        res,
+        newUser
+      );
+      res.json(result);
+    });
+
+
+    /**
+     * Get User information by oauthID
+     * @param oauthID - google oauthID 
+     * @return json object of User information
+     */
+    router.get(
+      "/api/user/:oauthID",
+      async (req, res) => {
+        let filter: object = {
+          oauthID:req.params.oauthID
+        };
+        console.log(
+          "[App] get User information with oauthID: " +
+          filter['oauthID']
+        );
+        const result =
+          await this.Users.retrieveUser(
+            res,
+            filter
+          );
+        res.json(result);
+      }
+    );
     /**
      * Get all restaurant managers for a restaurant owner
      * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
@@ -330,11 +419,6 @@ class App {
       if (deleteItemRes === null) res.json({ message: "Item is not found" });
       else res.json(deleteItemRes);
     });
-
-
-
-
-
 
     /**
      * delete a restaurant
@@ -597,11 +681,11 @@ class App {
       this.Menus.updateMenuTime(res, filter, startTime, endTime);
     });
 
-    this.expressApp.use("/", router);
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
     // this.expressApp.use("/", express.static(__dirname + "/pages"));
     this.expressApp.use("/", express.static(__dirname + "/dist/frontend"));
+    this.expressApp.use("/", router);
   }
 }
 
