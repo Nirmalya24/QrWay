@@ -17,8 +17,10 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "debug": "^2.6.3",
+    "dotenv": "^16.1.3",
     "express": "^4.15.2",
     "express-session": "^1.17.3",
+    "mocha": "^10.2.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.7.5",
     "passport": "^0.6.0",
@@ -35,7 +37,7 @@
     "build-frontend-windows": "rmdir /s /q .\\dist & cd ..\\frontend & npm run build & xcopy .\\dist ..\\backend\\dist /s /e & rmdir /s /q .\\dist",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
     "start-dev": "npm run clean && npm run build-frontend-dev && tsc && node AppServer.js",
-    "start": "npm run build && node AppServer.js",
+    "start": "node AppServer.js",
     "populate_items": "node ./createDB/createSampleItems.js",
     "populate_menus": "node ./createDB/createSampleMenus.js",
     "populate_restaurants": "node ./createDB/createSampleRestaurants.js",
@@ -43,12 +45,5 @@
     "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants && npm run populate_users"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "async": "^3.2.4",
-    "chai": "^4.3.7",
-    "chai-http": "^4.3.0",
-    "dotenv": "^16.0.3",
-    "mocha": "^10.2.0"
-  }
+  "license": "ISC"
 }

@@ -12,16 +12,10 @@ import { environment } from '../environments/environment';
 
 export class AppComponent {
   baseURL: string = environment.apiUrl;
-  title = 'frontend';
+  title = 'QrWay';
   restaurants:any[]=[];
 
   constructor(private http: HttpClient) {}
-
-  public  getAllRestaurant():any {
-    this.http.get<any>(`${this.baseURL}/restaurant/all/d792c6be-e89c-11ed-a05b-0242ac120003`).subscribe(data => {
-      this.restaurants = data;
-    })
-  }
 
   ngOnInit(){}
 
