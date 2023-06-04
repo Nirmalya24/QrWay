@@ -6,7 +6,7 @@ const apiURL = `http://localhost:${process.env.PORT}`;
 
 chai.use(chaiHttp);
 
-describe("Test to get all menus", function () {
+describe("[GET] Test to get ALL menus", function () {
   const restaurantID = "b061d548-e85c-11ed-a05b-0242ac120003";
   let responseBody;
   let response;

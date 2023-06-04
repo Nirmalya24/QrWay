@@ -6,7 +6,7 @@ const apiURL = `http://localhost:${process.env.PORT}`;
 
 chai.use(chaiHttp);
 
-describe("Test to get ONE item", function () {
+describe("[GET] Test to get ONE item", function () {
   const itemID = "1a0eae26-33f9-4f9a-9c98-0a49a26a4181";
   let responseBody;
   let response;

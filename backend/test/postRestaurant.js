@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 let responseBody;
 let response;
 
-describe("[POST] Testing post endpoint ", function () {
+describe("[POST] Testing post restaurant ", function () {
   let restaurant = {
     restaurantName: "The Krusty Krab",
     managerID: ["Eugene, Bob"],

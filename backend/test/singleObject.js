@@ -6,7 +6,7 @@ const host = `http://localhost:${port}`;
 
 chai.use(chaiHttp);
 
-describe("Test to get ONE restaurants", function () {
+describe("[GET] Test to get ONE restaurants", function () {
   const restaurantID = "b061d548-e85c-11ed-a05b-0242ac120003";
   let responseBody;
   let response;
