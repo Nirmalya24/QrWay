@@ -1,7 +1,9 @@
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
-var host = "http://localhost:8080";
+const port = process.env.PORT || 8080;
+const host = `http://localhost:${port}`;
+
 
 chai.use(chaiHttp);
 

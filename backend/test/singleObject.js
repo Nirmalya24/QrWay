@@ -1,6 +1,8 @@
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
+const port = process.env.PORT || 8080;
+const host = `http://localhost:${port}`;
 
 chai.use(chaiHttp);
 
@@ -11,7 +13,7 @@ describe("Test to get ONE restaurants", function () {
 
   before(function (done) {
     chai
-      .request("http://localhost:8080")
+      .request(host)
       .get(`/api/restaurant/${restaurantID}`)
       .then(function (res) {
         response = res;

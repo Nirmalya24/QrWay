@@ -1,6 +1,8 @@
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var async = require("async");
+const port = process.env.PORT || 8080;
+const host = `http://localhost:${port}`;
 
 var expect = chai.expect;
 var should = chai.should();
@@ -16,7 +18,7 @@ describe("Test to get a LIST of restaurants", function () {
 
   before(function (done) {
     chai
-      .request("http://127.0.0.1:8000")
+      .request(host)
       .get("/api/restaurant/all/d792c6be-e89c-11ed-a05b-0242ac120003")
       .end(function (err, res) {
         requestResult = res.body;
