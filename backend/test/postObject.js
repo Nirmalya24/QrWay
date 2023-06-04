@@ -12,10 +12,10 @@ let response;
 
 describe("[POST] Testing post endpoint ", function () {
   let restaurant = {
-    restaurantName: "Test8",
-    managerID: ["tes1,test2"],
+    restaurantName: "The Krusty Krab",
+    managerID: ["Eugene, Bob"],
     restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003",
-    description: "Test description",
+    description: "Come Spend Your Money Here!",
     restaurantImage:
       "https://restaurantclicks.com/wp-content/uploads/2022/06/breakfast-seat…",
     tag: "Breakfast",
