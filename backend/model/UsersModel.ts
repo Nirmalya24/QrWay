@@ -23,7 +23,6 @@ class UsersModel {
                 email:String,
                 isOwner: Boolean,
                 isManager:Boolean,
-                connectStatus:Boolean,
             }, { collection: 'Users' ,versionKey: false }
         );
     }
@@ -85,22 +84,22 @@ class UsersModel {
         // console.log("[UsersModel] email: " + newUser.email);
         // console.log("[UsersModel] image: " + newUser.image);
         // console.log("[UsersModel] isOwner: " + newUser.isOwner);
-        let setUser: object = {
-            userID: crypto.randomUUID(),
-            oauthID: newUser.id,
-            name: newUser.displayName,
-            profile_image: newUser.photos[0].value,
-            email: newUser.emails[0].value,
-            isOwner: true,
-            isManager:false,
-            connectStatus: true
-          };
+        // let setUser: object = {
+        //     userID: crypto.randomUUID(),
+        //     oauthID: newUser.id,
+        //     name: newUser.displayName,
+        //     profile_image: newUser.photos[0].value,
+        //     email: newUser.emails[0].value,
+        //     isOwner: true,
+        //     isManager:false,
+        //     connectStatus: true
+        //   };
 
         // query db to create a new user
         console.log("[UsersMoel Model] Registering a new user ...");
         try {
             console.log("[Restaurant Model] Registering...");
-            const query = new this.model(setUser);
+            const query = new this.model(newUser);
             const user = await query.save();
             console.log("[User Model | DEBUG] registerNewUser: " + user);
             return user;

@@ -33,7 +33,7 @@ class App {
   public Items: ItemModel;
   public Menus: MenuModel;
   public GooglePassport: GooglePassport;
-  public User:any;
+  public User: any;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -48,9 +48,9 @@ class App {
     this.Items = new ItemModel();
     this.Menus = new MenuModel();
   }
-  
 
-  
+
+
 
   // Configure Express middleware.
 
@@ -59,7 +59,7 @@ class App {
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     this.expressApp.use(cookieParser());
-    this.expressApp.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 3600000 }}));
+    this.expressApp.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 3600000 } }));
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
@@ -71,43 +71,56 @@ class App {
 
   }
   // Define a middleware function to set req.user
- // Modify setUser to use CustomRequest type
-private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
-  req.user = req.user || null; // Set req.user to null if it doesn't exist
-  next();
-}
+  // Modify setUser to use CustomRequest type
+  private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
+    req.user = req.user || null; // Set req.user to null if it doesn't exist
+    if (req.user === null) {
+      console.log("[App] Registering new user...");
+
+    }
+    next();
+  }
   private validateAuth(req, res, next) {
     if (req.isAuthenticated()) {
       console.log("[App] User is authenticated");
-      console.log("validateAuth User"+JSON.stringify(req.user))
+      console.log("validateAuth User" + JSON.stringify(req.user))
       return next();
     }
     console.log("[App] User is not authenticated");
     res.redirect('/');
   }
-  
+
   // Configure API endpoints.
   private routes(): void {
-    
+
     let router = express.Router();
     router.use(this.setUser.bind(this));
 
-    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), async(req: CustomRequest, res: Response) => {
+    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), async (req: CustomRequest, res: Response) => {
       console.log("[App] Google User Authentication Success, redirecting to dashboard");
       // TODO: Check if user already exists in database, if not, create new user
-       var user = await this.Users.retrieveUser(res,{oauthID:req.user.id}); 
-       if(user==null){
-        console.log("[App] Current User has not registered yet"); 
-        user = await this.Users.registerNewUser(res,req.user)
-       }  
+      var user = await this.Users.retrieveUser(res, { oauthID: req.user.id });
+      if (user == null) {
+        console.log("[App] Current User has not registered yet");
+        let newUser: object = {
+          userID: crypto.randomUUID(),
+          oauthID: req.user.id,
+          name: req.user.displayName,
+          profile_image: req.user.photos[0].value,
+          email: req.user.emails[0].value,
+          isOwner: true,
+          isManager:false,
+        };
+        user = await this.Users.registerNewUser(res, newUser)
+      }
       res.cookie('userID', user.userID, { httpOnly: true });
       res.redirect('/#/dashboard/');
     });
-  
-    router.get('/api/userID', function(req, res) {
-      res.json( req.cookies.userID );
+
+    router.get('/api/userID', function (req, res) {
+      res.json(req.cookies.userID);
     });
-    
+
     router.get("/api/health", (req, res, next) => {
       console.log("[App] Health Check");
       res.json({ healthy: true }).status(200);
@@ -160,7 +173,7 @@ private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
       "/api/user/:oauthID",
       async (req, res) => {
         let filter: object = {
-          oauthID:req.params.oauthID
+          oauthID: req.params.oauthID
         };
         console.log(
           "[App] get User information with oauthID: " +
