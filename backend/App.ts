@@ -342,7 +342,7 @@ class App {
      * - restaurantID: string - ID of restaurant
      */
 
-    router.delete("/api/restaurant/delete/:restaurantID", async (req, res) => {
+    router.delete("/api/restaurant/:restaurantID", async (req, res) => {
       console.log("[App] Delete restaurant with restaurantID: " + req.params.restaurantID);
       let filter: object = {
         restaurantID: req.params.restaurantID,
