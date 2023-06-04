@@ -85,6 +85,8 @@ class App {
       scope: ['email', 'profile']
     }));
 
+
+
     /**
      * Get all restaurant managers for a restaurant owner
      * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
@@ -191,6 +193,7 @@ class App {
      * - tag - tag of the new restaurant
      * - restaurantImage - image url of the new restaurant
      */
+    //NOT PROTECTED
     router.post("/api/restaurant/", async (req, res) => {
       //params from request body
       let createRestaurant: object = {
@@ -216,6 +219,7 @@ class App {
      * Get a specific restaurant by ID
      * @param restaurantID - restaurant ID for which to get a specific restaurant
      */
+    //NOT PROTECTED
 
     router.get("/api/restaurant/:restaurantID", async (req, res) => {
       console.log(
@@ -273,6 +277,8 @@ class App {
       this.Items.retrieveAllItems(res);
     });
 
+
+
     /**
      * Get a specific item by ID
      * @param itemID
@@ -280,6 +286,7 @@ class App {
      * @returns
      * - JSON obj of the item with the specified ID as a response
      */
+    //NOT PROTECTED
     router.get("/api/item/:itemID", async (req, res) => {
       console.log("Query item with itemID");
       let filter: object = {
@@ -341,6 +348,7 @@ class App {
      * @param req
      * - restaurantID: string - ID of restaurant
      */
+    //NOT PROTECTED
 
     router.delete("/api/restaurant/:restaurantID", async (req, res) => {
       console.log("[App] Delete restaurant with restaurantID: " + req.params.restaurantID);
@@ -374,6 +382,7 @@ class App {
      * - restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @returns - JSON obj of all menus as a response
      */
+    //NOT PROTECTED
     router.get("/api/menus/:restaurantID", async (req, res) => {
       // Get the RestaurantId URL parameters
       let restaurantID: string = req.params.restaurantID;
@@ -392,6 +401,7 @@ class App {
      * @param restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @param menuId: string - ID of the menu for which to retrieve all menu sections
      */
+    //NOT PROTECTED
     router.get("/api/menus/:restaurantID/:menuID", (req, res) => {
       // Get the RestaurantId, RestaurantOwnerId, and menuId from URL parameters
       let restaurantID: string = req.params.restaurantID;
