@@ -96,6 +96,7 @@ class App {
      */
     router.get(
       "/api/restaurantmanagers/:restaurantOwnerID",
+      this.validateAuth,
       async (req, res) => {
         let restaurantOwnerID = req.params.restaurantOwnerID;
         console.log(
@@ -120,7 +121,10 @@ class App {
      * - managerName - name of the new restaurant manager
      * - restaurantID - restaurant ID to which the new restaurant manager belongs
      */
-    router.post("/api/restaurantmanagers/create-manager", (req, res) => {
+    router.post(
+      "/api/restaurantmanagers/create-manager", 
+      this.validateAuth,
+      (req, res) => {
       //TODO: create in route is redundant
       //check if restaurantOwnerID passed is empty
       if (req.body.restaurantOwnerID === "") {
@@ -154,7 +158,10 @@ class App {
      * @param menuID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/restaurantmanagers/update-manager", async (req, res) => {
+    router.post(
+      "/api/restaurantmanagers/update-manager", 
+      this.validateAuth,
+      async (req, res) => {
       console.log("Update manager with ManagerId: " + req.body.UserID);
       let filter: object = {
         userID: req.body.userID,
@@ -181,7 +188,9 @@ class App {
      * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
-    router.get("/api/restaurant/all/:restaurantOwnerID", async (req, res) => {
+    router.get("/api/restaurant/all/:restaurantOwnerID", 
+    this.validateAuth,
+    async (req, res) => {
       let restaurantOwnerID = req.params.restaurantOwnerID;
       console.log("Query All Restaurants");
       this.Restaurants.retrieveAllRestaurants(res, restaurantOwnerID);
@@ -240,7 +249,10 @@ class App {
      * @param menuID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/updateRestaurant/", async (req, res) => {
+    router.post(
+      "/api/updateRestaurant/", 
+      this.validateAuth,
+      async (req, res) => {
       console.log(
         "Update Restaurant with restaurantId: " + req.body.restaurantID
       );
@@ -274,7 +286,10 @@ class App {
      * Get all items
      * @returns - JSON obj of all items as a response
      */
-    router.get("/api/item/all", (req, res) => {
+    router.get(
+      "/api/item/all", 
+      this.validateAuth,
+      (req, res) => {
       console.log("Query All items");
       this.Items.retrieveAllItems(res);
     });
@@ -314,7 +329,10 @@ class App {
      * - restaurantID: string - ID of the restaurant to which the item is associated
      * - menusID: string - ID of the menu to which the item is associated
      */
-    router.post("/api/item/create", (req, res) => {
+    router.post(
+      "/api/item/create", 
+      this.validateAuth,
+      (req, res) => {
       console.log("Insert item into items collection");
       let createItem: object = {
         itemID: crypto.randomUUID(),
@@ -330,7 +348,10 @@ class App {
     });
 
     /* DELETE Routes */
-    router.delete("/api/item/delete/:itemID", async (req, res) => {
+    router.delete(
+      "/api/item/delete/:itemID", 
+      this.validateAuth,
+      async (req, res) => {
       console.log("[App] Delete item with itemID: " + req.params.itemID);
       let filter: object = {
         itemID: req.params.itemID,
@@ -436,7 +457,10 @@ class App {
      *    menuStartTime: Date
      *    menuEndTime: Date
      */
-    router.post("/api/menus/create", async (req, res) => {
+    router.post(
+      "/api/menus/create", 
+      this.validateAuth,
+      async (req, res) => {
       // Pre check: Check if the restaurant exists
       // Get RestaurantID
       console.log("[App] Trying to create a new menu...");
@@ -479,7 +503,10 @@ class App {
      * - sectionName: string - name of the section to be added
      * @param res json obejct of the new menu section
      */
-    router.post("/api/menus/add/section", (req, res) => {
+    router.post(
+      "/api/menus/add/section", 
+      this.validateAuth,
+      (req, res) => {
       // Get the RestaurantId, menuId, sectionName from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
@@ -510,7 +537,10 @@ class App {
      *  - menuSection: string - menuSection to which the item  should be added to
      *  - itemId: string - itemID of the item to be added
      */
-    router.post("/api/items/add/item", async (req, res) => {
+    router.post(
+      "/api/items/add/item", 
+      this.validateAuth,
+      async (req, res) => {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
@@ -559,7 +589,10 @@ class App {
      * @param ID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/updateMenus/", async (req, res) => {
+    router.post(
+      "/api/updateMenus/", 
+      this.validateAuth,
+      async (req, res) => {
       console.log(
         "Update Restaurant with restaurantId: " + req.body.restaurantID
       );
@@ -593,7 +626,10 @@ class App {
      * - endTime: Date - new end time of the menu
      * @param res json obejct of the updated menu
      */
-    router.patch("/api/menus/update/menu-time", (req, res) => {
+    router.patch(
+      "/api/menus/update/menu-time", 
+      this.validateAuth,
+      (req, res) => {
       // Get the new start and end time from req body
       let startTime: string = req.body.startTime;
       let endTime: string = req.body.endTime;
