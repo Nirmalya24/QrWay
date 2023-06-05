@@ -3,6 +3,7 @@ import { DataAccess } from './../DataAccess';
 import { IUsersModel } from '../interfaces/IUsersModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
+// let mongooseObj = DataAccess.mongooseInstance;
 
 class UsersModel {
     public schema: any;
@@ -17,15 +18,12 @@ class UsersModel {
         this.schema = new Mongoose.Schema(
             {
                 userID:String,
-                oauthID:String,
-                name:String,
-                profile_image:String,
-                email:String,
-                isOwner: Boolean,
-                isManager:Boolean,
-            }, { collection: 'Users' ,versionKey: false }
+                password:String,
+                connectStatus:Boolean,
+            }, { collection: 'Users' }
         );
     }
+
     public createModel(): void {
         this.model = mongooseConnection.model<IUsersModel>("Users", this.schema);
     }
@@ -60,16 +58,12 @@ class UsersModel {
      * @param filter 
      */
     // TODO: Fix/Test this method
-    public async retrieveUser(response: any, filter: Object):Promise<any> {
+    public retrieveUser(response: any, filter: Object) {
         console.log("[UsersModel] Retrieving user...");
-        try {
-            const query = this.model.findOne(filter);
-            const User = await query.exec();
-            console.log("[User Model | DEBUG] retrieveUser: " + User);
-            return User;
-        } catch (err) {
-            throw err;
-        }
+        var query = this.model.find(filter);
+        query.exec((err, itemArray) => {
+            response.json(itemArray);
+        });
     }
 
     /**
@@ -77,35 +71,13 @@ class UsersModel {
      * @param response
      */
     // TODO: Fix/Test this method
-    public async registerNewUser(response: any, newUser: any): Promise<any> {
-        //  console.log("[UsersModel] Creating new user...");
-        //  console.log("[UsersModel] userID: " + newUser.id);
-        // console.log("[UsersModel] oauthID: " + newUser.oauthID);
-        // console.log("[UsersModel] email: " + newUser.email);
-        // console.log("[UsersModel] image: " + newUser.image);
-        // console.log("[UsersModel] isOwner: " + newUser.isOwner);
-        // let setUser: object = {
-        //     userID: crypto.randomUUID(),
-        //     oauthID: newUser.id,
-        //     name: newUser.displayName,
-        //     profile_image: newUser.photos[0].value,
-        //     email: newUser.emails[0].value,
-        //     isOwner: true,
-        //     isManager:false,
-        //     connectStatus: true
-        //   };
-
+    public registerNewUser(response: any, body: any): any {
+        console.log("[UsersModel] Creating new user...");
+        console.log("[UsersModel] userID: " + body.userID);
+        console.log("[UsersModel] oauthID: " + body.oauthID);
+        console.log("[UsersModel] email: " + body.email);
+        console.log("[UsersModel] image: " + body.image);
         // query db to create a new user
-        console.log("[UsersMoel Model] Registering a new user ...");
-        try {
-            console.log("[Restaurant Model] Registering...");
-            const query = new this.model(newUser);
-            const user = await query.save();
-            console.log("[User Model | DEBUG] registerNewUser: " + user);
-            return user;
-        } catch (err) {
-            throw err;
-        }
     }
 }
 export { UsersModel };
