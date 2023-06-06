@@ -14,7 +14,7 @@ export class UserProfileComponent {
   apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) {
-    if (localStorage.getItem('user') === null) {
+    if (localStorage.getItem('userID') === null) {
       console.log("User is null");
       this.router.navigate(['/']);
     }
