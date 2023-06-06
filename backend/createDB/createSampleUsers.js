@@ -25,7 +25,7 @@ const userData = [
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
-        oauthID: "",
+        oauthID: "102214293457696912326",
         name: "Bob Gale",
         profile_image: "https://ichef.bbci.co.uk/news/976/cpsprodpb/153FD/production/_126973078_whatsubject.jpg",
         email: "bobgale@gmail.com",
@@ -34,7 +34,7 @@ const userData = [
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
-        oauthID: "",
+        oauthID: "111595759389992803679",
         name: "Rose Pender",
         profile_image: "https://precisionhealth.iu.edu/images/BernicePescosolido.jpg",
         email: "rose@gmail.com",
