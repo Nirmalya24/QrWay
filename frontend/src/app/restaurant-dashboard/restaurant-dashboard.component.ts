@@ -23,13 +23,6 @@ export class RestaurantDashboardComponent {
       console.log(`[restaurant-dashboard.component] : ${localStorage.getItem('userID')}`);
 
     });
-    this.dashboardService.getUserID().subscribe((res:any)=>{
-      console.log(JSON.stringify(res));
-      this.userID = res;
-      localStorage.setItem("userID",this.userID);
-      console.log(`[restaurant-dashboard.component] : ${localStorage.getItem('userID')}`);
-
-    });
     this.dashboardService.getAllRestaurants(JSON.parse(JSON.stringify(localStorage.getItem('userID')))).subscribe((res: any) => {
       this.restaurants = res;
     });

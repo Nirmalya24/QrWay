@@ -12,7 +12,6 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   // Fetch all restaurants from backend
-
   public getAllRestaurants(UserID:String): any {
     return this.http.get<any>(`${this.baseURL}/restaurant/all/${UserID}`);
   }

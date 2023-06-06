@@ -2,7 +2,7 @@ require("dotenv").config();
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
-const apiURL = `http://localhost:${process.env.PORT}`;
+const apiURL = "https://qrway.azurewebsites.net";
 
 chai.use(chaiHttp);
 

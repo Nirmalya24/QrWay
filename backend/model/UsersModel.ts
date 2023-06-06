@@ -3,7 +3,6 @@ import { DataAccess } from './../DataAccess';
 import { IUsersModel } from '../interfaces/IUsersModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
-// let mongooseObj = DataAccess.mongooseInstance;
 
 class UsersModel {
     public schema: any;
@@ -24,11 +23,9 @@ class UsersModel {
                 email:String,
                 isOwner: Boolean,
                 isManager:Boolean,
-                connectStatus:Boolean,
-            }, { collection: 'Users' }
+            }, { collection: 'Users' ,versionKey: false }
         );
     }
-
     public createModel(): void {
         this.model = mongooseConnection.model<IUsersModel>("Users", this.schema);
     }
@@ -65,14 +62,10 @@ class UsersModel {
     // TODO: Fix/Test this method
     public async retrieveUser(response: any, filter: Object):Promise<any> {
         console.log("[UsersModel] Retrieving user...");
-        var query = this.model.find(filter);
-        query.exec((err, itemArray) => {
-            response.json(itemArray);
-        });
         try {
             const query = this.model.findOne(filter);
             const User = await query.exec();
-            console.log("[User Model | DEBUG] retrieveUser: " + User);
+            // console.log("[User Model | DEBUG] Retrieved User: " + User.userID);
             return User;
         } catch (err) {
             throw err;
@@ -85,7 +78,6 @@ class UsersModel {
      * @param response
      */
     // TODO: Fix/Test this method
-   
     public async registerNewUser(response: any, newUser: any): Promise<any> {
         //  console.log("[UsersModel] Creating new user...");
         //  console.log("[UsersModel] userID: " + newUser.id);
@@ -115,6 +107,6 @@ class UsersModel {
         } catch (err) {
             throw err;
         }
-    }    
+    }
 }
 export { UsersModel };
