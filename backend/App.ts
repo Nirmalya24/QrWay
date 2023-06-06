@@ -9,8 +9,8 @@ import { RestaurantOwnerModel } from "./model/RestaurantOwnerModel";
 import { ItemModel } from "./model/ItemModel";
 import { MenuModel } from "./model/MenuModel";
 import * as cors from "cors";
-import { Request, Response, NextFunction } from 'express';
-const cookieParser = require('cookie-parser');
+import { Request, Response, NextFunction } from "express";
+const cookieParser = require("cookie-parser");
 
 import * as crypto from "crypto";
 
@@ -49,9 +49,6 @@ class App {
     this.Menus = new MenuModel();
   }
 
-
-
-
   // Configure Express middleware.
 
   private middleware(): void {
@@ -59,7 +56,14 @@ class App {
     this.expressApp.use(bodyParser.json());
     this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     this.expressApp.use(cookieParser());
-    this.expressApp.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false, cookie: { maxAge: 3600000 } }));
+    this.expressApp.use(
+      session({
+        secret: "keyboard cat",
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 3600000 },
+      })
+    );
     this.expressApp.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
@@ -67,8 +71,7 @@ class App {
     });
     this.expressApp.use(passport.initialize());
     this.expressApp.use(passport.session());
-    (passport.authenticate('session'));
-
+    passport.authenticate("session");
   }
   // Define a middleware function to set req.user
   // Modify setUser to use CustomRequest type
@@ -76,7 +79,6 @@ class App {
     req.user = req.user || null; // Set req.user to null if it doesn't exist
     if (req.user === null) {
       console.log("[App] Registering new user...");
-
     }
     next();
   }
@@ -86,37 +88,42 @@ class App {
       return next();
     }
     console.log("[App] User is not authenticated");
-    res.redirect('/');
+    res.redirect("/");
   }
 
   // Configure API endpoints.
   private routes(): void {
-
     let router = express.Router();
     router.use(this.setUser.bind(this));
 
-    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), async (req: CustomRequest, res: Response) => {
-      console.log("[App] Google User Authentication Success, redirecting to dashboard");
-      // TODO: Check if user already exists in database, if not, create new user
-      var user = await this.Users.retrieveUser(res, { oauthID: req.user.id });
-      if (user == null) {
-        console.log("[App] Current User has not registered yet");
-        let newUser: object = {
-          userID: crypto.randomUUID(),
-          oauthID: req.user.id,
-          name: req.user.displayName,
-          profile_image: req.user.photos[0].value,
-          email: req.user.emails[0].value,
-          isOwner: true,
-          isManager:false,
-        };
-        user = await this.Users.registerNewUser(res, newUser)
+    router.get(
+      "/auth/google/callback",
+      passport.authenticate("google", { failureRedirect: "/" }),
+      async (req: CustomRequest, res: Response) => {
+        console.log(
+          "[App] Google User Authentication Success, redirecting to dashboard"
+        );
+        // Check if user already exists in database, if not, create new user
+        var user = await this.Users.retrieveUser(res, { oauthID: req.user.id });
+        if (user == null) {
+          console.log("[App] Current User has not registered yet");
+          let newUser: object = {
+            userID: crypto.randomUUID(),
+            oauthID: req.user.id,
+            name: req.user.displayName,
+            profile_image: req.user.photos[0].value,
+            email: req.user.emails[0].value,
+            isOwner: true,
+            isManager: false,
+          };
+          user = await this.Users.registerNewUser(res, newUser);
+        }
+        res.cookie("userID", user.userID, { httpOnly: true });
+        res.redirect("/#/dashboard/");
       }
-      res.cookie('userID', user.userID, { httpOnly: true });
-      res.redirect('/#/dashboard/');
-    });
+    );
 
-    router.get('/api/userID', function (req, res) {
+    router.get("/api/userID", function (req, res) {
       res.json(req.cookies.userID);
     });
 
@@ -125,67 +132,28 @@ class App {
       res.json({ healthy: true }).status(200);
     });
 
-    router.get('/auth/google', passport.authenticate('google', {
-      scope: ['email', 'profile']
-    }));
-    /**
-     * Register a new user
-     * @param req
-     * - UserID - ID of the new user
-     * - oauthID - oauthID of the new User from google auth
-     * - email - Email of the new user
-     * - image - image url of the new user
-     * - isOwner - check if the new user is owner
-     * - isManager - check of the new user is manager
-     *  - connectStatus - check the user connection of status
-     */
-    router.post("/api/newUser/", async (req, res) => {
-      //params from request body
-      let newUser: object = {
-        userID: crypto.randomUUID(),
-        oauthID: req.body.oauthID,
-        name: req.body.name,
-        profile_image: req.body.profile_image,
-        email: req.body.email,
-        isOwner: req.body.isOwner,
-        isManager: req.body.isManager,
-        connectStatus: req.body.connectStatus
-      };
-
-      console.log(
-        "[App] Registering a new user with:" + JSON.stringify(newUser)
-      );
-      const result = await this.Users.registerNewUser(
-        res,
-        newUser
-      );
-      res.json(result);
-    });
-
+    router.get(
+      "/auth/google",
+      passport.authenticate("google", {
+        scope: ["email", "profile"],
+      })
+    );
 
     /**
      * Get User information by oauthID
-     * @param oauthID - google oauthID 
+     * @param oauthID - google oauthID
      * @return json object of User information
      */
-    router.get(
-      "/api/user/:oauthID",
-      async (req, res) => {
-        let filter: object = {
-          oauthID: req.params.oauthID
-        };
-        console.log(
-          "[App] get User information with oauthID: " +
-          filter['oauthID']
-        );
-        const result =
-          await this.Users.retrieveUser(
-            res,
-            filter
-          );
-        res.json(result);
-      }
-    );
+    router.get("/api/user/:oauthID", async (req, res) => {
+      let filter: object = {
+        oauthID: req.params.oauthID,
+      };
+      console.log(
+        "[App] get User information with oauthID: " + filter["oauthID"]
+      );
+      const result = await this.Users.retrieveUser(res, filter);
+      res.json(result);
+    });
     /**
      * Get all restaurant managers for a restaurant owner
      * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
@@ -197,7 +165,7 @@ class App {
         let restaurantOwnerID = req.params.restaurantOwnerID;
         console.log(
           "[App] Query All Restaurant Managers for restaurant owner: " +
-          restaurantOwnerID
+            restaurantOwnerID
         );
         const result =
           await this.RestaurantManagers.retrieveAllRestaurantManagers(
@@ -239,7 +207,7 @@ class App {
 
       console.log(
         "[App] Creating new restaurant manager with:" +
-        JSON.stringify(createManager)
+          JSON.stringify(createManager)
       );
       this.RestaurantManagers.createRestaurantManager(res, createManager);
     });
@@ -278,11 +246,15 @@ class App {
      * Query all restaurants by OwnerID
      * @param restaurantOwnerID - restaurant owner ID to which query all restaurants
      */
-    router.get("/api/restaurant/all/:restaurantOwnerID", this.validateAuth, async (req, res) => {
-      let restaurantOwnerID = req.params.restaurantOwnerID;
-      console.log("Query All Restaurants");
-      this.Restaurants.retrieveAllRestaurants(res, restaurantOwnerID);
-    });
+    router.get(
+      "/api/restaurant/all/:restaurantOwnerID",
+      this.validateAuth,
+      async (req, res) => {
+        let restaurantOwnerID = req.params.restaurantOwnerID;
+        console.log("Query All Restaurants");
+        this.Restaurants.retrieveAllRestaurants(res, restaurantOwnerID);
+      }
+    );
 
     /**
      * Create a new restaurant
@@ -439,24 +411,22 @@ class App {
      */
 
     router.delete("/api/restaurant/delete/:restaurantID", async (req, res) => {
-      console.log("[App] Delete restaurant with restaurantID: " + req.params.restaurantID);
+      console.log(
+        "[App] Delete restaurant with restaurantID: " + req.params.restaurantID
+      );
       let filter: object = {
         restaurantID: req.params.restaurantID,
-      }
+      };
 
-      const deleteRestaurantRes = await this.Restaurants.deleteRestaurant(filter);
+      const deleteRestaurantRes = await this.Restaurants.deleteRestaurant(
+        filter
+      );
       if (deleteRestaurantRes === null) {
         res.json({ message: "Restaurant is not found" });
       } else {
         res.json(deleteRestaurantRes);
       }
-
     });
-
-
-
-
-
 
     /**
      * Menu Routes
@@ -495,9 +465,9 @@ class App {
 
       console.log(
         "Query all menu sections for: " +
-        menuID +
-        " for restaurant: " +
-        restaurantID
+          menuID +
+          " for restaurant: " +
+          restaurantID
       );
 
       // Query the database for all menus
@@ -571,11 +541,11 @@ class App {
 
       console.log(
         "Adding " +
-        sectionName +
-        " : " +
-        menuID +
-        " for restaurant: " +
-        restaurantID
+          sectionName +
+          " : " +
+          menuID +
+          " for restaurant: " +
+          restaurantID
       );
 
       // Query the database to add a section to the menu
