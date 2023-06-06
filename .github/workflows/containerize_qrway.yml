@@ -44,9 +44,6 @@ jobs:
         run: |
           cd backend && npm run populate_db
 
-      - name: Install Backend Dependencies
-        run: cd backend && npm install
-
       - name: Build Frontend and Backend
         run: |
           cd backend
