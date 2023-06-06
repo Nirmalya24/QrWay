@@ -134,39 +134,6 @@ class App {
     }), () => {
       console.log("[App] Google Authentication");
     });
-    +    /**
-     * Register a new user
-     * @param req
-     * - UserID - ID of the new user
-     * - oauthID - oauthID of the new User from google auth
-     * - email - Email of the new user
-     * - image - image url of the new user
-     * - isOwner - check if the new user is owner
-     * - isManager - check of the new user is manager
-     *  - connectStatus - check the user connection of status
-     */
-    router.post("/api/newUser/", async (req, res) => {
-      //params from request body
-      let newUser: object = {
-        userID: crypto.randomUUID(),
-        oauthID: req.body.oauthID,
-        name: req.body.name,
-        profile_image: req.body.profile_image,
-        email: req.body.email,
-        isOwner: req.body.isOwner,
-        isManager: req.body.isManager,
-        connectStatus: req.body.connectStatus
-      };
-
-      console.log(
-        "[App] Registering a new user with:" + JSON.stringify(newUser)
-      );
-      const result = await this.Users.registerNewUser(
-        res,
-        newUser
-      );
-      res.json(result);
-    });
 
 
     /**
