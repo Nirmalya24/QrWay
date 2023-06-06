@@ -28,7 +28,9 @@ class MenuModel {
                 menuStartTime: String,
                 menuEndTime: String,
                 public:Boolean
-            }, { collection: 'Menus', versionKey: false }
+
+
+            }, { collection: 'Menus',versionKey: false }
         );
     }
     public createModel(): void {

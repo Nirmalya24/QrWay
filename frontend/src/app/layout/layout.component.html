@@ -1,19 +1,39 @@
 <header>
   <div class="collapse bg-dark" id="navbarHeader"></div>
   <div class="navbar navbar-dark bg-dark box-shadow">
-    <div class="container d-flex justify-content-between">
+    <div class="container d-flex justify-content-between align-items-center">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <img class="" src="assets/logo.png" alt="QRWay Logo" width="100" height="auto" />
       </a>
-      <button 
-        mat-raised-button
-        *ngIf="shouldShowCreateRestaurantButton"
-        (click)="openCreateRestaurantDialog()">Create Restaurant</button>
-      <button 
-        mat-raised-button
-        *ngIf="shouldShowCreateMenuButton"
-        (click)="openCreateMenuDialog()"
-        >Create Menu</button>
+
+      <div class="button-container">
+
+        <button 
+          mat-raised-button
+          *ngIf="shouldShowCreateRestaurantButton"
+          (click)="openCreateRestaurantDialog()">Create Restaurant</button>
+
+        <button 
+          mat-raised-button
+          *ngIf="shouldShowCreateMenuButton"
+          (click)="openCreateMenuDialog()"
+          >Create Menu</button>
+
+        <button 
+          mat-fab
+          *ngIf="shouldShowUserProfileButton"
+          class="circular-button"
+          (click)="goToUserProfile()"
+          >
+          <img class="profile-image" src="{{ profile_image }}" alt="Profile Image">
+        </button>
+
+
+      </div>
+
+
+        
+
     </div>
   </div>
 </header>

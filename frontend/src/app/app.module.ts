@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Components
 import { LayoutComponent } from './layout/layout.component';
 import { RestaurantDashboardComponent } from './restaurant-dashboard/restaurant-dashboard.component';
@@ -30,6 +31,7 @@ import { AllMenusComponent } from './all-menus/all-menus.component';
 import { MenuCardComponent } from './menu-card/menu-card.component';
 import { CreateMenuDialogComponent } from './create-menu-dialog/create-menu-dialog.component';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     EditRestaurantComponent,
     AllMenusComponent,
     MenuCardComponent,
-    CreateMenuDialogComponent
+    CreateMenuDialogComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     MatInputModule,
     FormsModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [DashboardService, CreateRestaurantService, HttpClientModule,EditRestaurantComponent, MenuService],
   bootstrap: [AppComponent]

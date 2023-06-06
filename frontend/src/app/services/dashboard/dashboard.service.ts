@@ -25,8 +25,8 @@ export class DashboardService {
   public getRestaurant(restaurantID: string):any {
     return this.http.get<any>(`${this.baseURL}/restaurant/${restaurantID}`);
   }
-  public getUserID(): any {
-    return this.http.get<any>(`${this.baseURL}/userID`);
+  public getUser(): any {
+    return this.http.get<any>(`${this.baseURL}/user`);
   }
 
     

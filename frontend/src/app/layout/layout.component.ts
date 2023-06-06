@@ -8,41 +8,52 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
-
   shouldShowCreateRestaurantButton: boolean = true;
   shouldShowCreateMenuButton: boolean;
+  shouldShowUserProfileButton: boolean = false;
+  public profile_image: string = localStorage.getItem('profile_image')!;
 
-  constructor(public dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.shouldShowCreateMenuButton = this.checkDynamicURL();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.evaluateConditions();
       });
-    
   }
 
   ngOnInit(): void {
     this.evaluateConditions();
-    
   }
 
   private evaluateConditions(): void {
     this.shouldShowCreateRestaurantButton = this.router.url === '/dashboard';
     this.shouldShowCreateMenuButton = this.checkDynamicURL();
-    this.route.params.subscribe(params => {
+    this.shouldShowUserProfileButton = !(this.router.url === '/');
+    this.route.params.subscribe((params) => {
       const restaurantID = params['restaurantID']; // Assuming 'restaurantID' is the parameter name in your route
-      console.log("[LayoutComponent]: restaurantID: ", restaurantID); // Use the ID as needed in your component logic
-      console.log("[LayoutComponent]: router.url: ", this.router.url.split('/')[2]);
+      console.log('[LayoutComponent]: restaurantID: ', restaurantID); // Use the ID as needed in your component logic
+      console.log(
+        '[LayoutComponent]: router.url: ',
+        this.router.url.split('/')[2]
+      );
     });
   }
 
   checkDynamicURL(): boolean {
     const restaurantID = this.router.url.split('/');
-    if(restaurantID[2] && this.router.url.includes('menu') && restaurantID.length <= 3) {
+    if (
+      restaurantID[2] &&
+      this.router.url.includes('menu') &&
+      restaurantID.length <= 3
+    ) {
       return true;
     }
     return false;
@@ -52,7 +63,7 @@ export class LayoutComponent {
     this.dialog.open(CreateRestaurantDialogComponent, {
       data: {
         title: 'Create a new restaurant',
-      }
+      },
     });
   }
 
@@ -61,8 +72,12 @@ export class LayoutComponent {
       data: {
         title: 'Create a new menu',
         // Pass the restaurant ID to the dialog from the URL
-        restaurantID: this.router.url.split('/')[2]
-      }
+        restaurantID: this.router.url.split('/')[2],
+      },
     });
+  }
+
+  goToUserProfile() {
+    this.router.navigateByUrl('/profile');
   }
 }

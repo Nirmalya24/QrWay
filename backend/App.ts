@@ -19,6 +19,7 @@ import * as passport from "passport";
 
 // Define a custom type declaration for req object
 interface CustomRequest extends Request {
+  session: any;
   user?: any; // Add the 'user' property to the req object
 }
 
@@ -50,7 +51,6 @@ class App {
   }
 
   // Configure Express middleware.
-
   private middleware(): void {
     this.expressApp.use(cors());
     this.expressApp.use(bodyParser.json());
@@ -73,8 +73,7 @@ class App {
     this.expressApp.use(passport.session());
     passport.authenticate("session");
   }
-  // Define a middleware function to set req.user
-  // Modify setUser to use CustomRequest type
+
   private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
     req.user = req.user || null; // Set req.user to null if it doesn't exist
     if (req.user === null) {
@@ -82,6 +81,7 @@ class App {
     }
     next();
   }
+
   private validateAuth(req, res, next) {
     if (req.isAuthenticated()) {
       console.log("[App] User is authenticated");
@@ -104,11 +104,13 @@ class App {
           "[App] Google User Authentication Success, redirecting to dashboard"
         );
         // Check if user already exists in database, if not, create new user
-        var user = await this.Users.retrieveUser(res, { oauthID: req.user.id });
+
+        var user = await this.Users.retrieveUser({ oauthID: req.user.id });
+        let newUserID = user.userID || crypto.randomUUID();
         if (user == null) {
           console.log("[App] Current User has not registered yet");
           let newUser: object = {
-            userID: crypto.randomUUID(),
+            userID: newUserID,
             oauthID: req.user.id,
             name: req.user.displayName,
             profile_image: req.user.photos[0].value,
@@ -119,12 +121,15 @@ class App {
           user = await this.Users.registerNewUser(res, newUser);
         }
         res.cookie("userID", user.userID, { httpOnly: true });
+        res.cookie("user", user, { httpOnly: true });
+
         res.redirect("/#/dashboard/");
       }
     );
 
-    router.get("/api/userID", function (req, res) {
-      res.json(req.cookies.userID);
+    router.get("/api/user", function (req, res) {
+      console.log("api/user:" + JSON.stringify(req.cookies.user));
+      res.json(req.cookies.user);
     });
 
     router.get("/api/health", (req, res, next) => {
@@ -136,24 +141,12 @@ class App {
       "/auth/google",
       passport.authenticate("google", {
         scope: ["email", "profile"],
-      })
+      }),
+      () => {
+        console.log("[App] Google Authentication");
+      }
     );
 
-    /**
-     * Get User information by oauthID
-     * @param oauthID - google oauthID
-     * @return json object of User information
-     */
-    router.get("/api/user/:oauthID", async (req, res) => {
-      let filter: object = {
-        oauthID: req.params.oauthID,
-      };
-      console.log(
-        "[App] get User information with oauthID: " + filter["oauthID"]
-      );
-      const result = await this.Users.retrieveUser(res, filter);
-      res.json(result);
-    });
     /**
      * Get all restaurant managers for a restaurant owner
      * @param restaurantOwnerID - restaurant owner ID for which to get all restaurant managers
@@ -161,6 +154,7 @@ class App {
      */
     router.get(
       "/api/restaurantmanagers/:restaurantOwnerID",
+      this.validateAuth,
       async (req, res) => {
         let restaurantOwnerID = req.params.restaurantOwnerID;
         console.log(
@@ -185,32 +179,35 @@ class App {
      * - managerName - name of the new restaurant manager
      * - restaurantID - restaurant ID to which the new restaurant manager belongs
      */
-    router.post("/api/restaurantmanagers/create-manager", (req, res) => {
-      //TODO: create in route is redundant
-      //check if restaurantOwnerID passed is empty
-      if (req.body.restaurantOwnerID === "") {
-        console.log("restaurantOwnerID is invalid!");
-        res.send("restaurantOwnerID is invalid!");
-        return;
+    router.post(
+      "/api/restaurantmanagers/manager",
+      this.validateAuth,
+      (req, res) => {
+        //check if restaurantOwnerID passed is empty
+        if (req.body.restaurantOwnerID === "") {
+          console.log("restaurantOwnerID is invalid!");
+          res.send("restaurantOwnerID is invalid!");
+          return;
+        }
+
+        //params from request body
+        let createManager: object = {
+          userID: crypto.randomUUID(),
+          password: req.body.password, // TODO: salt & hash  password this shouldn't be here tbh
+          connectStatus: true,
+          //IRestaurantManagerModel
+          managerName: req.body.managerName,
+          restaurantOwnerID: req.body.restaurantOwnerID,
+          restuarantID: req.body.restaurantID,
+        };
+
+        console.log(
+          "[App] Creating new restaurant manager with:" +
+            JSON.stringify(createManager)
+        );
+        this.RestaurantManagers.createRestaurantManager(res, createManager);
       }
-
-      //params from request body
-      let createManager: object = {
-        userID: crypto.randomUUID(),
-        password: req.body.password, // TODO: salt & hash  password this shouldn't be here tbh
-        connectStatus: true,
-        //IRestaurantManagerModel
-        managerName: req.body.managerName,
-        restaurantOwnerID: req.body.restaurantOwnerID,
-        restuarantID: req.body.restaurantID,
-      };
-
-      console.log(
-        "[App] Creating new restaurant manager with:" +
-          JSON.stringify(createManager)
-      );
-      this.RestaurantManagers.createRestaurantManager(res, createManager);
-    });
+    );
 
     /**
      * update restaurant by ID
@@ -219,26 +216,30 @@ class App {
      * @param menuID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/restaurantmanagers/update-manager", async (req, res) => {
-      console.log("Update manager with ManagerId: " + req.body.UserID);
-      let filter: object = {
-        userID: req.body.userID,
-      };
+    router.post(
+      "/api/restaurantmanagers/update-manager",
+      this.validateAuth,
+      async (req, res) => {
+        console.log("Update manager with ManagerId: " + req.body.UserID);
+        let filter: object = {
+          userID: req.body.userID,
+        };
 
-      let update: object = {
-        managerName: req.body.managerName,
-        restaurantOwnerID: req.body.restaurantOwnerID,
-        restaurantID: req.body.restaurantID,
-      };
-      console.log(filter);
-      console.log(update);
+        let update: object = {
+          managerName: req.body.managerName,
+          restaurantOwnerID: req.body.restaurantOwnerID,
+          restaurantID: req.body.restaurantID,
+        };
+        console.log(filter);
+        console.log(update);
 
-      const result = await this.RestaurantManagers.updateManagerByID(
-        filter,
-        update
-      );
-      res.json(result);
-    });
+        const result = await this.RestaurantManagers.updateManagerByID(
+          filter,
+          update
+        );
+        res.json(result);
+      }
+    );
 
     /* Restaurant Routes */
 
@@ -264,6 +265,7 @@ class App {
      * - tag - tag of the new restaurant
      * - restaurantImage - image url of the new restaurant
      */
+    //NOT PROTECTED
     router.post("/api/restaurant/", async (req, res) => {
       //params from request body
       let createRestaurant: object = {
@@ -289,6 +291,7 @@ class App {
      * Get a specific restaurant by ID
      * @param restaurantID - restaurant ID for which to get a specific restaurant
      */
+    //NOT PROTECTED
 
     router.get("/api/restaurant/:restaurantID", async (req, res) => {
       console.log(
@@ -307,31 +310,38 @@ class App {
      * @param menuID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/updateRestaurant/", async (req, res) => {
-      console.log(
-        "Update Restaurant with restaurantId: " + req.body.restaurantID
-      );
-      let filter: object = {
-        restaurantID: req.body.restaurantID,
-      };
+    router.post(
+      "/api/updateRestaurant/",
+      this.validateAuth,
+      async (req, res) => {
+        console.log(
+          "Update Restaurant with restaurantId: " + req.body.restaurantID
+        );
+        let filter: object = {
+          restaurantID: req.body.restaurantID,
+        };
 
-      let update: object = {
-        restaurantName: req.body.restaurantName,
-        managerID: req.body.managerID,
-        menusID: req.body.menusID,
-        description: req.body.description,
-        restaurantImage: req.body.restaurantImage,
-        tag: req.body.tag,
-      };
-      console.log(
-        "update restaurants: " + update["tag"] + " " + update["restaurantImage"]
-      );
-      const result = await this.Restaurants.updateRestaurantByID(
-        filter,
-        update
-      );
-      res.json(result);
-    });
+        let update: object = {
+          restaurantName: req.body.restaurantName,
+          managerID: req.body.managerID,
+          menusID: req.body.menusID,
+          description: req.body.description,
+          restaurantImage: req.body.restaurantImage,
+          tag: req.body.tag,
+        };
+        console.log(
+          "update restaurants: " +
+            update["tag"] +
+            " " +
+            update["restaurantImage"]
+        );
+        const result = await this.Restaurants.updateRestaurantByID(
+          filter,
+          update
+        );
+        res.json(result);
+      }
+    );
 
     /* Item Routes */
 
@@ -341,7 +351,7 @@ class App {
      * Get all items
      * @returns - JSON obj of all items as a response
      */
-    router.get("/api/item/all", (req, res) => {
+    router.get("/api/item/all", this.validateAuth, (req, res) => {
       console.log("Query All items");
       this.Items.retrieveAllItems(res);
     });
@@ -353,6 +363,7 @@ class App {
      * @returns
      * - JSON obj of the item with the specified ID as a response
      */
+    //NOT PROTECTED
     router.get("/api/item/:itemID", async (req, res) => {
       console.log("Query item with itemID");
       let filter: object = {
@@ -378,7 +389,7 @@ class App {
      * - restaurantID: string - ID of the restaurant to which the item is associated
      * - menusID: string - ID of the menu to which the item is associated
      */
-    router.post("/api/item/create", (req, res) => {
+    router.post("/api/item/create", this.validateAuth, (req, res) => {
       console.log("Insert item into items collection");
       let createItem: object = {
         itemID: crypto.randomUUID(),
@@ -394,23 +405,31 @@ class App {
     });
 
     /* DELETE Routes */
-    router.delete("/api/item/delete/:itemID", async (req, res) => {
-      console.log("[App] Delete item with itemID: " + req.params.itemID);
-      let filter: object = {
-        itemID: req.params.itemID,
-      };
-      const deleteItemRes = await this.Items.deleteItem(filter);
-      if (deleteItemRes === null) res.json({ message: "Item is not found" });
-      else res.json(deleteItemRes);
-    });
+    router.delete(
+      "/api/item/delete/:itemID",
+      this.validateAuth,
+      async (req, res) => {
+        console.log("[App] Delete item with itemID: " + req.params.itemID);
+        let filter: object = {
+          itemID: req.params.itemID,
+        };
+        const deleteItemRes = await this.Items.deleteItem(filter);
+        if (deleteItemRes === null) res.json({ message: "Item is not found" });
+        else res.json(deleteItemRes);
+      }
+    );
 
     /**
-     * Delete a restaurant
+     * delete a restaurant
      * @param req
      * - restaurantID: string - ID of restaurant
      */
+    //NOT PROTECTED
+
     router.delete("/api/restaurant/:restaurantID", async (req, res) => {
-      console.log("[App] Delete restaurant with restaurantID: " + req.params.restaurantID);
+      console.log(
+        "[App] Delete restaurant with restaurantID: " + req.params.restaurantID
+      );
       let filter: object = {
         restaurantID: req.params.restaurantID,
       };
@@ -437,6 +456,7 @@ class App {
      * - restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @returns - JSON obj of all menus as a response
      */
+    //NOT PROTECTED
     router.get("/api/menus/:restaurantID", async (req, res) => {
       // Get the RestaurantId URL parameters
       let restaurantID: string = req.params.restaurantID;
@@ -455,6 +475,7 @@ class App {
      * @param restaurantId: string - ID of the restaurant for which to retrieve all menus
      * @param menuId: string - ID of the menu for which to retrieve all menu sections
      */
+    //NOT PROTECTED
     router.get("/api/menus/:restaurantID/:menuID", (req, res) => {
       // Get the RestaurantId, RestaurantOwnerId, and menuId from URL parameters
       let restaurantID: string = req.params.restaurantID;
@@ -487,7 +508,7 @@ class App {
      *    menuStartTime: Date
      *    menuEndTime: Date
      */
-    router.post("/api/menus/create", async (req, res) => {
+    router.post("/api/menus/create", this.validateAuth, async (req, res) => {
       // Pre check: Check if the restaurant exists
       // Get RestaurantID
       console.log("[App] Trying to create a new menu...");
@@ -530,7 +551,7 @@ class App {
      * - sectionName: string - name of the section to be added
      * @param res json obejct of the new menu section
      */
-    router.post("/api/menus/add/section", (req, res) => {
+    router.post("/api/menus/add/section", this.validateAuth, (req, res) => {
       // Get the RestaurantId, menuId, sectionName from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
@@ -561,7 +582,7 @@ class App {
      *  - menuSection: string - menuSection to which the item  should be added to
      *  - itemId: string - itemID of the item to be added
      */
-    router.post("/api/items/add/item", async (req, res) => {
+    router.post("/api/items/add/item", this.validateAuth, async (req, res) => {
       // Get the RestaurantId, menuId, sectionName, itemId from req body
       let restaurantID: string = req.body.restaurantID;
       let menuID: string = req.body.menuID;
@@ -610,7 +631,7 @@ class App {
      * @param ID - restaurant ID for which to get a specific restaurant
      */
 
-    router.post("/api/updateMenus/", async (req, res) => {
+    router.post("/api/updateMenus/", this.validateAuth, async (req, res) => {
       console.log(
         "Update Restaurant with restaurantId: " + req.body.restaurantID
       );
@@ -644,27 +665,31 @@ class App {
      * - endTime: Date - new end time of the menu
      * @param res json obejct of the updated menu
      */
-    router.patch("/api/menus/update/menu-time", (req, res) => {
-      // Get the new start and end time from req body
-      let startTime: string = req.body.startTime;
-      let endTime: string = req.body.endTime;
-      // Get the RestaurantId and menuId from req body
-      let filter: object = {
-        restaurantID: req.body.restaurantID,
-        menuID: req.body.menuID,
-      };
+    router.patch(
+      "/api/menus/update/menu-time",
+      this.validateAuth,
+      (req, res) => {
+        // Get the new start and end time from req body
+        let startTime: string = req.body.startTime;
+        let endTime: string = req.body.endTime;
+        // Get the RestaurantId and menuId from req body
+        let filter: object = {
+          restaurantID: req.body.restaurantID,
+          menuID: req.body.menuID,
+        };
 
-      console.log("[App] Updating menu time");
+        console.log("[App] Updating menu time");
 
-      // Query the database to add a section to the menu
-      this.Menus.updateMenuTime(res, filter, startTime, endTime);
-    });
+        // Query the database to add a section to the menu
+        this.Menus.updateMenuTime(res, filter, startTime, endTime);
+      }
+    );
 
+    this.expressApp.use("/", router);
     this.expressApp.use("/app/json/", express.static(__dirname + "/app/json"));
     this.expressApp.use("/images", express.static(__dirname + "/img"));
     // this.expressApp.use("/", express.static(__dirname + "/pages"));
     this.expressApp.use("/", express.static(__dirname + "/dist/frontend"));
-    this.expressApp.use("/", router);
   }
 }
 

@@ -12,14 +12,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RestaurantDashboardComponent {
   public restaurants: any[] = [];
-  public userID="";
+  public user: any = {};
 
   constructor(private dashboardService: DashboardService) { }
   ngOnInit(): void {
-     this.dashboardService.getUserID().subscribe((res:any)=>{
-      console.log(JSON.stringify(res));
-      this.userID = res;
-      localStorage.setItem("userID",this.userID);
+     this.dashboardService.getUser().subscribe((res:any)=>{
+      console.log("[DashboardService]: ", JSON.stringify(res));
+      this.user = res;
+      localStorage.setItem("userID",this.user.userID);
+      localStorage.setItem("name",this.user.name);
+      localStorage.setItem("email",this.user.email);
+      localStorage.setItem("profile_image",this.user.profile_image);
       console.log(`[restaurant-dashboard.component] : ${localStorage.getItem('userID')}`);
 
     });
