@@ -25,7 +25,7 @@ class RestaurantManagerModel {
                 //IRestaurantManagerModel
                 managerName: String,
                 restaurantOwnerID: String,
-                restuarantID: [String],
+                restaurantID: [String],
             },
             { collection: "RestaurantManager", versionKey: false }
         );
