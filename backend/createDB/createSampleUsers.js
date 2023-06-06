@@ -7,21 +7,21 @@ const url = process.env.ATLAS_URI;
 const userData = [
     {   //restaurant owner
         userID: "d792c6be-e89c-11ed-a05b-0242ac120003",
-        oauthID: "",
+        oauthID: "104614855274143111125",
         name: "John Hancock",
         profile_image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/800px-Pierre-Person.jpg",    
         email: "John@gmail.com",
         isOwner: true,
         isManager: false
     },
-    {   //restaurant manager
+    {   //restaurant owner
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
-        oauthID: "",
+        oauthID: "116859596298139974913",
         name: "Jack Yu",
         profile_image: "https://imageio.forbes.com/specials-images/imageserve/61688aa1d4a8658c3f4d8640/Antonio-Juliano/0x0.jpg?format=jpg&width=960",
         email: "jackyu@gmail.com",
-        isOwner: false,
-        isManager: true
+        isOwner: true,
+        isManager: false
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
