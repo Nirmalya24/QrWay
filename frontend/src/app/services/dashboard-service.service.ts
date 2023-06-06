@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardServiceService {
-  baseURL: string = 'http://localhost:8080/api';
+  baseURL: string = environment.apiUrl;
   restaurantIDs: any[] = [];
   restaurants: any[] = [];
 

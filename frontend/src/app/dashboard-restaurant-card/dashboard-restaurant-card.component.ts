@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DashboardService } from '../services/dashboard/dashboard.service';
 import IRestaurantModelAngular from '../share/IRestaurantModelAngular';
 import {EditRestaurantService} from  '../services/edit-restaurant/edit-restaurant.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-dashboard-restaurant-card',
@@ -11,7 +12,7 @@ import {EditRestaurantService} from  '../services/edit-restaurant/edit-restauran
   styleUrls: ['./dashboard-restaurant-card.component.css'],
 })
 export class DashboardRestaurantCardComponent {
-  baseURL: string = 'http://localhost:8080/api';
+  baseURL: string = environment.apiUrl;
   menuID: string = 'b061cc9c-e85c-11ed-a05b-0242ac120003';
   menus: any = '';
   

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import IRestaurantModelAngular from "../../share/IRestaurantModelAngular";
-//import { CookieService } from 'ngx-cookie-service';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateRestaurantService {
-  private baseURL: string = 'http://localhost:8080/api';
+
+  private baseURL: string = environment.apiUrl;
   private userID:string='';
   constructor(private http: HttpClient ) { 
   }

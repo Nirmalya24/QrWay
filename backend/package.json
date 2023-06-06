@@ -1,5 +1,5 @@
 {
-  "name": "expressmongoserver",
+  "name": "qrway-backend",
   "version": "1.0.0",
   "description": "This directory contains two express servers: * AppServer.js - Combined Node/Express web server w/ Mongo Access * Server.js - Encapsulated Node/Express web server w/ Mongo Access",
   "main": "AppServer.js",
@@ -17,8 +17,10 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "debug": "^2.6.3",
+    "dotenv": "^16.1.3",
     "express": "^4.15.2",
     "express-session": "^1.17.3",
+    "mocha": "^10.2.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.7.5",
     "passport": "^0.6.0",
@@ -29,10 +31,12 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
-    "build": "tsc && npm run build-frontend",
+    "build": "tsc",
     "build-frontend": "rm -rf ./dist && cd ../frontend && npm run build && cp -r ./dist ../backend/dist && rm -rf ./dist",
+    "build-frontend-dev": "rm -rf ./dist && cd ../frontend && npm run build-dev && cp -r ./dist ../backend/dist && rm -rf ./dist",
     "clean": "rm -rf model/*.js && rm -rf interfaces/*.js && rm -rf *.js",
-    "start": "npm run clean && npm run build && node AppServer.js",
+    "start-dev": "npm run clean && npm run build-frontend-dev && tsc && node AppServer.js",
+    "start": "node AppServer.js",
     "populate_items": "node ./createDB/createSampleItems.js",
     "populate_menus": "node ./createDB/createSampleMenus.js",
     "populate_restaurants": "node ./createDB/createSampleRestaurants.js",
@@ -40,12 +44,5 @@
     "populate_db": "npm run populate_items && npm run populate_menus && npm run populate_restaurants && npm run populate_users"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "async": "^3.2.4",
-    "chai": "^4.3.7",
-    "chai-http": "^4.3.0",
-    "dotenv": "^16.0.3",
-    "mocha": "^10.2.0"
-  }
+  "license": "ISC"
 }
