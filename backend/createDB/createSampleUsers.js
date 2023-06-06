@@ -53,14 +53,6 @@ const userData = [
     
 ];
 
-const restaurantOwnerData = [
-    {   //restaurant owner
-        userID: "d792c6be-e89c-11ed-a05b-0242ac120003",
-        password: "pwd",
-        connectStatus: false //false by default        
-    }
-];
-
 const restaurantManagerData = [
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
@@ -100,19 +92,6 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
         // count documents
         const countResult = await db.collection('Users').countDocuments();
-        console.log(colors.green('\tTotal # of Documents in collection:', countResult));
-
-        /* Restaurant Owner collection*/
-        // delete any existing data
-        const deleteResultRestaurantOwner = await db.collection('RestaurantOwner').deleteMany({});
-        console.log(colors.green('\tDocuments deleted:', deleteResult.deletedCount));
-
-        // insert data
-        const insertResultRestaurantOwner = await db.collection('RestaurantOwner').insertMany(restaurantOwnerData);
-        console.log(colors.green('\tDocuments inserted:', insertResult.insertedCount));
-
-        // count documents
-        const countResultRestaurantOwner = await db.collection('RestaurantOwner').countDocuments();
         console.log(colors.green('\tTotal # of Documents in collection:', countResult));
 
         /* Restaurant Manager collection*/
