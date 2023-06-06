@@ -9,11 +9,18 @@ import { RestaurantOwnerModel } from "./model/RestaurantOwnerModel";
 import { ItemModel } from "./model/ItemModel";
 import { MenuModel } from "./model/MenuModel";
 import * as cors from "cors";
+import { Request, Response, NextFunction } from 'express';
+const cookieParser = require('cookie-parser');
 
 import * as crypto from "crypto";
 
 import GooglePassport from "./GooglePassport";
 import * as passport from "passport";
+
+// Define a custom type declaration for req object
+interface CustomRequest extends Request {
+  user?: any; // Add the 'user' property to the req object
+}
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -26,6 +33,7 @@ class App {
   public Items: ItemModel;
   public Menus: MenuModel;
   public GooglePassport: GooglePassport;
+  public User: any;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -55,6 +63,17 @@ class App {
     });
     this.expressApp.use(passport.initialize());
     this.expressApp.use(passport.session());
+    (passport.authenticate('session'));
+  }
+
+
+  private setUser(req: CustomRequest, res: Response, next: NextFunction): void {
+    req.user = req.user || null; // Set req.user to null if it doesn't exist
+    if (req.user === null) {
+      console.log("[App] Registering new user...");
+
+    }
+    next();
   }
 
   private validateAuth(req, res, next) {
@@ -69,11 +88,40 @@ class App {
   // Configure API endpoints.
   private routes(): void {
     let router = express.Router();
+    router.use(this.setUser.bind(this));
 
-    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+    router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/' }), async (req: CustomRequest, res: Response) => {
       console.log("[App] Google User Authentication Success, redirecting to dashboard");
       // TODO: Check if user already exists in database, if not, create new user
-      res.redirect('/#/dashboard');
+      var user = await this.Users.retrieveUser(res, { oauthID: req.user.id });
+      if (user == null) {
+        console.log("[App] Current User has not registered yet");
+        let newUser: object = {
+          userID: crypto.randomUUID(),
+          oauthID: req.user.id,
+          name: req.user.displayName,
+          profile_image: req.user.photos[0].value,
+          email: req.user.emails[0].value,
+          isOwner: true,
+          isManager:false,
+        };
+        user = await this.Users.registerNewUser(res, newUser)
+      }
+      res.cookie('userID', user.userID, { httpOnly: true });
+      res.cookie('user', user, { httpOnly: true });
+      
+      res.redirect('/#/dashboard/');
+    });
+
+    router.get('/api/userID', function (req, res) {
+      console.log("api/userID:"+req.cookies.user)
+      res.json(req.cookies.userID);
+     // res.redirect('/#/dashboard');
+    });
+    router.get('/api/getuser', function (req, res) {
+      console.log("[APP] api/user")
+      // res.json(req.cookies.user);
+     // res.redirect('/#/dashboard');
     });
 
     router.get("/api/health", (req, res, next) => {
@@ -86,6 +134,65 @@ class App {
     }), () => {
       console.log("[App] Google Authentication");
     });
+    +    /**
+     * Register a new user
+     * @param req
+     * - UserID - ID of the new user
+     * - oauthID - oauthID of the new User from google auth
+     * - email - Email of the new user
+     * - image - image url of the new user
+     * - isOwner - check if the new user is owner
+     * - isManager - check of the new user is manager
+     *  - connectStatus - check the user connection of status
+     */
+    router.post("/api/newUser/", async (req, res) => {
+      //params from request body
+      let newUser: object = {
+        userID: crypto.randomUUID(),
+        oauthID: req.body.oauthID,
+        name: req.body.name,
+        profile_image: req.body.profile_image,
+        email: req.body.email,
+        isOwner: req.body.isOwner,
+        isManager: req.body.isManager,
+        connectStatus: req.body.connectStatus
+      };
+
+      console.log(
+        "[App] Registering a new user with:" + JSON.stringify(newUser)
+      );
+      const result = await this.Users.registerNewUser(
+        res,
+        newUser
+      );
+      res.json(result);
+    });
+
+
+    /**
+     * Get User information by oauthID
+     * @param oauthID - google oauthID 
+     * @return json object of User information
+     */
+    router.get(
+      "/api/user/:oauthID",
+      async (req, res) => {
+        let filter: object = {
+          oauthID: req.params.oauthID
+        };
+        console.log(
+          "[App] get User information with oauthID: " +
+          filter['oauthID']
+        );
+        const result =
+          await this.Users.retrieveUser(
+            res,
+            filter
+          );
+        res.json(result);
+      }
+    );
+
 
 
 
