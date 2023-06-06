@@ -31,6 +31,7 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
+    "test-final": "npm test --t test/GETMultiple.js test/GETSingle.js test/POSTSingle.js",
     "build": "tsc",
     "build-frontend": "rm -rf ./dist && cd ../frontend && npm run build && cp -r ./dist ../backend/dist && rm -rf ./dist",
     "build-frontend-dev": "rm -rf ./dist && cd ../frontend && npm run build-dev && cp -r ./dist ../backend/dist && rm -rf ./dist",
