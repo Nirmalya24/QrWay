@@ -65,7 +65,7 @@ class UsersModel {
         try {
             const query = this.model.findOne(filter);
             const User = await query.exec();
-            console.log("[User Model | DEBUG] Retrieved User: " + User.userID);
+            // console.log("[User Model | DEBUG] Retrieved User: " + User.userID);
             return User;
         } catch (err) {
             throw err;
