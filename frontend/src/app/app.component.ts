@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -9,17 +10,11 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 })
 
 export class AppComponent {
-  baseURL: string = 'http://localhost:8080/api';
-  title = 'frontend';
+  baseURL: string = environment.apiUrl;
+  title = 'QrWay';
   restaurants:any[]=[];
 
   constructor(private http: HttpClient) {}
-
-  public  getAllRestaurant():any {
-    this.http.get<any>(`${this.baseURL}/restaurant/all/d792c6be-e89c-11ed-a05b-0242ac120003`).subscribe(data => {
-      this.restaurants = data;
-    })
-  }
 
   ngOnInit(){}
 

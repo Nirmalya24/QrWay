@@ -24,7 +24,7 @@ class RestaurantOwnerModel {
                 connectStatus:Boolean,
                 //IRestaurantOwnerModel
                 restaurantList: [String]
-            }, {collection: 'RestaurantOwners',versionKey: false}
+            }, {collection: 'RestaurantOwners', versionKey: false}
         );
     }
 
