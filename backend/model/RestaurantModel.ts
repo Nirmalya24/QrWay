@@ -25,7 +25,7 @@ class RestaurantModel {
                 tag: String,
                 restaurantImage: String
             },
-            { collection: 'Restaurants' }
+            { collection: 'Restaurants', versionKey: false }
         );
     }
 
