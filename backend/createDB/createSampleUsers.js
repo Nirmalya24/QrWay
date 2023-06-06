@@ -7,35 +7,48 @@ const url = process.env.ATLAS_URI;
 const userData = [
     {   //restaurant owner
         userID: "d792c6be-e89c-11ed-a05b-0242ac120003",
-        password: "pwd",
-        connectStatus: false //false by default        
+        oauthID: "",
+        name: "John Hancock",
+        profile_image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/800px-Pierre-Person.jpg",    
+        email: "John@gmail.com",
+        isOwner: true,
+        isManager: false
     },
     {   //restaurant manager
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
-        managerName: "Jack",
-        password: "pwd",
-        connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        oauthID: "",
+        name: "Jack Yu",
+        profile_image: "https://imageio.forbes.com/specials-images/imageserve/61688aa1d4a8658c3f4d8640/Antonio-Juliano/0x0.jpg?format=jpg&width=960",
+        email: "jackyu@gmail.com",
+        isOwner: false,
+        isManager: true
     },
     {   //restaurant manager
         userID: "d792cb46-e89c-11ed-a05b-0242ac120003",
-        managerName: "Bob",
-        password: "pwd",
-        connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        oauthID: "",
+        name: "Bob Gale",
+        profile_image: "https://ichef.bbci.co.uk/news/976/cpsprodpb/153FD/production/_126973078_whatsubject.jpg",
+        email: "bobgale@gmail.com",
+        isOwner: false,
+        isManager: true
     },
     {   //restaurant manager
         userID: "d792ccc2-e89c-11ed-a05b-0242ac120003",
-        managerName: "Rose",
-        password: "pwd",
-        connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        oauthID: "",
+        name: "Rose Pender",
+        profile_image: "https://precisionhealth.iu.edu/images/BernicePescosolido.jpg",
+        email: "rose@gmail.com",
+        isOwner: false,
+        isManager: true
     },
     {   //restaurant manager
         userID: "d792d136-e89c-11ed-a05b-0242ac120003",
-        password: "Kelly",
-        connectStatus: false, //false by default
-        restaurantOwnerID: "d792c6be-e89c-11ed-a05b-0242ac120003"
+        oauthID: "",
+        name: "Kelly Ripa",
+        profile_image: "https://architecture.ou.edu/wp-content/uploads/2018/07/ANGELAPERSON-1447-300x300.jpg",
+        email: "kellyripa@gmail.com",
+        isOwner: false,
+        isManager: true
     }
     
 ];
