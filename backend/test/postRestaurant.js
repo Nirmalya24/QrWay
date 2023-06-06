@@ -2,7 +2,7 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var expect = chai.expect;
 const port = process.env.PORT || 8080;
-const host = `http://localhost:${port}`;
+const host = "https://qrway.azurewebsites.net";
 
 
 chai.use(chaiHttp);
