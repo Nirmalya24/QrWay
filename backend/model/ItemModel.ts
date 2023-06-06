@@ -23,7 +23,6 @@ class ItemModel {
                 itemID:String,
                 restaurantsID:[String],
                 menusID:[String]
-
             },{collection: 'Items', versionKey: false}
         );
     }
