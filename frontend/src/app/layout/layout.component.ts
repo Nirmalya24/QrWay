@@ -14,6 +14,7 @@ export class LayoutComponent {
   shouldShowCreateRestaurantButton: boolean = true;
   shouldShowCreateMenuButton: boolean;
   shouldShowUserProfileButton: boolean = false;
+  public profile_image: string = localStorage.getItem('profile_image')!;
 
   constructor(
     public dialog: MatDialog,

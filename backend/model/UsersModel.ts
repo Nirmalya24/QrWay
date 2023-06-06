@@ -60,7 +60,7 @@ class UsersModel {
      * @param filter 
      */
     // TODO: Fix/Test this method
-    public async retrieveUser(response: any, filter: Object):Promise<any> {
+    public async retrieveUser(filter: Object):Promise<any> {
         console.log("[UsersModel] Retrieving user...");
         try {
             const query = this.model.findOne(filter);
