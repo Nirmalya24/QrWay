@@ -7,11 +7,17 @@ import {environment} from "../../../environments/environment";
   providedIn: 'root'
 })
 export class CreateRestaurantService {
-  baseURL: string = environment.apiUrl;
-  constructor(private http: HttpClient) { }
 
-  createRestaurant(restaurantData: IRestaurantModelAngular) { 
-    restaurantData.restaurantOwnerID = "d792c6be-e89c-11ed-a05b-0242ac120003";
+  private baseURL: string = environment.apiUrl;
+  private userID:string='';
+  constructor(private http: HttpClient ) { 
+  }
+
+  createRestaurant(restaurantData: IRestaurantModelAngular,) { 
+    this.userID =JSON.parse(JSON.stringify(localStorage.getItem('userID')));
+
+    console.log("[create-restaurant.Service]"+this.userID);
+    restaurantData.restaurantOwnerID = this.userID;
     console.log("[createRestaurantService] Creating a new restaurant: ", restaurantData);
     return this.http.post(`${this.baseURL}/restaurant/`, restaurantData);
   }

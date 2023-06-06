@@ -144,17 +144,18 @@ export class EditRestaurantComponent {
         console.log('get managers from API' + this.managers);
         this.menus.map((menu) => {
           console.log('menu:' + menu.restaurantID);
-          if (menu.restaurantID == this.curRestaurant.restaurantID)
+         // if (menu.restaurantID == this.curRestaurant.restaurantID )
+          if(this.curRestaurant.menusID.includes(menu.menuID))
             this.selectedMenus.push(menu);
-          else if (menu.restaurantID == '') this.availableMenus.push(menu);
+          else if (menu.restaurantID == this.curRestaurant.restaurantID ) this.availableMenus.push(menu);
         });
       });
   }
   public updateRestaurant(): any {
-    if (this.selectedManagers.length == 0) {
-      alert('Selected managers box must be not empty');
-      return;
-    }
+    // if (this.selectedManagers.length == 0) {
+    //   alert('Selected managers box must be not empty');
+    //   return;
+    // }
 
 
     this.setUpdateRestaurant();
@@ -164,8 +165,7 @@ export class EditRestaurantComponent {
   public setUpdateRestaurant(): void {
     this.curRestaurant.managerID.splice(0, this.curRestaurant.managerID.length);
     this.curRestaurant.menusID.splice(0, this.curRestaurant.menusID.length);
-    var y = typeof this.curRestaurant.managerID;
-    console.log('y:' + y);
+
 
     this.selectedManagers.map((manager) => {
       this.curRestaurant.managerID.push(manager.userID);

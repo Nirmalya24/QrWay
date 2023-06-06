@@ -25,7 +25,7 @@ class RestaurantModel {
                 tag: String,
                 restaurantImage: String
             },
-            { collection: 'Restaurants' }
+            { collection: 'Restaurants', versionKey: false }
         );
     }
 
@@ -72,7 +72,7 @@ class RestaurantModel {
             const itemArray = await query.exec().then((result) => {
                 return result;
             });
-            console.log("[Restaurant Model | DEBUG] retrieveAllRestaurants: " + itemArray);
+            // console.log("[Restaurant Model | DEBUG] retrieveAllRestaurants: " + itemArray);
             // return itemArray;
             response.json(itemArray);
         } catch (err) {
