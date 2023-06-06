@@ -18,7 +18,7 @@ const userData = [
         userID: "d792c9a2-e89c-11ed-a05b-0242ac120003",
         oauthID: "116859596298139974913",
         name: "Jack Yu",
-        profile_image: "https://imageio.forbes.com/specials-images/imageserve/61688aa1d4a8658c3f4d8640/Antonio-Juliano/0x0.jpg?format=jpg&width=960",
+        profile_image: "https://1fid.com/wp-content/uploads/2022/06/Twitter-profile-picture-4-1024x1024.jpg",
         email: "jackyu@gmail.com",
         isOwner: true,
         isManager: false
