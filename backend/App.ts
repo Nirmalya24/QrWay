@@ -96,8 +96,7 @@ class App {
     let router = express.Router();
     router.use(this.setUser.bind(this));
 
-    router.get(
-      "/auth/google/callback",
+    router.get("/auth/google/callback",
       passport.authenticate("google", { failureRedirect: "/" }),
       async (req: CustomRequest, res: Response) => {
         console.log(
@@ -137,8 +136,7 @@ class App {
       res.json({ healthy: true }).status(200);
     });
 
-    router.get(
-      "/auth/google",
+    router.get("/auth/google",
       passport.authenticate("google", {
         scope: ["email", "profile"],
       }),
@@ -146,6 +144,24 @@ class App {
         console.log("[App] Google Authentication");
       }
     );
+
+    router.get("/api/logout", function (req: CustomRequest, res) {
+      console.log("[App] Logging out user");
+      res.clearCookie("userID"); // Clear the userID cookie
+      res.clearCookie("user"); // Clear the user cookie
+      // res.redirect("/#/"); // Redirect to the homepage or any other desired page
+      // req.session.destroy(function (err) {
+      //   if (err) {
+      //     console.error("Logout error:", err);
+      //     res.status(500).json({ message: "Logout failed" });
+      //   } else {
+      //     res.clearCookie("userID"); // Clear the userID cookie
+      //     res.clearCookie("user"); // Clear the user cookie
+      //     res.redirect("/"); // Redirect to the homepage or any other desired page
+      //   }
+      // });
+    });
+    
 
     /**
      * Get all restaurant managers for a restaurant owner

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
-import { UserService } from '../services/user/user.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,10 +11,9 @@ import { UserService } from '../services/user/user.service';
 export class UserProfileComponent {
 
   public user: any = {};
+  apiUrl = environment.apiUrl;
 
-
-
-  constructor(private userService: UserService) {
+  constructor(private http: HttpClient, private router: Router) {
     this.user.name = localStorage.getItem('name')!;
     this.user.email = localStorage.getItem('email')!;
     this.user.profile_image = localStorage.getItem('profile_image')!;
@@ -23,5 +22,13 @@ export class UserProfileComponent {
 
   ngOnInit() {
   }
+
+  public handleLogout(): void {
+    this.http.get(`${this.apiUrl}/logout`);
+    console.log('[UserProfile] Logging out...');
+    localStorage.clear();
+    this.router.navigate(['/']); // Redirect to the homepage or any other desired page
+  }
+  
 
 }
