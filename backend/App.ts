@@ -149,17 +149,6 @@ class App {
       console.log("[App] Logging out user");
       res.clearCookie("userID"); // Clear the userID cookie
       res.clearCookie("user"); // Clear the user cookie
-      // res.redirect("/#/"); // Redirect to the homepage or any other desired page
-      // req.session.destroy(function (err) {
-      //   if (err) {
-      //     console.error("Logout error:", err);
-      //     res.status(500).json({ message: "Logout failed" });
-      //   } else {
-      //     res.clearCookie("userID"); // Clear the userID cookie
-      //     res.clearCookie("user"); // Clear the user cookie
-      //     res.redirect("/"); // Redirect to the homepage or any other desired page
-      //   }
-      // });
     });
     
 

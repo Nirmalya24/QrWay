@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { DashboardService } from '../services/dashboard/dashboard.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-//import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,11 +12,15 @@ export class RestaurantDashboardComponent {
   public restaurants: any[] = [];
   public user: any = {};
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService, private router: Router) { }
   ngOnInit(): void {
      this.dashboardService.getUser().subscribe((res:any)=>{
       console.log("[DashboardService]: ", JSON.stringify(res));
       this.user = res;
+      if(this.user === null){
+        console.log("User is null");
+        this.router.navigate(['/']);
+      }
       localStorage.setItem("userID",this.user.userID);
       localStorage.setItem("name",this.user.name);
       localStorage.setItem("email",this.user.email);
