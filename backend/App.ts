@@ -83,7 +83,6 @@ class App {
   private validateAuth(req, res, next) {
     if (req.isAuthenticated()) {
       console.log("[App] User is authenticated");
-      console.log("validateAuth User" + JSON.stringify(req.user))
       return next();
     }
     console.log("[App] User is not authenticated");

@@ -23,7 +23,7 @@ class GooglePassport {
                     // console.log("[GooglePassport] userId:" + profile.id);
                     // console.log("[GooglePassport] displayName: " + profile.displayName);
                     // console.log("[GooglePassport] Retrieved all of the profile info needed");
-                    console.log(`[GooglePassport] \n\tid: ${profile.id}\n\tdisplayName: ${profile.displayName}\n\timage: ${profile.photos[0].value}\n\temail: ${profile.emails[0].value}`);
+                    // console.log(`[GooglePassport] \n\tid: ${profile.id}\n\tdisplayName: ${profile.displayName}\n\timage: ${profile.photos[0].value}\n\temail: ${profile.emails[0].value}`);
                     // this.email = profile.emails[0].value;
                     return done(null, profile);
                 });
